@@ -13,12 +13,6 @@
 #define KolMax 100
 
 typedef int indeks; /* indeks baris, kolom */
-typedef struct {
-	char Nama[50];//nama ruangannya
-	Objek Mem[BrsMax+1][KolMax+1];
-    int NBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
-	int NKolEff; /* banyaknya/ukuran kolom yg terdefinisi */
-} Ruangan;
 
 typedef struct 
 {
@@ -27,6 +21,15 @@ typedef struct
 	boolean Fill;//udah terisi apa belum
 
 } Objek;
+
+typedef struct {
+	char Nama[50];//nama ruangannya
+	Objek Mem[BrsMax+1][KolMax+1];
+    int NBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
+	int NKolEff; /* banyaknya/ukuran kolom yg terdefinisi */
+} Ruangan;
+
+
 
 
 /* NBrsEff <= 1 dan NKolEff <= 1 */
@@ -68,7 +71,7 @@ void CreateRuangan(Ruangan *R, char N[50], int NB, int NK);
 void SetObjek(Ruangan *R, Objek O, indeks i, indeks j);
 //penempatan objek di ruangan di indeks i,j
 
-Objek CreateObjek(char N[50], int K, boolean F);
+Objek CreateObjek(char N, int K, boolean F);
 //mengembalikan sebuah objek dengan nilai-nilai parameter di atas
 
 void CetakRuangan(Ruangan R);

@@ -17,27 +17,27 @@ indeks GetFirstIdxKol (Ruangan R){
 }
 /* Mengirimkan indeks kolom terkecil M */
 indeks GetLastIdxBrs (Ruangan R){
-	return (GetFirstIdxBrs(M)+NBrsEff(M)-1);
+	return (GetFirstIdxBrs(R)+NBrsEff(R)-1);
 }
 /* Mengirimkan indeks baris terbesar M */
 indeks GetLastIdxKol (Ruangan R){
-	return (GetFirstIdxKol(M)+NKolEff(M)-1);
+	return (GetFirstIdxKol(R)+NKolEff(R)-1);
 }
 /* Mengirimkan indeks kolom terbesar M */
 boolean IsIdxEff (Ruangan R, indeks i, indeks j){
-	return (IsIdxValid(i,j) && i <= NBrsEff(M) && j <= NKolEff(M));
+	return (IsIdxValid(i,j) && i <= NBrsEff(R) && j <= NKolEff(R));
 }
 /* Mengirimkan true jika i, j adalah indeks efektif bagi M */
 
 
 
 void CreateRuangan(Ruangan *R, char N[50], int NB, int NK){
-	NamaR(*R) = N;
+	strcpy(NamaR(*R),N);
 	NBrsEff(*R) = NB;
 	NKolEff(*R) = NK;
 
-
-	Objek Lantai = CreateObjek('L',0,false);
+	char NO = 'L';
+	Objek Lantai = CreateObjek(NO,0,false);
 
 	for(int i = GetFirstIdxBrs(*R); i <= GetLastIdxBrs(*R); i++){
 		for(int j = GetFirstIdxKol(*R); j <= GetLastIdxKol(*R); j++){
@@ -71,12 +71,41 @@ void CetakRuangan(Ruangan R){
 
 	//cetak dinding atas, 
 	for(int i = GetFirstIdxKol(R); i <= GetLastIdxKol(R); i++){
-		printf("===");
+		printf("========");
 	}
 	printf("\n");
 
 	//cetak bagian 'tengah' ruangan
-	for(int i )
+	for(int i = GetFirstIdxBrs(R); i <= GetLastIdxBrs(R); i++ ){
+		for(int j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
+			printf("|      |");//beri sedikit ruang
+		}
+		printf("\n");
+
+		for (int j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
+			if(Nama(Elmt(R,i,j)) == 'L'){
+				printf("|      |");//cetak lantai
+			} else if(Nama(Elmt(R,i,j)) == 'M'){
+				printf("|   M  |");//cetak meja
+			}else if(Nama(Elmt(R,i,j)) == 'K'){
+				printf("|   K  |");//cetak kursi
+			}else if(Nama(Elmt(R,i,j)) == 'P'){
+				printf("|   P  |");//cetak player
+			}
+		}
+		printf("\n");
+
+		for(int j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
+			printf("|      |");//beri sedikit ruang
+		}
+		printf("\n");
+
+		for(int j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
+			printf("========");//sekat pemmbatas antar blok objek
+		}
+		printf("\n");
+		
+	}
 
 }
 //cetak ruangan

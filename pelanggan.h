@@ -39,7 +39,7 @@ boolean IsFull (Queue Q);
 /* yaitu mengandung elemen sebanyak MaxEl */
 
 /* *** Kreator *** */
-void CreateEmpty (Queue * Q);
+void InitPelanggan (Queue * Q);
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
 /* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
@@ -47,14 +47,20 @@ void CreateEmpty (Queue * Q);
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
 
 /* *** Primitif Add/Delete *** */
-void Add (Queue * Q, Pelanggan X);
+void Datang (Queue * Q, Pelanggan X);
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
-void Del (Queue * Q, Pelanggan * X);
+void Pergi (Queue * Q, Pelanggan * X);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
         Q mungkin kosong */
+
+void KurangiKesabaran (Queue *Q);
+/* Proses: Mengurangi kesabaran pelanggan dalam antrian */
+/* I.S. Q terdefinisi */
+/* F.S. Setiap pelanggan (Q).sabar berkurang satu satuan */
+
 
 #endif

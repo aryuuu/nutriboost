@@ -6,16 +6,16 @@
 
 void SalinPelanggan(Pelanggan *P1,Pelanggan P2)
 {
-  (*P1).jumlah = P2.jumlah;
-  (*P1).sabar = P2.sabar;
-  strcmp((*P1).makanan,(P2).makanan);
-  (*P1).layan = P2.layan;
+  Jumlah(*P1) =   Jumlah(P2);
+  Sabar(*P1) = Sabar(P2);
+  strcpy(Makanan(*P1),Makanan(P2));
+  Layan(*P1) = Layan(P2);
 }
 
 int NBElmt (Queue Q)
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 {
-  if(Head(Q)<Tail(Q)) {
+  if(Head(Q)<=Tail(Q)) {
     return(Tail(Q)-Head(Q)+1 );
   }
   else if(Head(Q)==Nil && Tail(Q)==Nil) {
@@ -41,7 +41,38 @@ boolean IsFull (Queue Q)
 }
 
 /* *** Kreator *** */
-void InitPelanggan (Queue * Q)
+void InitPelanggan (Pelanggan *P)
+/* I.S. sembarang */
+/* F.S. Sebuah Q kosong terbentuk */
+{
+  int random;
+
+  random = rand() % 5;
+  if(random<2)  {
+    Jumlah(*P) = 2;
+  }
+  else  {
+    Jumlah(*P) = 4;
+  }
+
+  Sabar(*P) = 30;
+  if(random==1)  {
+    strcpy(Makanan(*P),"Sadikin");
+  }
+  else if(random==2) {
+    strcpy(Makanan(*P),"Crisbar");
+  }
+  else if(random==3) {
+    strcpy(Makanan(*P),"Salman");
+  }
+  else {
+    strcpy(Makanan(*P),"Ganyang");
+  }
+
+  Layan(*P) = false;
+}
+
+void InitAntrian(Queue * Q)
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk */
 {
@@ -67,7 +98,7 @@ void Datang (Queue * Q, Pelanggan X)
       Tail(*Q)= 1;
     }
     SalinPelanggan(&InfoTail(*Q),X);
-}
+  }
 }
 
 void Pergi (Queue * Q, Pelanggan * X)
@@ -79,17 +110,30 @@ void Pergi (Queue * Q, Pelanggan * X)
   if(IsEmpty(*Q)) {
     printf("Antrian kosong\n");
   }
-  else if(!IsFull(*Q)) {
-    SalinPelanggan(X,InfoTail(*Q));
-    Head(*Q)++;
-    if(Head(*Q)>MaxEl)  {
-      Head(*Q)= 1;
+  else {
+    SalinPelanggan(X,InfoHead(*Q));
+    if(Head(*Q)==Tail(*Q))  {
+      Head(*Q)=Nil;
+      Tail(*Q)=Nil;
+    }
+    else  {
+      Head(*Q)++;
+      if(Head(*Q)>MaxEl)  {
+        Head(*Q)= 1;
+      }
     }
   }
-
 }
 
-void KurangiKesabaran (Queue *Q)
+void KurangiKesabaranPelanggan (Pelanggan *P)
+/* Proses: Mengurangi kesabaran pelanggan */
+/* I.S. P terdefinisi */
+/* F.S. Kesabaran Pelanggan (P).sabar berkurang satu satuan */
+{
+  Sabar(*P)--;
+}
+
+void KurangiKesabaranAntrian (Queue *Q)
 /* Proses: Mengurangi kesabaran pelanggan dalam antrian */
 /* I.S. Q terdefinisi */
 /* F.S. Setiap pelanggan (Q).sabar berkurang satu satuan */
@@ -98,7 +142,7 @@ void KurangiKesabaran (Queue *Q)
   if(!IsEmpty(*Q))  {
     i=Head(*Q);
     while(i != Tail(*Q))  {
-      (*Q).T[i].sabar--;
+      KurangiKesabaranPelanggan (&(*Q).T[i]);
       if(i=MaxEl) {
         i=1;
       }

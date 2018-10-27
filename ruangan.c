@@ -91,6 +91,8 @@ void CetakRuangan(Ruangan R){
 				printf("|   K  |");//cetak kursi
 			}else if(Nama(Elmt(R,i,j)) == 'P'){
 				printf("|   P  |");//cetak player
+			}else if(Nama(Elmt(R,i,j)) == 'C'){
+				printf("|   C  |");//cetak costumer
 			}
 		}
 		printf("\n");

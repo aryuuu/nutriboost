@@ -85,8 +85,8 @@ void CetakRuangan(Ruangan R){
 		for (int j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
 			if(Nama(Elmt(R,i,j)) == 'L'){
 				printf("|      |");//cetak lantai
-			} else if(Nama(Elmt(R,i,j)) == 'M'){
-				printf("|   M  |");//cetak meja
+			} else if(Nama(Elmt(R,i,j)) >  48 && Nama(Elmt(R,i,j)) < 58){
+				printf("|   %c  |",Nama(Elmt(R,i,j)));//cetak meja
 			}else if(Nama(Elmt(R,i,j)) == 'K'){
 				printf("|   K  |");//cetak kursi
 			}else if(Nama(Elmt(R,i,j)) == 'P'){
@@ -111,3 +111,7 @@ void CetakRuangan(Ruangan R){
 
 }
 //cetak ruangan
+
+
+void BacaRuangan(Ruangan *R, chr File[50]);
+//membentuk ruangan baru dengan masukan dari file eksternal

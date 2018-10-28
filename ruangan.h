@@ -77,7 +77,8 @@ Objek CreateObjek(char N, int K, boolean F);
 void CetakRuangan(Ruangan R);
 //cetak ruangan
 
-
+void BacaRuangan(Ruangan *R, chr File[50]);
+//membentuk ruangan baru dengan masukan dari file eksternal
 
 
 

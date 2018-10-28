@@ -69,15 +69,17 @@ void SalinKata(){
 }
 //salin kata hasil akuisisi
 
-void SalinInt(int result){
-	int result = 0;
+void SalinInt(int *result){
+	int a = 0;
 
 	SalinKata();
 	IgnoreBlank();
 
 	for(int i = 1; i <= CKata.Length; i++){
-		result = result*10 + (CKata.TabKata[i]-48);
+		a = a*10 + (int)(CKata.TabKata[i]-48);
 	}
+
+	*result = a;
 
 
 	

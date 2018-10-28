@@ -37,7 +37,7 @@ void ADVKATA();
 void SalinKata();
 //salin kata hasil akuisisi
 
-void SalinInt(int result);
+void SalinInt(int *result);
 //salin kata dan ubah jadi integer
 
 #endif

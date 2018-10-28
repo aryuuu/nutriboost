@@ -21,6 +21,11 @@ typedef struct { Pelanggan T[MaxEl+1];   /* tabel penyimpan elemen */
 /* Catatan implementasi: T[0] tidak pernah dipakai */
 
 /* ********* AKSES (Selektor) ********* */
+/* Jika P adalah Pelanggan, maka akses elemen : */
+#define Jumlah(P) (P).jumlah
+#define Sabar(P) (P).sabar
+#define Makanan(P) (P).makanan
+#define Layan(P) (P).layan
 /* Jika Q adalah Queue, maka akses elemen : */
 #define Head(Q) (Q).HEAD
 #define Tail(Q) (Q).TAIL
@@ -39,22 +44,34 @@ boolean IsFull (Queue Q);
 /* yaitu mengandung elemen sebanyak MaxEl */
 
 /* *** Kreator *** */
-void CreateEmpty (Queue * Q);
+void InitPelanggan (Pelanggan *P);
 /* I.S. sembarang */
-/* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
-/* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
-/* atau : jika alokasi gagal, Q kosong dg MaxEl=0 */
-/* Proses : Melakukan alokasi, membuat sebuah Q kosong */
+/* F.S. Sebuah Q kosong terbentuk */
+
+void InitAntrian (Queue * Q);
+/* I.S. sembarang */
+/* F.S. Sebuah Q kosong terbentuk */
 
 /* *** Primitif Add/Delete *** */
-void Add (Queue * Q, Pelanggan X);
+void Datang (Queue * Q, Pelanggan X);
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
-void Del (Queue * Q, Pelanggan * X);
+void Pergi (Queue * Q, Pelanggan * X);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
         Q mungkin kosong */
+
+void KurangiKesabaranPelanggan (Pelanggan *P);
+/* Proses: Mengurangi kesabaran pelanggan */
+/* I.S. P terdefinisi */
+/* F.S. Kesabaran Pelanggan (P).sabar berkurang satu satuan */
+
+void KurangiKesabaranAntrian (Queue *Q);
+/* Proses: Mengurangi kesabaran pelanggan dalam antrian */
+/* I.S. Q terdefinisi */
+/* F.S. Setiap pelanggan (Q).sabar berkurang satu satuan */
+
 
 #endif

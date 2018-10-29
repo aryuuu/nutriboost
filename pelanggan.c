@@ -17,11 +17,11 @@ void SalinPelanggan(Pelanggan *P1,Pelanggan P2)
 int NBElmt (Queue Q)
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 {
-  if(Head(Q)<=Tail(Q)) {
-    return(Tail(Q)-Head(Q)+1 );
-  }
-  else if(Head(Q)==Nil && Tail(Q)==Nil) {
+  if(Head(Q)==Nil && Tail(Q)==Nil) {
     return 0;
+  }
+  else if(Head(Q)<=Tail(Q)) {
+    return(Tail(Q)-Head(Q)+1 );
   }
   else  {
     return(Tail(Q)+MaxEl-Head(Q)+1);
@@ -145,6 +145,7 @@ void KurangiKesabaranAntrian (Queue *Q)
 {
   int i;
   Pelanggan P;
+  boolean pergi; /*Mengecek dalam antrian apakah head pergi atau tidak sampai ditemukan head yang tidak pergi*/
 
     i=Head(*Q);
     while(i != Tail(*Q))  {
@@ -158,9 +159,14 @@ void KurangiKesabaranAntrian (Queue *Q)
         }
       }
     KurangiKesabaranPelanggan(&InfoTail(*Q));
-    if(!IsEmpty(*Q))  {
-      while(Sabar(InfoHead(*Q))==0)  {
+
+    pergi=true;
+    while(!IsEmpty(*Q) && pergi)  {
+      if(Sabar(InfoHead(*Q))==0)  {
         Pergi(Q,&P);
+      }
+      else  {
+        pergi=false;
       }
     }
 }

@@ -7,6 +7,8 @@
 #define Nil 0
 
 typedef struct {
+	int ruangan;
+	int meja;
 	int jumlah;
 	int sabar;
   char makanan[50];
@@ -22,6 +24,8 @@ typedef struct { Pelanggan T[MaxEl+1];   /* tabel penyimpan elemen */
 
 /* ********* AKSES (Selektor) ********* */
 /* Jika P adalah Pelanggan, maka akses elemen : */
+#define Ruangan(P) (P).ruangan
+#define Meja(P) (P).meja
 #define Jumlah(P) (P).jumlah
 #define Sabar(P) (P).sabar
 #define Makanan(P) (P).makanan

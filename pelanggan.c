@@ -6,6 +6,8 @@
 
 void SalinPelanggan(Pelanggan *P1,Pelanggan P2)
 {
+  Ruangan(*P1) = Ruangan(P2);
+  Meja(*P1)=Meja(P2);
   Jumlah(*P1) =   Jumlah(P2);
   Sabar(*P1) = Sabar(P2);
   strcpy(Makanan(*P1),Makanan(P2));
@@ -46,6 +48,9 @@ void InitPelanggan (Pelanggan *P)
 /* F.S. Sebuah Q kosong terbentuk */
 {
   int random;
+
+  Ruangan(*P)=0;
+  Meja(*P)=0;
 
   random = rand() % 5;
   if(random<2)  {
@@ -139,15 +144,23 @@ void KurangiKesabaranAntrian (Queue *Q)
 /* F.S. Setiap pelanggan (Q).sabar berkurang satu satuan */
 {
   int i;
-  if(!IsEmpty(*Q))  {
+  Pelanggan P;
+
     i=Head(*Q);
     while(i != Tail(*Q))  {
       KurangiKesabaranPelanggan (&(*Q).T[i]);
-      if(i=MaxEl) {
-        i=1;
+      printf("%d",i);
+        if(i==MaxEl) {
+          i=1;
+        }
+        else  {
+          i++;
+        }
       }
-      else
-        i++;
+    KurangiKesabaranPelanggan(&InfoTail(*Q));
+    if(!IsEmpty(*Q))  {
+      while(Sabar(InfoHead(*Q))==0)  {
+        Pergi(Q,&P);
+      }
     }
-  }
 }

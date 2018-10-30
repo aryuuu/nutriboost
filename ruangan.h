@@ -5,6 +5,7 @@
 #include "boolean.h"
 #include <string.h>
 #include "point.h"
+#include "scanner.h"
 
 /* Ukuran minimum dan maksimum baris dan kolom */
 #define BrsMin 1
@@ -77,8 +78,10 @@ Objek CreateObjek(char N, int K, boolean F);
 void CetakRuangan(Ruangan R);
 //cetak ruangan
 
-void BacaRuangan(Ruangan *R, chr File[50]);
+void BacaRuangan(Ruangan *R, char File[50]);
 //membentuk ruangan baru dengan masukan dari file eksternal
+//format dari file eksternal ini adalah
+//[NamaRuangan] [PanjangRuangan] [LebarRuangan] [NamaObjek,Kapasitas,Fill] ... diakhiri titik
 
 
 

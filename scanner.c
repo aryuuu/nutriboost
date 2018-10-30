@@ -9,7 +9,7 @@ Kata CKata;
 static FILE * sauce;
 static int retval;
 
-void START(char File[50]){
+void START(char File[]){
 	sauce = fopen(File,"r");
 	ADV();
 }
@@ -25,13 +25,13 @@ void ADV(){
 //maju 
 
 void IgnoreBlank(){
-	while((CC == BLANK) && (CC != MARK)){
+	while(((CC == BLANK) || (CC == NEWLINE)) && (CC != MARK)){
 		ADV();
 	}
 }
-//kalo ketemu whitespace, maju
+//kalo ketemu whitespace, maju, neewline juga
 
-void STARTKATA(char File[50]){
+void STARTKATA(char File[]){
 	START(File);
 	IgnoreBlank();
 	if(CC == MARK){
@@ -73,7 +73,7 @@ void SalinInt(int *result){
 	int a = 0;
 
 	SalinKata();
-	IgnoreBlank();
+	
 
 	for(int i = 1; i <= CKata.Length; i++){
 		a = a*10 + (int)(CKata.TabKata[i]-48);
@@ -81,7 +81,7 @@ void SalinInt(int *result){
 
 	*result = a;
 
-
+	IgnoreBlank();
 	
 
 }

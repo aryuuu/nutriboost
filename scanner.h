@@ -16,10 +16,10 @@ typedef struct {
 /* State Mesin Kata */
 extern boolean EndKata;
 extern Kata CKata;
-extern char CL[50];
 extern boolean EOP;
+extern char CC;
 
-void START(char File[50]);
+void START(char File[]);
 //buka file yang dimaksud terus baca
 
 void ADV();
@@ -28,7 +28,7 @@ void ADV();
 void IgnoreBlank();
 //kalo ketemu whitespace, maju
 
-void STARTKATA(char File[50]);
+void STARTKATA(char File[]);
 //mulai kata
 
 void ADVKATA();

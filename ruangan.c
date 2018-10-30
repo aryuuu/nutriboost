@@ -113,5 +113,63 @@ void CetakRuangan(Ruangan R){
 //cetak ruangan
 
 
-void BacaRuangan(Ruangan *R, chr File[50]);
+void BacaRuangan(Ruangan *R, char File[]){
+	char N[50];
+	int panjang,lebar,kap,f,x,y;
+	char namaobj;
+	boolean fill;
+	Objek bende;
+
+
+
+	STARTKATA(File);
+
+	//strcpy(N,CKata.TabKata);//salin nama ruangan
+	for(int i = 1; i <= CKata.Length; i++){
+		N[i] = CKata.TabKata[i];
+	}
+	IgnoreBlank();
+	printf("Nama ruangannya adalah :");
+	//printf("%s\n",N);
+	for(int i = 1; i <= CKata.Length; i++){
+		printf("%c",N[i]);
+	}
+	printf("\n");
+	SalinInt(&panjang);//baca baris
+	printf("panjang :%d\n",panjang );
+
+	SalinInt(&lebar);//baca kolom
+	printf("lebar :%d\n",lebar );
+
+	CreateRuangan(R,N,panjang,lebar);
+
+	while(CC != MARK){
+	
+		//while(CC != NEWLINE){//baca perbaris
+			ADVKATA();
+			namaobj = CKata.TabKata[1];//baca dan assign nama objek
+
+			SalinInt(&kap);//baca dan assign kapasitas objek
+	
+
+			SalinInt(&f);//baca dan salin fill
+			fill = (f==1?true:false);
+	
+
+			SalinInt(&x);//baca dan assign absis posisi objek
+	
+
+			SalinInt(&y);//baca dan assign ordinat posisi objek
+	
+
+			bende = CreateObjek(namaobj,kap,fill);//bikin objek baru
+			SetObjek(R,bende,x,y);//letakkan objek di ruangan
+
+		//}
+	}
+
+}
 //membentuk ruangan baru dengan masukan dari file eksternal
+//format dari file eksternal ini adalah
+//cek aja file kosan.txt
+//jangan lupa sebelum new line ada spasinya

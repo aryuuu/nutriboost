@@ -87,12 +87,12 @@ void CetakRuangan(Ruangan R){
 				printf("|      |");//cetak lantai
 			} else if(Nama(Elmt(R,i,j)) >  48 && Nama(Elmt(R,i,j)) < 58){
 				printf("|   %c  |",Nama(Elmt(R,i,j)));//cetak meja
-			}else if(Nama(Elmt(R,i,j)) == 'K'){
-				printf("|   K  |");//cetak kursi
+			}else if(Nama(Elmt(R,i,j)) == 'K' && !Fill(Elmt(R,i,j))){
+				printf("|   K  |");//cetak kursi kosong
+			}else if(Nama(Elmt(R,i,j)) == 'K' && Fill(Elmt(R,i,j))){
+				printf("|   C  |");//cetak kursi yang ada pelanggannya
 			}else if(Nama(Elmt(R,i,j)) == 'P'){
 				printf("|   P  |");//cetak player
-			}else if(Nama(Elmt(R,i,j)) == 'C'){
-				printf("|   C  |");//cetak costumer
 			}
 		}
 		printf("\n");

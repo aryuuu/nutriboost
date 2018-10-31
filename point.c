@@ -5,7 +5,7 @@
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk POINT *** */
-POINT MakePOINT (float X, float Y){
+POINT MakePOINT (int X, int Y){
 	POINT p;
 	Absis(p) = X;
 	Ordinat(p) = Y;
@@ -15,7 +15,7 @@ POINT MakePOINT (float X, float Y){
 
 /* *** KELOMPOK Interaksi dengan I/O device, BACA/TULIS  *** */                                                 
 void BacaPOINT (POINT * P){
-	float x,y;
+	int x,y;
 	scanf("%f %f",&x,&y);
 	*P = MakePOINT(x,y);
 }
@@ -132,7 +132,7 @@ float Panjang (POINT P1, POINT P2){
 /* Menghitung panjang garis yang dibentuk P1 dan P2 */
 /* Perhatikanlah bahwa di sini spec fungsi kurang baik sebab menyangkut ADT Garis. */
 /* Tuliskan spec fungsi yang lebih tepat. */
-void Geser (POINT *P, float deltaX, float deltaY){
+void Geser (POINT *P, int deltaX, int deltaY){
 
 	*P = MakePOINT((Absis(*P)+deltaX),(Ordinat(*P)+deltaY));
 }

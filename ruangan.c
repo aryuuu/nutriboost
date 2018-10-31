@@ -129,17 +129,17 @@ void BacaRuangan(Ruangan *R, char File[]){
 		N[i] = CKata.TabKata[i];
 	}
 	IgnoreBlank();
-	printf("Nama ruangannya adalah :");
+	//printf("Nama ruangannya adalah :");
 	//printf("%s\n",N);
-	for(int i = 1; i <= CKata.Length; i++){
-		printf("%c",N[i]);
-	}
-	printf("\n");
+	//for(int i = 1; i <= CKata.Length; i++){
+	//	printf("%c",N[i]);
+	//}
+	//printf("\n");
 	SalinInt(&panjang);//baca baris
-	printf("panjang :%d\n",panjang );
+	//printf("panjang :%d\n",panjang );
 
 	SalinInt(&lebar);//baca kolom
-	printf("lebar :%d\n",lebar );
+	//printf("lebar :%d\n",lebar );
 
 	CreateRuangan(R,N,panjang,lebar);
 
@@ -173,3 +173,31 @@ void BacaRuangan(Ruangan *R, char File[]){
 //format dari file eksternal ini adalah
 //cek aja file kosan.txt
 //jangan lupa sebelum new line ada spasinya
+
+POINT FindObjek(Ruangan R, char Nama){
+	indeks i = GetFirstIdxBrs(R);
+	indeks j = GetFirstIdxKol(R);
+	POINT result;
+	while(Nama(Elmt(R,i,j)) != Nama){
+		j = GetFirstIdxKol(R);
+		while(Nama(Elmt(R,i,j)) != Nama){
+			j++;
+		}
+
+		if(Nama(Elmt(R,i,j)) != Nama){
+			i++;
+		}
+	}
+
+	if(Nama(Elmt(R,i,j)) == Nama){//objeknya ketemu
+		result = MakePOINT(i,j);
+	} else {//objeknya ga ketemu
+		result = MakePOINT(-999,-999);
+	}
+	
+
+	return result;
+}
+//mengembalikan POINT tempat objek bernama Nama berada di Ruangan R
+//jika ternyata objek tersebut tidak ada mengembalikan POINT dengan 
+//absis dan ordinat -999

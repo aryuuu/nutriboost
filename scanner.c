@@ -55,8 +55,9 @@ void ADVKATA(){
 //akuisisi kata baru
 
 void SalinKata(){
+	int i;
 	int pjg = 0;
-	for(int i = 1; i <= NMax; i ++){
+	for(i = 1; i <= NMax; i ++){
 		if(CC == MARK || CC == BLANK){
 			break;
 		} else {
@@ -70,12 +71,13 @@ void SalinKata(){
 //salin kata hasil akuisisi
 
 void SalinInt(int *result){
+	int i;
 	int a = 0;
 
 	SalinKata();
 	
 
-	for(int i = 1; i <= CKata.Length; i++){
+	for(i = 1; i <= CKata.Length; i++){
 		a = a*10 + (int)(CKata.TabKata[i]-48);
 	}
 

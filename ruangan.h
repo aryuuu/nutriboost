@@ -82,6 +82,10 @@ void BacaRuangan(Ruangan *R, char File[50]);
 //membentuk ruangan baru dengan masukan dari file eksternal
 //format dari file eksternal ini adalah
 //[NamaRuangan] [PanjangRuangan] [LebarRuangan] [NamaObjek,Kapasitas,Fill] ... diakhiri titik
+POINT FindObjek(Ruangan R, char Nama);
+//mengembalikan POINT tempat objek bernama Nama berada di Ruangan R
+//jika ternyata objek tersebut tidak ada mengembalikan POINT dengan 
+//absis dan ordinat -999
 
 
 

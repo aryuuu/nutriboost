@@ -1,4 +1,6 @@
 #include "ruangan.h"
+#include "scanner.h"
+#include "scanner.c"
 #include <stdio.h>
 
 /* *** Selektor "DUNIA MATRIKS" *** */
@@ -32,6 +34,8 @@ boolean IsIdxEff (Ruangan R, indeks i, indeks j){
 
 
 void CreateRuangan(Ruangan *R, char N[50], int NB, int NK){
+	int i, j;
+	
 	strcpy(NamaR(*R),N);
 	NBrsEff(*R) = NB;
 	NKolEff(*R) = NK;
@@ -39,8 +43,8 @@ void CreateRuangan(Ruangan *R, char N[50], int NB, int NK){
 	char NO = 'L';
 	Objek Lantai = CreateObjek(NO,0,false);
 
-	for(int i = GetFirstIdxBrs(*R); i <= GetLastIdxBrs(*R); i++){
-		for(int j = GetFirstIdxKol(*R); j <= GetLastIdxKol(*R); j++){
+	for(i = GetFirstIdxBrs(*R); i <= GetLastIdxBrs(*R); i++){
+		for(j = GetFirstIdxKol(*R); j <= GetLastIdxKol(*R); j++){
 			SetObjek(R,Lantai,i,j);
 		}
 	}
@@ -69,20 +73,21 @@ Objek CreateObjek(char N, int K, boolean F){
 
 void CetakRuangan(Ruangan R){
 
+	int i, j;
 	//cetak dinding atas, 
-	for(int i = GetFirstIdxKol(R); i <= GetLastIdxKol(R); i++){
+	for(i = GetFirstIdxKol(R); i <= GetLastIdxKol(R); i++){
 		printf("========");
 	}
 	printf("\n");
 
 	//cetak bagian 'tengah' ruangan
-	for(int i = GetFirstIdxBrs(R); i <= GetLastIdxBrs(R); i++ ){
-		for(int j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
+	for(i = GetFirstIdxBrs(R); i <= GetLastIdxBrs(R); i++ ){
+		for(j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
 			printf("|      |");//beri sedikit ruang
 		}
 		printf("\n");
 
-		for (int j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
+		for (j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
 			if(Nama(Elmt(R,i,j)) == 'L'){
 				printf("|      |");//cetak lantai
 			} else if(Nama(Elmt(R,i,j)) >  48 && Nama(Elmt(R,i,j)) < 58){
@@ -97,12 +102,12 @@ void CetakRuangan(Ruangan R){
 		}
 		printf("\n");
 
-		for(int j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
+		for(j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
 			printf("|      |");//beri sedikit ruang
 		}
 		printf("\n");
 
-		for(int j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
+		for(j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
 			printf("========");//sekat pemmbatas antar blok objek
 		}
 		printf("\n");
@@ -119,27 +124,26 @@ void BacaRuangan(Ruangan *R, char File[]){
 	char namaobj;
 	boolean fill;
 	Objek bende;
-
-
+	int i;
 
 	STARTKATA(File);
 
 	//strcpy(N,CKata.TabKata);//salin nama ruangan
-	for(int i = 1; i <= CKata.Length; i++){
+	for(i = 1; i <= CKata.Length; i++){
 		N[i] = CKata.TabKata[i];
 	}
 	IgnoreBlank();
-	printf("Nama ruangannya adalah :");
+	//printf("Nama ruangannya adalah :");
 	//printf("%s\n",N);
-	for(int i = 1; i <= CKata.Length; i++){
-		printf("%c",N[i]);
-	}
-	printf("\n");
+	//for(int i = 1; i <= CKata.Length; i++){
+	//	printf("%c",N[i]);
+	//}
+	//printf("\n");
 	SalinInt(&panjang);//baca baris
-	printf("panjang :%d\n",panjang );
+	//printf("panjang :%d\n",panjang );
 
 	SalinInt(&lebar);//baca kolom
-	printf("lebar :%d\n",lebar );
+	//printf("lebar :%d\n",lebar );
 
 	CreateRuangan(R,N,panjang,lebar);
 
@@ -173,3 +177,31 @@ void BacaRuangan(Ruangan *R, char File[]){
 //format dari file eksternal ini adalah
 //cek aja file kosan.txt
 //jangan lupa sebelum new line ada spasinya
+
+POINT FindObjek(Ruangan R, char Nama){
+	indeks i = GetFirstIdxBrs(R);
+	indeks j = GetFirstIdxKol(R);
+	POINT result;
+	while(Nama(Elmt(R,i,j)) != Nama){
+		j = GetFirstIdxKol(R);
+		while(Nama(Elmt(R,i,j)) != Nama){
+			j++;
+		}
+
+		if(Nama(Elmt(R,i,j)) != Nama){
+			i++;
+		}
+	}
+
+	if(Nama(Elmt(R,i,j)) == Nama){//objeknya ketemu
+		result = MakePOINT(i,j);
+	} else {//objeknya ga ketemu
+		result = MakePOINT(-999,-999);
+	}
+	
+
+	return result;
+}
+//mengembalikan POINT tempat objek bernama Nama berada di Ruangan R
+//jika ternyata objek tersebut tidak ada mengembalikan POINT dengan 
+//absis dan ordinat -999

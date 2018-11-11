@@ -44,13 +44,15 @@ void STARTKATA(char File[]){
 //mulai kata
 
 void ADVKATA(){
+	IgnoreBlank();
+
 	if(CC == MARK){
 		EndKata = true;
 	} else {
 		SalinKata();
 	}
 
-	IgnoreBlank();
+	
 }
 //akuisisi kata baru
 
@@ -74,7 +76,7 @@ void SalinInt(int *result){
 	int i;
 	int a = 0;
 
-	SalinKata();
+	ADVKATA();
 	
 
 	for(i = 1; i <= CKata.Length; i++){
@@ -88,3 +90,42 @@ void SalinInt(int *result){
 
 }
 //salin kata dan ubah jadi integer
+
+int PanjangKata(Kata K){
+	return K.Length;
+}
+//mengembalikan panjang Kata K
+//strlen
+
+boolean eqkata(Kata K1, Kata K2){
+
+	if(PanjangKata(K1) != PanjangKata(K2)){
+		return false;
+	} else {
+		boolean same = true;
+		int i = 1;
+
+		while(i <= PanjangKata(K1) && same){
+			if(K1.TabKata[i] != K2.TabKata[i]){
+				same = false;
+			} else{
+				i++;
+			}
+
+		}
+		return same;
+	}
+}
+//mengembalikan true jika K1 dan K2 merupakan kata yang sama
+//dan false jika tidak
+//strcmp
+
+void CopyKata(Kata sauce, Kata *dest){
+	Panjang(*dest) = PanjangKata(sauce);
+
+	for(int i = 1; i <= PanjangKata(sauce); i++){
+		Karakter(*dest,i) = sauce.TabKata[i];
+	}
+}
+//menyalin K1 ke K2
+//strcpy

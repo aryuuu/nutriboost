@@ -87,12 +87,20 @@ POINT FindObjek(Ruangan R, char Nama);
 //jika ternyata objek tersebut tidak ada mengembalikan POINT dengan 
 //absis dan ordinat -999
 
+boolean BisaGerak(Ruangan R, char P, int Arah);
+//mengembalikan nilai true atau false 
+//arah merupakan angka 1, 2, 3, atau 4 yang 
+//secara berurut merupakan arah atas, kanan, bawah, dan kiri
+//jika Objek bernama P pada Ruangan R bisa bergerak ke arah Arah
+//BisaGerak mengembalikan nilai true dan false jika tidak
 
 
-
-
-
-
+void GerakO(Ruangan *R, char P, int Arah);
+//menggerakkan Objek bernama P di Ruangan R ke arah Arah
+//dimana Arah merupakan bilangan 1, 2, 3, atau 4
+//yang secara berurutan merupakan arah atas, kanan, bawah, dan kiri
+//I.S gerak ke arah Arah sudah divalidasi sebelumnya
+//jadi tinggal gerakin aja
 
 
 

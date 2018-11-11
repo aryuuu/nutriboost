@@ -1,6 +1,5 @@
 #include "ruangan.h"
 #include "scanner.h"
-#include "scanner.c"
 #include <stdio.h>
 
 /* *** Selektor "DUNIA MATRIKS" *** */
@@ -182,9 +181,9 @@ POINT FindObjek(Ruangan R, char Nama){
 	indeks i = GetFirstIdxBrs(R);
 	indeks j = GetFirstIdxKol(R);
 	POINT result;
-	while(Nama(Elmt(R,i,j)) != Nama){
+	while(Nama(Elmt(R,i,j)) != Nama && i <= GetLastIdxBrs(R)){
 		j = GetFirstIdxKol(R);
-		while(Nama(Elmt(R,i,j)) != Nama){
+		while(Nama(Elmt(R,i,j)) != Nama && j <= GetLastIdxKol(R)){
 			j++;
 		}
 
@@ -205,3 +204,58 @@ POINT FindObjek(Ruangan R, char Nama){
 //mengembalikan POINT tempat objek bernama Nama berada di Ruangan R
 //jika ternyata objek tersebut tidak ada mengembalikan POINT dengan 
 //absis dan ordinat -999
+
+
+boolean BisaGerak(Ruangan R, char P, int Arah){
+
+	POINT posisi = FindObjek(R, P);// menyimpan posisi objek
+
+	if(Arah == 1){
+		posisi = PlusDelta(posisi,-1,0);
+	} else if (Arah == 2){
+		posisi = PlusDelta(posisi,0,1);
+	} else if (Arah == 3){
+		posisi = PlusDelta(posisi,1,0);
+	} else if (Arah == 4){
+		posisi = PlusDelta(posisi,0,-1);
+	}
+
+	return (IsIdxEff(R,Absis(posisi), Ordinat(posisi)) && Nama(Elmt(R, Absis(posisi), Ordinat(posisi))) == 'L');
+
+
+}
+//mengembalikan nilai true atau false 
+//arah merupakan angka 1, 2, 3, atau 4 yang 
+//secara berurut merupakan arah atas, kanan, bawah, dan kiri
+//jika Objek bernama P pada Ruangan R bisa bergerak ke arah Arah
+//BisaGerak mengembalikan nilai true dan false jika tidak
+//asumsi nilai Arah selalu valid
+
+void GerakO(Ruangan *R, char P, int Arah){
+	POINT sauce = FindObjek(*R, P);
+	POINT dest;
+
+	if(Arah == 1){
+		dest = PlusDelta(sauce,-1,0);
+	} else if (Arah == 2){
+		dest = PlusDelta(sauce,0,1);
+	} else if (Arah == 3){
+		dest = PlusDelta(sauce,1,0);
+	} else if (Arah == 4){
+		dest = PlusDelta(sauce,0,-1);
+	}
+
+	Objek Pl = CreateObjek(P, 1, true);
+	Objek L = CreateObjek('L', 0, false);//bikin lantai
+
+	SetObjek(R, Pl, Absis(dest), Ordinat(dest));//set P di dest
+	SetObjek(R, L, Absis(sauce), Ordinat(sauce));//sauce dijadiin lantai lagi
+
+
+
+
+
+}
+//menggerakkan Objek bernama P di Ruangan R ke arah Arah
+//dimana Arah merupakan bilangan 1, 2, 3, atau 4
+//yang secara berurutan merupakan arah atas, kanan, bawah, dan kiri

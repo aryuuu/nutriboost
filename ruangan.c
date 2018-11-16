@@ -283,3 +283,27 @@ void UsirPelanggan(Ruangan *R, char Meja){
 //mengosongkan kursi pelanggan yang sudah selesai makan
 //pada Ruangan R di meja bernama Meja
 //meja pasti terisi sebelum pelangga diusir
+
+void IsiMeja(Ruangan *R, char Meja, int Pelanggan){
+	//catat posisi meja
+	POINT Posisi = FindObjek(*R, Meja);
+
+	//mengisi dua meja pertama 
+	Fill(Elmt(*R,Absis(Posisi),Ordinat(Posisi)-1)) = true;
+	Fill(Elmt(*R,Absis(Posisi),Ordinat(Posisi)+1)) = true;
+
+	//mengisi dua kursi lainnya jika Pelanggan bernilai 4
+	if(Pelanggan == 4){
+		Fill(Elmt(*R,Absis(Posisi)-1,Ordinat(Posisi))) = true;
+		Fill(Elmt(*R,Absis(Posisi)+1,Ordinat(Posisi))) = true;
+	}
+
+	//ganti state meja jadi terisi
+	Fill(Elmt(*R,Absis(Posisi),Ordinat(Posisi))) = true;
+}
+//mengisi kursi kursi di meja bernama Meja pada Ruangan R
+//jumlah kursi yang terisi adalah sejumlah Pelanggan
+//meja yang ingin diisi pasti kosong dan Pelanggan tidak
+//melebihi kapasitas meja
+//Nilai Pelanggan pasti 2 atau 4
+

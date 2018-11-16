@@ -77,5 +77,6 @@ void KurangiKesabaranAntrian (Queue *Q);
 /* I.S. Q terdefinisi */
 /* F.S. Setiap pelanggan (Q).sabar berkurang satu satuan */
 
-
+void GeneratePelanggan(Queue *Q);
+/*Prosedur menambahkan pelanggan ke dalam secara acak antrian dengan kemungkinan kemunculan pelanggan sebesar 5% */
 #endif

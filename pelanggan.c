@@ -170,3 +170,14 @@ void KurangiKesabaranAntrian (Queue *Q)
       }
     }
 }
+
+void GeneratePelanggan(Queue *Q)
+/*Prosedur menambahkan pelanggan ke dalam secara acak antrian dengan kemungkinan kemunculan pelanggan sebesar 5% */
+{
+  Pelanggan P;
+  int random = rand() % 20;
+  if(random == 10)  {
+    InitPelanggan(&P);
+    Datang(Q,P);
+  }
+}

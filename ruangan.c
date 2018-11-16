@@ -96,7 +96,11 @@ void CetakRuangan(Ruangan R){
 			}else if(Nama(Elmt(R,i,j)) == 'K' && Fill(Elmt(R,i,j))){
 				printf("|   C  |");//cetak kursi yang ada pelanggannya
 			}else if(Nama(Elmt(R,i,j)) == 'P'){
-				printf("|   P  |");//cetak player
+				printf("|  >w< |");//cetak player
+			}else if(Nama(Elmt(R,i,j)) == 'M'){
+				printf("|   M  |");
+			}else if(Nama(Elmt(R,i,j)) == 'T'){
+				printf("|   T  |");
 			}
 		}
 		printf("\n");

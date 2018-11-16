@@ -307,3 +307,31 @@ void IsiMeja(Ruangan *R, char Meja, int Pelanggan){
 //melebihi kapasitas meja
 //Nilai Pelanggan pasti 2 atau 4
 
+char MejaTerdekat(Ruangan R){
+
+	//menyimpan posisi player
+	POINT Posisi = FindObjek(R, 'P');
+
+	char result;
+
+	int i = Absis(Posisi)-1;
+	int j = Ordinat(Posisi)-1;
+
+	while( ((Nama(Elmt(R,i,j))-48) < 1 ||  (Nama(Elmt(R,i,j))-48) > 9) && (i < Absis(Posisi)+2) ){
+
+		j = Ordinat(Posisi)-1;
+
+		while(((Nama(Elmt(R,i,j))-48) < 1 ||  (Nama(Elmt(R,i,j))-48) > 9) && (j < Ordinat(Posisi)+2)){
+			j++;
+		}
+
+		if(((Nama(Elmt(R,i,j))-48) < 1 ||  (Nama(Elmt(R,i,j))-48) > 9) && (i < Absis(Posisi)+2) ){
+			i++;
+		}
+
+	}
+	return Nama(Elmt(R,i,j));
+}
+//mengembalikan nama meja terdekat dengan Player
+//player pasti sedang berada di dekat meja yang terisi
+//player tidak sedang berada di dekat dinding

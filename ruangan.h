@@ -115,8 +115,10 @@ void IsiMeja(Ruangan *R, char Meja, int Pelanggan);
 //melebihi kapasitas meja
 //nilai Pelanggan pasti 2 atau 4
 
-
-
+char MejaTerdekat(Ruangan R);
+//mengembalikan nama meja terdekat dengan Player
+//player pasti sedang berada di dekat meja yang terisi 
+//player tidak sedang berada di dekat dinding
 
 
 

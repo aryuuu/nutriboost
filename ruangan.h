@@ -103,7 +103,9 @@ void GerakO(Ruangan *R, char P, int Arah);
 //jadi tinggal gerakin aja
 
 
-
+void UsirPelanggan(Ruangan *R, char Meja);
+//mengosongkan kursi pelanggan yang sudah selesai makan
+//pada Ruangan R di meja bernama Meja
 
 
 

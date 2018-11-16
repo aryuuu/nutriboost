@@ -263,3 +263,23 @@ void GerakO(Ruangan *R, char P, int Arah){
 //menggerakkan Objek bernama P di Ruangan R ke arah Arah
 //dimana Arah merupakan bilangan 1, 2, 3, atau 4
 //yang secara berurutan merupakan arah atas, kanan, bawah, dan kiri
+
+
+void UsirPelanggan(Ruangan *R, char Meja){
+
+	POINT Posisi = FindObjek(*R, Meja);//catat posisi meja yangi ingin dikosongkan
+
+	for(int i = Absis(Posisi)-1; i <= Absis(Posisi)+1; i++){
+		for(int j = Ordinat(Posisi)-1; j <= Ordinat(Posisi)+1; j++){
+			if(Nama(Elmt(*R,i,j)) == 'K' && Fill(Elmt(*R,i,j))){
+				Fill(Elmt(*R,i,j)) = false;
+			}
+		}
+	}
+
+	Fill(Elmt(*R,Absis(Posisi),Ordinat(Posisi))) = false;
+
+}
+//mengosongkan kursi pelanggan yang sudah selesai makan
+//pada Ruangan R di meja bernama Meja
+//meja pasti terisi sebelum pelangga diusir

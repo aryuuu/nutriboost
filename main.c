@@ -3,7 +3,7 @@
 #include <string.h>
 #include "player.h"
 #include "ruangan.h"
-
+#include "pelanggan.h"
 void PrintJudul(); //print judul nih cuy ada di bawah implementasi
 
 void Keluar(); //Keluar dari CMD
@@ -14,6 +14,7 @@ int main() {
 	Ruangan Dapur, Ruang1, Ruang2, Ruang3, CurrentRuangan;
 	int Option; //Menampung pilihan dari user
 	char command[50];
+	Queue Q;
 
 	PrintJudul();
 	printf("	1. NEW GAME\n");
@@ -31,16 +32,16 @@ int main() {
 	}
 
 	switch (Option) {
-		case 1 : 
+		case 1 :
 			printf("	>> Insert Name : ");
-			scanf("%s", &Id);
+			scanf("%s", Id);
 			InitPlayer(&P, Id);
 		case 3 :
 			/* LOAD GAME */
 		case 2 :
 			if (strcmp(Id, "<NONE>") == 0) {
 				printf("	>> Insert Name : ");
-				scanf("%s", &Id);
+				scanf("%s", Id);
 				InitPlayer(&P, Id);
 			}
 			//Nama sudah ada
@@ -55,13 +56,21 @@ int main() {
 			PrintState(P);
 			printf("Nama ruangan : %s\n", Nama(CurrentRuangan));
 			CetakRuangan(CurrentRuangan);
+			/*Inisialisasi antrian*/
+			InitAntrian(&Q);
+			Pelanggan pertama;
+			InitPelanggan(&pertama);
+			Datang(&Q,pertama);
 
 			printf("	>> ");
-			scanf("%s", &command);
+			scanf("%s", command);
 			while (strcmp(command,"exit") != 0) {
 				if (strcmp(command,"GU") == 0) {
 					if(BisaGerak(CurrentRuangan, 'P', 1)){
 						GerakO(&CurrentRuangan, 'P', 1);
+						KurangiKesabaranAntrian(&Q,&P);
+						GeneratePelanggan(&Q);
+						Time(P) = NextDetik(Time(P));
 					} else {
 						printf("Ouch! Kejedut gan!\n");
 					}
@@ -69,6 +78,9 @@ int main() {
 				else if (strcmp(command,"GR") == 0) {
 					if(BisaGerak(CurrentRuangan, 'P', 2)){
 						GerakO(&CurrentRuangan, 'P', 2);
+						KurangiKesabaranAntrian(&Q,&P);
+						GeneratePelanggan(&Q);
+						Time(P) = NextDetik(Time(P));
 					} else {
 						printf("Ouch! Kejedut gan!\n");
 					}
@@ -76,6 +88,9 @@ int main() {
 				else if (strcmp(command,"GD") == 0) {
 					if(BisaGerak(CurrentRuangan, 'P', 3)){
 						GerakO(&CurrentRuangan, 'P', 3);
+						KurangiKesabaranAntrian(&Q,&P);
+						GeneratePelanggan(&Q);
+						Time(P) = NextDetik(Time(P));
 					} else {
 						printf("Ouch! Kejedut gan!\n");
 					}
@@ -83,15 +98,19 @@ int main() {
 				else if (strcmp(command,"GL") == 0) {
 					if(BisaGerak(CurrentRuangan, 'P', 4)){
 						GerakO(&CurrentRuangan, 'P', 4);
+						KurangiKesabaranAntrian(&Q,&P);
+						GeneratePelanggan(&Q);
+						Time(P) = NextDetik(Time(P));
 					} else {
 						printf("Ouch! Kejedut gan!\n");
 					}
 				}
 				PrintState(P);
+				PrintPelanggan(Q);
 				printf("Nama ruangan : %s\n", Nama(CurrentRuangan));
 				CetakRuangan(CurrentRuangan);
 				printf("	>> ");
-				scanf("%s", &command);
+				scanf("%s", command);
 			}
 		case 4 :
 			Keluar();

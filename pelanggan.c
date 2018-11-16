@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "pelanggan.h"
+#include "player.h"
 
 
 void SalinPelanggan(Pelanggan *P1,Pelanggan P2)
@@ -53,7 +54,7 @@ void InitPelanggan (Pelanggan *P)
   Meja(*P)=0;
 
   random = rand() % 5;
-  if(random<2)  {
+  if(random<=2)  {
     Jumlah(*P) = 2;
   }
   else  {
@@ -138,7 +139,7 @@ void KurangiKesabaranPelanggan (Pelanggan *P)
   Sabar(*P)--;
 }
 
-void KurangiKesabaranAntrian (Queue *Q)
+void KurangiKesabaranAntrian (Queue *Q, Player *player)
 /* Proses: Mengurangi kesabaran pelanggan dalam antrian */
 /* I.S. Q terdefinisi */
 /* F.S. Setiap pelanggan (Q).sabar berkurang satu satuan */
@@ -164,6 +165,7 @@ void KurangiKesabaranAntrian (Queue *Q)
     while(!IsEmpty(*Q) && pergi)  {
       if(Sabar(InfoHead(*Q))==0)  {
         Pergi(Q,&P);
+        Life(*player)--;
       }
       else  {
         pergi=false;
@@ -179,5 +181,27 @@ void GeneratePelanggan(Queue *Q)
   if(random == 10)  {
     InitPelanggan(&P);
     Datang(Q,P);
+  }
+}
+
+void PrintPelanggan(Queue Q) {
+  printf("Jumlah pelanggan : %d\n",NBElmt(Q));
+  if(!IsEmpty(Q))  {
+    int i=Head(Q);
+    int j=1;
+    printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+    while(i != Tail(Q))  {
+      printf("Jumlah %d: %d\n",j,Jumlah(Q.T[i]));
+      printf("Kesabaran : %d\n\n",Sabar(Q.T[i]));
+      j++;
+      if(i==MaxEl) {
+        i=1;
+      }
+      else
+        i++;
+    }
+    printf("Pelanggan %d: %d\n",j,Jumlah(Q.T[i]));
+    printf("Kesabaran : %d\n\n",Sabar(Q.T[i]));
+    printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
   }
 }

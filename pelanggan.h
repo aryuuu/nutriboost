@@ -2,6 +2,7 @@
 #define pelanggan_H
 
 #include "boolean.h"
+#include "player.h"
 
 #define MaxEl 10
 #define Nil 0
@@ -72,11 +73,14 @@ void KurangiKesabaranPelanggan (Pelanggan *P);
 /* I.S. P terdefinisi */
 /* F.S. Kesabaran Pelanggan (P).sabar berkurang satu satuan */
 
-void KurangiKesabaranAntrian (Queue *Q);
+void KurangiKesabaranAntrian (Queue *Q, Player *player);
 /* Proses: Mengurangi kesabaran pelanggan dalam antrian */
 /* I.S. Q terdefinisi */
 /* F.S. Setiap pelanggan (Q).sabar berkurang satu satuan */
 
 void GeneratePelanggan(Queue *Q);
 /*Prosedur menambahkan pelanggan ke dalam secara acak antrian dengan kemungkinan kemunculan pelanggan sebesar 5% */
+
+void PrintPelanggan(Queue Q);
+
 #endif

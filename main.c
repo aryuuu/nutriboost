@@ -2,57 +2,103 @@
 #include <stdlib.h>
 #include <string.h>
 #include "player.h"
-#include "player.c"
 #include "ruangan.h"
-#include "ruangan.c"
+
+void PrintJudul(); //print judul nih cuy ada di bawah implementasi
+
+void Keluar(); //Keluar dari CMD
 
 int main() {
-	void PrintNama();
-	void Keluar();
-	int Option;
-	char Id[50];
+	char Id[50] = {"<NONE>"}; //NAMA USER
 	Player P;
-	Ruangan Kosan;
-	
-	PrintNama();
+	Ruangan Dapur, Ruang1, Ruang2, Ruang3, CurrentRuangan;
+	int Option; //Menampung pilihan dari user
+	char command[50];
+
+	PrintJudul();
 	printf("	1. NEW GAME\n");
 	printf("	2. START GAME\n");
 	printf("	3. LOAD GAME\n");
 	printf("	4. EXIT\n");
 	printf("\n");
+
+	printf("	>> ");
+    scanf("%d", &Option);
 	while ((Option < 1) || (Option > 4)){
+        printf("	>> Wrong Input !\n");
 		printf("	>> ");
-		scanf("%d", &Option);
-		if ((Option < 1) || (Option > 4)) {
-			printf("	>> Wrong Input !\n");			
-		}
+        scanf("%d", &Option);
 	}
-	
-	if (Option == 1) {
-		printf("	>> Insert Name : ");
-		scanf("%s", &Id);
-		InitPlayer(&P, Id);
-		BacaRuangan(&Kosan,"kosan.txt");
-		printf("Nama ruangan : %s\n", Nama(Kosan) );
-		CetakRuangan(Kosan);
-	
-		POINT pmeja1 = FindObjek(Kosan,'1');
-		printf("Posisi meja 1 adalah : ");
-		TulisPOINT(pmeja1);
-		printf("\n");
-	}
-	else if (Option == 2) {
-		
-	}
-	else if (Option == 3) {
-		
-	}
-	else if (Option == 4) {
-		Keluar();
+
+	switch (Option) {
+		case 1 : 
+			printf("	>> Insert Name : ");
+			scanf("%s", &Id);
+			InitPlayer(&P, Id);
+		case 3 :
+			/* LOAD GAME */
+		case 2 :
+			if (strcmp(Id, "<NONE>") == 0) {
+				printf("	>> Insert Name : ");
+				scanf("%s", &Id);
+				InitPlayer(&P, Id);
+			}
+			//Nama sudah ada
+
+			BacaRuangan(&Dapur,"dapur.txt");
+			BacaRuangan(&Ruang1,"satu.txt");
+			BacaRuangan(&Ruang2,"dua.txt");
+			BacaRuangan(&Ruang3,"tiga.txt");
+
+			CurrentRuangan = Ruang1;
+
+			PrintState(P);
+			printf("Nama ruangan : %s\n", Nama(CurrentRuangan));
+			CetakRuangan(CurrentRuangan);
+
+			printf("	>> ");
+			scanf("%s", &command);
+			while (strcmp(command,"exit") != 0) {
+				if (strcmp(command,"GU") == 0) {
+					if(BisaGerak(CurrentRuangan, 'P', 1)){
+						GerakO(&CurrentRuangan, 'P', 1);
+					} else {
+						printf("Ouch! Kejedut gan!\n");
+					}
+				}
+				else if (strcmp(command,"GR") == 0) {
+					if(BisaGerak(CurrentRuangan, 'P', 2)){
+						GerakO(&CurrentRuangan, 'P', 2);
+					} else {
+						printf("Ouch! Kejedut gan!\n");
+					}
+				}
+				else if (strcmp(command,"GD") == 0) {
+					if(BisaGerak(CurrentRuangan, 'P', 3)){
+						GerakO(&CurrentRuangan, 'P', 3);
+					} else {
+						printf("Ouch! Kejedut gan!\n");
+					}
+				}
+				else if (strcmp(command,"GL") == 0) {
+					if(BisaGerak(CurrentRuangan, 'P', 4)){
+						GerakO(&CurrentRuangan, 'P', 4);
+					} else {
+						printf("Ouch! Kejedut gan!\n");
+					}
+				}
+				PrintState(P);
+				printf("Nama ruangan : %s\n", Nama(CurrentRuangan));
+				CetakRuangan(CurrentRuangan);
+				printf("	>> ");
+				scanf("%s", &command);
+			}
+		case 4 :
+			Keluar();
 	}
 }
 
-void PrintNama() {
+void PrintJudul() {
 	system("cls");
 	printf("========================================================================================================================================================\n");
 	printf("========================================================================================================================================================\n");

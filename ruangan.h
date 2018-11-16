@@ -106,10 +106,14 @@ void GerakO(Ruangan *R, char P, int Arah);
 void UsirPelanggan(Ruangan *R, char Meja);
 //mengosongkan kursi pelanggan yang sudah selesai makan
 //pada Ruangan R di meja bernama Meja
+//meja yang ingin dikosongkan pasti terisi sebelum pelanggan diusir
 
-
-
-
+void IsiMeja(Ruangan *R, char Meja, int Pelanggan);
+//mengisi kursi kursi di meja bernama Meja pada Ruangan R
+//jumlah kursi yang terisi adalah sejumlah Pelanggan
+//meja yang ingin diisi pasti kosong, dan Pelanggan tidak
+//melebihi kapasitas meja
+//nilai Pelanggan pasti 2 atau 4
 
 
 

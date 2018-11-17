@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "player.h"
-#include "ruangan.h"
-#include "pelanggan.h"
+#include "./lib/player.h"
+#include "./lib/ruangan.h"
+#include "./lib/pelanggan.h"
 void PrintJudul(); //print judul nih cuy ada di bawah implementasi
 
 void Keluar(); //Keluar dari CMD
@@ -34,14 +34,14 @@ int main() {
 	switch (Option) {
 		case 1 :
 			printf("	>> Insert Name : ");
-			scanf("%s", Id);
+			scanf("%s", &Id);
 			InitPlayer(&P, Id);
 		case 3 :
 			/* LOAD GAME */
 		case 2 :
 			if (strcmp(Id, "<NONE>") == 0) {
 				printf("	>> Insert Name : ");
-				scanf("%s", Id);
+				scanf("%s", &Id);
 				InitPlayer(&P, Id);
 			}
 			//Nama sudah ada

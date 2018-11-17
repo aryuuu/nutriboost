@@ -1,2 +1,2 @@
-output : main.c ruangan.c point.c jam.c scanner.c player.c pelanggan.c
-	gcc main.c ruangan.c point.c jam.c scanner.c player.c pelanggan.c -o test
+output : main.c ./lib/ruangan.c ./lib/point.c ./lib/jam.c ./lib/scanner.c ./lib/player.c ./lib/pelanggan.c
+	gcc main.c ./lib/ruangan.c ./lib/point.c ./lib/jam.c ./lib/scanner.c ./lib/player.c ./lib/pelanggan.c -o test

@@ -32,3 +32,33 @@ void Gerak(Player *P, char opsi[50]) {
 		Geser(&Posisi(*P), 1, 0);
 	}
 }
+
+void IsiTangan(Player *P, char Makanan[50]) {
+	TOPTangan(*P)++;
+	strcpy(InfoTOPTangan(*P), Makanan);
+}
+
+void KosongTangan(Player *P) {
+	TOPTangan(*P) = Nil;
+}
+
+void KeluarkanMakanan(Player *P, char Makanan[50]) {
+	strcpy(Makanan,InfoTOPTangan(*P));
+	TOPTangan(*P)--;
+}
+
+void CetakTangan(Player P) {
+	Player temp;
+	KosongTangan(&temp);
+	char X[50];
+
+	while (TOPTangan(P) != Nil) {
+		KeluarkanMakanan(&P, X);
+		IsiTangan(&temp, X);
+	}
+
+	while (TOPTangan(temp) != Nil) {
+		KeluarkanMakanan(&temp, X);
+		printf("%s\n", X);
+	}
+}

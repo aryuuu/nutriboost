@@ -64,7 +64,7 @@ int main() {
 
 			printf("	>> ");
 			scanf("%s", command);
-			while (strcmp(command,"exit") != 0) {
+			while (strcmp(command,"EXIT") != 0) {
 				if (strcmp(command,"GU") == 0) {
 					if(BisaGerak(CurrentRuangan, 'P', 1)){
 						GerakO(&CurrentRuangan, 'P', 1);
@@ -72,7 +72,7 @@ int main() {
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
-						printf("Ouch! Kejedut gan!\n");
+						printf("	>> Ouch! Kejedut gan!\n");
 					}
 				}
 				else if (strcmp(command,"GR") == 0) {
@@ -82,7 +82,7 @@ int main() {
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
-						printf("Ouch! Kejedut gan!\n");
+						printf("	>> Ouch! Kejedut gan!\n");
 					}
 				}
 				else if (strcmp(command,"GD") == 0) {
@@ -92,7 +92,7 @@ int main() {
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
-						printf("Ouch! Kejedut gan!\n");
+						printf("	>> Ouch! Kejedut gan!\n");
 					}
 				}
 				else if (strcmp(command,"GL") == 0) {
@@ -102,8 +102,11 @@ int main() {
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
-						printf("Ouch! Kejedut gan!\n");
+						printf("	>> Ouch! Kejedut gan!\n");
 					}
+				}
+				else {
+					printf("	>> Perintah Salah!\n");
 				}
 				PrintState(P);
 				PrintPelanggan(Q);

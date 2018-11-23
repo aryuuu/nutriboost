@@ -13,8 +13,14 @@ int main() {
 	Player P;
 	Ruangan Dapur, Ruang1, Ruang2, Ruang3, CurrentRuangan;
 	int Option; //Menampung pilihan dari user
+	int ruang; //Mencatat nomor ruangan sekarang
 	char command[50];
 	Queue Q;
+	Nampan S;
+
+	Pelanggan satu[4+1];
+	Pelanggan dua[4+1];
+	Pelanggan tiga[4+1];
 
 	PrintJudul();
 	printf("	1. NEW GAME\n");
@@ -52,6 +58,7 @@ int main() {
 			BacaRuangan(&Ruang3,"./filex/tiga.txt");
 
 			CurrentRuangan = Ruang1;
+			ruang = 1;
 
 			PrintState(P);
 			printf("Nama ruangan : %s\n", Nama(CurrentRuangan));
@@ -59,9 +66,9 @@ int main() {
 
 			/*Inisialisasi antrian*/
 			InitAntrian(&Q);
-			Pelanggan pertama;
-			InitPelanggan(&pertama);
-			Datang(&Q,pertama);
+			Pelanggan pelanggan;
+			InitPelanggan(&pelanggan);
+			Datang(&Q,pelanggan);
 
 			printf("	>> ");
 			scanf("%s", command);
@@ -108,9 +115,10 @@ int main() {
 				}
 				else if (strcmp(command,"ORDER") == 0) {
 					/* mengambil orderan makanan dari pelanggan yang sudah ada di tempat duduk */
+
 				}
 				else if (strcmp(command,"PUT") == 0) {
-					/* menempatkan pelanggan yang sudah ada di antrean */
+					/* menaruh makanan di hand ke nampan */
 				}
 				else if (strcmp(command,"TAKE") == 0) {
 					/* mengambil bahan makanan  atau alat masak di meja */
@@ -126,12 +134,26 @@ int main() {
 				}
 				else if (strcmp(command,"PLACE") == 0) {
 					/* menempatkan pelanggan pada tempat duduk yang kosong */
-					Pergi(&Q,&pertama,2);
-					printf("%d",Jumlah(pertama));
+					Pergi(&Q,&pelanggan,2);
+
+					if(ruang=1)	{
+						SalinPelanggan(&satu[i],pelanggan);
+					}
+					if(ruang=2)	{
+						SalinPelanggan(&dua[i],pelanggan);
+					}
+					if(ruang=3)	{
+						SalinPelanggan(&tiga[i],pelanggan);
+					}
+
 					Time(P) = NextDetik(Time(P));
+
 				}
 				else if (strcmp(command,"GIVE") == 0) {
 					/* memberikan makanan yang ada di nampan paling atas */
+					Push (Nampan * S, infotype X);
+					strcpy(InfoTop(*S), X);
+
 					Time(P) = NextDetik(Time(P));
 				}
 				else if (strcmp(command,"RECIPE") == 0) {

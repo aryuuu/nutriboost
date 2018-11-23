@@ -41,7 +41,7 @@ int main() {
 		case 2 :
 			if (strcmp(Id, "<NONE>") == 0) {
 				printf("	>> Insert Name : ");
-				scanf("%s", &Id);
+				scanf("%s", Id);
 				InitPlayer(&P, Id);
 			}
 			//Nama sudah ada
@@ -117,7 +117,7 @@ int main() {
 				}
 				else if (strcmp(command,"CH") == 0) {
 					KosongTangan(&P);
-					Time(P) = NextDetik(Time(P));					
+					Time(P) = NextDetik(Time(P));
 				}
 				else if (strcmp(command,"CT") == 0) {
 					/* mengosongkan tray/nampan */
@@ -126,6 +126,8 @@ int main() {
 				}
 				else if (strcmp(command,"PLACE") == 0) {
 					/* menempatkan pelanggan pada tempat duduk yang kosong */
+					Pergi(&Q,&pertama,2);
+					printf("%d",Jumlah(pertama));
 					Time(P) = NextDetik(Time(P));
 				}
 				else if (strcmp(command,"GIVE") == 0) {

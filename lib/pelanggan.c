@@ -21,11 +21,8 @@ int NBElmt (Queue Q)
   if(Head(Q)==Nil && Tail(Q)==Nil) {
     return 0;
   }
-  else if(Head(Q)<=Tail(Q)) {
-    return(Tail(Q)-Head(Q)+1 );
-  }
   else  {
-    return(Tail(Q)+MaxEl-Head(Q)+1);
+    return(Tail(Q));
   }
 }
 
@@ -61,7 +58,7 @@ void InitPelanggan (Pelanggan *P)
     Jumlah(*P) = 4;
   }
 
-  Sabar(*P) = 30;
+  Sabar(*P) = 3;
   if(random==1)  {
     strcpy(Makanan(*P),"Sadikin");
   }
@@ -100,35 +97,54 @@ void Datang (Queue * Q, Pelanggan X)
   }
   else if(!IsFull(*Q)) {
     Tail(*Q)++;
-    if(Tail(*Q)>MaxEl)  {
-      Tail(*Q)= 1;
-    }
     SalinPelanggan(&InfoTail(*Q),X);
   }
 }
 
-void Pergi (Queue * Q, Pelanggan * X)
+void Pergi (Queue * Q, Pelanggan * X,int jumlah)
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
         Q mungkin kosong */
 {
+  boolean Found;
+  int i;
   if(IsEmpty(*Q)) {
     printf("Antrian kosong\n");
   }
-  else {
-    SalinPelanggan(X,InfoHead(*Q));
-    if(Head(*Q)==Tail(*Q))  {
-      Head(*Q)=Nil;
-      Tail(*Q)=Nil;
+  else  {
+    Found = false;
+    i = Head(*Q);
+    while(!Found && i <= Tail(*Q)) {
+      printf("OI");
+      if(Jumlah(InfoQ(*Q,i))==jumlah) {
+        Found = true;
+      }
+      else{
+        i=i+1;
+      }
     }
-    else  {
-      Head(*Q)++;
-      if(Head(*Q)>MaxEl)  {
-        Head(*Q)= 1;
+    if(Found){
+      printf("yes");
+    }
+    printf("%d--\n",i);
+    if(Found) {
+      SalinPelanggan(X,InfoQ(*Q,i));
+      if(Head(*Q)==Tail(*Q))  {
+        Head(*Q)=Nil;
+        Tail(*Q)=Nil;
+      }
+      else{
+        while(i < Tail(*Q))  {
+          SalinPelanggan(&InfoQ(*Q,i),InfoQ(*Q,i+1));
+          i=i+1;
+          printf("i");
+        }
+        Tail(*Q)=Tail(*Q)-1;
       }
     }
   }
+
 }
 
 void KurangiKesabaranPelanggan (Pelanggan *P)
@@ -152,19 +168,24 @@ void KurangiKesabaranAntrian (Queue *Q, Player *player)
     while(i != Tail(*Q))  {
       KurangiKesabaranPelanggan (&(*Q).T[i]);
       printf("%d",i);
-        if(i==MaxEl) {
-          i=1;
-        }
-        else  {
-          i++;
-        }
-      }
+      i=i+1;
+    }
     KurangiKesabaranPelanggan(&InfoTail(*Q));
 
     pergi=true;
     while(!IsEmpty(*Q) && pergi)  {
       if(Sabar(InfoHead(*Q))==0)  {
-        Pergi(Q,&P);
+        SalinPelanggan(&P,InfoHead(*Q));
+        if(Head(*Q)==Tail(*Q))  {
+          Head(*Q)=Nil;
+          Tail(*Q)=Nil;
+        }
+        else{
+          while(i != Tail(*Q))  {
+            SalinPelanggan(&InfoQ(*Q,i),InfoQ(*Q,i+1));
+          }
+          Tail(*Q)=Tail(*Q)=-1;
+        }
         Life(*player)--;
       }
       else  {

@@ -7,6 +7,7 @@ int main()  {
   int input,X,i,j;
   Queue Q;
   Pelanggan P;
+  Player pl;
   InitAntrian(&Q);
   do {
     printf("Input 0: Keluar.\n");
@@ -24,7 +25,7 @@ int main()  {
       printf("Makanan : %s\n",Makanan(P));
     }
     else if (input==2) {
-      Pergi(&Q,&P);
+      Pergi(&Q,&P,2);
       printf("%s\n",Makanan(P));
     }
     else if(input==3) {
@@ -53,7 +54,7 @@ int main()  {
       }
     }
     else if (input==4) {
-      KurangiKesabaranAntrian(&Q);
+      KurangiKesabaranAntrian(&Q,&pl);
     }
 
   } while(input !=0);

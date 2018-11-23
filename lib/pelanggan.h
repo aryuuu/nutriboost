@@ -36,6 +36,7 @@ typedef struct { Pelanggan T[MaxEl+1];   /* tabel penyimpan elemen */
 #define Tail(Q) (Q).TAIL
 #define InfoHead(Q) (Q).T[(Q).HEAD]
 #define InfoTail(Q) (Q).T[(Q).TAIL]
+#define InfoQ(Q,i) (Q).T[i]
 
 /* ********* Salin Pelanggan ********* */
 void SalinPelanggan(Pelanggan *P1,Pelanggan P2);
@@ -62,7 +63,7 @@ void Datang (Queue * Q, Pelanggan X);
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
-void Pergi (Queue * Q, Pelanggan * X);
+void Pergi (Queue * Q, Pelanggan * X,int jumlah);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;

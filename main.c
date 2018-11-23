@@ -34,7 +34,7 @@ int main() {
 	switch (Option) {
 		case 1 :
 			printf("	>> Insert Name : ");
-			scanf("%s", &Id);
+			scanf("%s", Id);
 			InitPlayer(&P, Id);
 		case 3 :
 			/* LOAD GAME */
@@ -46,16 +46,17 @@ int main() {
 			}
 			//Nama sudah ada
 
-			BacaRuangan(&Dapur,"dapur.txt");
-			BacaRuangan(&Ruang1,"satu.txt");
-			BacaRuangan(&Ruang2,"dua.txt");
-			BacaRuangan(&Ruang3,"tiga.txt");
+			BacaRuangan(&Dapur,"./filex/dapur.txt");
+			BacaRuangan(&Ruang1,"./filex/satu.txt");
+			BacaRuangan(&Ruang2,"./filex/dua.txt");
+			BacaRuangan(&Ruang3,"./filex/tiga.txt");
 
 			CurrentRuangan = Ruang1;
 
 			PrintState(P);
 			printf("Nama ruangan : %s\n", Nama(CurrentRuangan));
 			CetakRuangan(CurrentRuangan);
+
 			/*Inisialisasi antrian*/
 			InitAntrian(&Q);
 			Pelanggan pertama;
@@ -104,6 +105,42 @@ int main() {
 					} else {
 						printf("	>> Ouch! Kejedut gan!\n");
 					}
+				}
+				else if (strcmp(command,"ORDER") == 0) {
+					/* mengambil orderan makanan dari pelanggan yang sudah ada di tempat duduk */
+				}
+				else if (strcmp(command,"PUT") == 0) {
+					/* menempatkan pelanggan yang sudah ada di antrean */
+				}
+				else if (strcmp(command,"TAKE") == 0) {
+					/* mengambil bahan makanan  atau alat masak di meja */
+				}
+				else if (strcmp(command,"CH") == 0) {
+					KosongTangan(&P);
+					Time(P) = NextDetik(Time(P));					
+				}
+				else if (strcmp(command,"CT") == 0) {
+					/* mengosongkan tray/nampan */
+					/* KosongTray(&T); */
+					Time(P) = NextDetik(Time(P));
+				}
+				else if (strcmp(command,"PLACE") == 0) {
+					/* menempatkan pelanggan pada tempat duduk yang kosong */
+					Time(P) = NextDetik(Time(P));
+				}
+				else if (strcmp(command,"GIVE") == 0) {
+					/* memberikan makanan yang ada di nampan paling atas */
+					Time(P) = NextDetik(Time(P));
+				}
+				else if (strcmp(command,"RECIPE") == 0) {
+					/* menampilkan pohon resep */
+					Time(P) = NextDetik(Time(P));
+				}
+				else if (strcmp(command,"SAVE") == 0) {
+					/* menyimpan suatu permainan */
+				}
+				else if (strcmp(command,"LOAD") == 0) {
+					/* memuat permainan yang pernah di save */
 				}
 				else {
 					printf("	>> Perintah Salah!\n");

@@ -144,7 +144,7 @@ int main() {
 					printf("nama meja:%c\n",MejaTerdekat(CurrentRuangan));
 					noMeja = CharToInt(MejaTerdekat(CurrentRuangan));
 					Pergi(&Q,&pelanggan,Kapasitas(Elmt(CurrentRuangan,Absis(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))),Ordinat(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))))));
-
+					IsiMeja(&CurrentRuangan,MejaTerdekat(CurrentRuangan),Jumlah(pelanggan));
 					printf("nomeja=%d\n",noMeja);
 					if(ruang=1)	{
 						SalinPelanggan(&satu[noMeja],pelanggan);

@@ -89,15 +89,15 @@ void CetakRuangan(Ruangan R){
 		for (j = GetFirstIdxKol(R); j <= GetLastIdxKol(R); j++){
 			if(Nama(Elmt(R,i,j)) == 'L'){
 				printf("|      |");//cetak lantai
-			} else if(Nama(Elmt(R,i,j)) >  48 && Nama(Elmt(R,i,j)) < 58){
+			}else if(Nama(Elmt(R,i,j)) >  48 && Nama(Elmt(R,i,j)) < 58){
 				printf("|   %c  |",Nama(Elmt(R,i,j)));//cetak meja
 			}else if(Nama(Elmt(R,i,j)) == 'K' && !Fill(Elmt(R,i,j))){
 				printf("|   K  |");//cetak kursi kosong
 			}else if(Nama(Elmt(R,i,j)) == 'K' && Fill(Elmt(R,i,j))){
 				printf("|   C  |");//cetak kursi yang ada pelanggannya
 			}else if(Nama(Elmt(R,i,j)) == 'P'){
-				printf("|  >w< |");//cetak player
-			}else if(Nama(Elmt(R,i,j)) == 'M'){
+				printf("|   P  |");//cetak player
+			}else if(Nama(Elmt(R,i,j)) == 'M'  || Nama(Elmt(R,i,j)) == 'p' || Nama(Elmt(R,i,j)) == 'S' || Nama(Elmt(R,i,j)) == 'g' || Nama(Elmt(R,i,j)) == 'e' || Nama(Elmt(R,i,j)) == 'n' || Nama(Elmt(R,i,j)) == 'r' || Nama(Elmt(R,i,j)) == 's' || Nama(Elmt(R,i,j)) == 'b' || Nama(Elmt(R,i,j)) == 'o' || Nama(Elmt(R,i,j)) == 't' || Nama(Elmt(R,i,j)) == 'a' || Nama(Elmt(R,i,j)) == 'k' || Nama(Elmt(R,i,j)) == 'w' || Nama(Elmt(R,i,j)) == 'b'){
 				printf("|   M  |");
 			}else if(Nama(Elmt(R,i,j)) == 'T'){
 				printf("|   T  |");

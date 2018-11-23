@@ -14,7 +14,9 @@ int main() {
 	Ruangan Dapur, Ruang1, Ruang2, Ruang3, CurrentRuangan;
 	int Option; //Menampung pilihan dari user
 	int ruang; //Mencatat nomor ruangan sekarang
+	int noMeja;//Mencatat nomor meja
 	char command[50];
+	char makanan[25];
 	Queue Q;
 	Nampan S;
 
@@ -135,15 +137,15 @@ int main() {
 				else if (strcmp(command,"PLACE") == 0) {
 					/* menempatkan pelanggan pada tempat duduk yang kosong */
 					Pergi(&Q,&pelanggan,2);
-
+					noMeja =1;
 					if(ruang=1)	{
-						SalinPelanggan(&satu[i],pelanggan);
+						SalinPelanggan(&satu[noMeja],pelanggan);
 					}
 					if(ruang=2)	{
-						SalinPelanggan(&dua[i],pelanggan);
+						SalinPelanggan(&dua[noMeja],pelanggan);
 					}
 					if(ruang=3)	{
-						SalinPelanggan(&tiga[i],pelanggan);
+						SalinPelanggan(&tiga[noMeja],pelanggan);
 					}
 
 					Time(P) = NextDetik(Time(P));
@@ -151,8 +153,13 @@ int main() {
 				}
 				else if (strcmp(command,"GIVE") == 0) {
 					/* memberikan makanan yang ada di nampan paling atas */
-					Push (Nampan * S, infotype X);
-					strcpy(InfoTop(*S), X);
+					Push (&S, makanan);
+					if(strcmp(X, Makanan(satu[noMeja]))==0){
+						printf("Makanan yanga anda berikan benar\n");
+					}
+					else	{
+						printf("goblok, makanannya salah\n");
+					}
 
 					Time(P) = NextDetik(Time(P));
 				}

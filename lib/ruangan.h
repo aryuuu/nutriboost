@@ -15,7 +15,7 @@
 
 typedef int indeks; /* indeks baris, kolom */
 
-typedef struct 
+typedef struct
 {
 	char Nama;//nama benda
 	int Kapasitas;//bisa diisi berapa pelanggan
@@ -30,14 +30,9 @@ typedef struct {
 	int NKolEff; /* banyaknya/ukuran kolom yg terdefinisi */
 } Ruangan;
 
-
-
-
 /* NBrsEff <= 1 dan NKolEff <= 1 */
 /* Indeks matriks yang digunakan: [BrsMin..BrsMax][KolMin..KolMax] */
 /* Memori matriks yang dipakai selalu di "ujung kiri atas" */
-
-
 
 /* *** Selektor *** */
 #define NBrsEff(M) (M).NBrsEff
@@ -84,12 +79,12 @@ void BacaRuangan(Ruangan *R, char File[50]);
 //[NamaRuangan] [PanjangRuangan] [LebarRuangan] [NamaObjek,Kapasitas,Fill] ... diakhiri titik
 POINT FindObjek(Ruangan R, char Nama);
 //mengembalikan POINT tempat objek bernama Nama berada di Ruangan R
-//jika ternyata objek tersebut tidak ada mengembalikan POINT dengan 
+//jika ternyata objek tersebut tidak ada mengembalikan POINT dengan
 //absis dan ordinat -999
 
 boolean BisaGerak(Ruangan R, char P, int Arah);
-//mengembalikan nilai true atau false 
-//arah merupakan angka 1, 2, 3, atau 4 yang 
+//mengembalikan nilai true atau false
+//arah merupakan angka 1, 2, 3, atau 4 yang
 //secara berurut merupakan arah atas, kanan, bawah, dan kiri
 //jika Objek bernama P pada Ruangan R bisa bergerak ke arah Arah
 //BisaGerak mengembalikan nilai true dan false jika tidak
@@ -117,7 +112,7 @@ void IsiMeja(Ruangan *R, char Meja, int Pelanggan);
 
 char MejaTerdekat(Ruangan R);
 //mengembalikan nama meja terdekat dengan Player
-//player pasti sedang berada di dekat meja yang terisi 
+//player pasti sedang berada di dekat meja yang terisi
 //player tidak sedang berada di dekat dinding
 
 

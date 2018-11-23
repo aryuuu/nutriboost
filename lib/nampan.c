@@ -1,10 +1,10 @@
 /*	ADT Nampan based from ADT Stack */
-	
+
 #include "nampan.h"
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
-void CreateEmpty (Nampan *S){
+void CreateEmptyNampan (Nampan *S){
 /* I.S. sembarang; */
 /* F.S. Membuat sebuah stack S yang kosong berkapasitas MaxEl */
 /* jadi indeksnya antara 1.. MaxEl+1 karena 0 tidak dipakai */
@@ -13,13 +13,13 @@ void CreateEmpty (Nampan *S){
 }
 
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */
-boolean IsEmpty (Nampan S){
+boolean IsEmptyNampan (Nampan S){
 /* Mengirim true jika Stack kosong: lihat definisi di atas */
 	return Top(S) == Nil;
 }
-boolean IsFull (Nampan S){
+boolean IsFullNampan (Nampan S){
 /* Mengirim true jika tabel penampung nilai elemen stack penuh */
-	return Top(S) == MaxEl;
+	return Top(S) == MaxElNampan;
 }
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
@@ -27,7 +27,7 @@ void Push (Nampan * S, infotype X){
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
-	if(IsEmpty(*S)){
+	if(IsEmptyNampan(*S)){
 		Top(*S) = 1;
 	} else {
 		Top(*S)++;

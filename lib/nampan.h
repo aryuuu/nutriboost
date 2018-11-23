@@ -4,9 +4,10 @@
 
 #include <string.h>
 #include "boolean.h"
+#include "pelanggan.h"
 
 #define Nil 0
-#define MaxEl 5
+#define MaxElNampan 5
 /* Nil adalah stack dengan elemen kosong . */
 /* Karena indeks dalam bhs C dimulai 0 maka tabel dg indeks 0 tidak dipakai */
 
@@ -15,8 +16,8 @@ typedef int address;   /* indeks tabel */
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
 /* Versi I : dengan menyimpan tabel dan alamat top secara eksplisit*/
-typedef struct { 
-	infotype T[MaxEl+1]; /* tabel penyimpan elemen */
+typedef struct {
+	infotype T[MaxElNampan+1]; /* tabel penyimpan elemen */
 	address TOP;  /* alamat TOP: elemen puncak */
 } Nampan;
 /* Definisi stack S kosong : S.TOP = Nil */
@@ -31,16 +32,16 @@ typedef struct {
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
-void CreateEmpty (Nampan *S);
+void CreateEmptyNampan (Nampan *S);
 /* I.S. sembarang; */
 /* F.S. Membuat sebuah stack S yang kosong berkapasitas MaxEl */
 /* jadi indeksnya antara 1.. MaxEl+1 karena 0 tidak dipakai */
 /* Ciri stack kosong : TOP bernilai Nil */
 
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */
-boolean IsEmpty (Nampan S);
+boolean IsEmptyNampan (Nampan S);
 /* Mengirim true jika Stack kosong: lihat definisi di atas */
-boolean IsFull (Nampan S);
+boolean IsFullNampan (Nampan S);
 /* Mengirim true jika tabel penampung nilai elemen stack penuh */
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */

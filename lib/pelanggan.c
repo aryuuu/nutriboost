@@ -27,13 +27,13 @@ int NBElmt (Queue Q)
 }
 
 /* ********* Prototype ********* */
-boolean IsEmpty (Queue Q)
+boolean IsEmptyAntrian (Queue Q)
 /* Mengirim true jika Q kosong*/
 {
   return((Head(Q) == Nil)&&(Tail(Q)==Nil));
 }
 
-boolean IsFull (Queue Q)
+boolean IsFullAntrian (Queue Q)
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxEl */
 {
@@ -58,7 +58,7 @@ void InitPelanggan (Pelanggan *P)
     Jumlah(*P) = 4;
   }
 
-  Sabar(*P) = 3;
+  Sabar(*P) = 30;
   if(random==1)  {
     strcpy(Makanan(*P),"Sadikin");
   }
@@ -90,12 +90,12 @@ void Datang (Queue * Q, Pelanggan X)
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
 {
-  if(IsEmpty(*Q)) {
+  if(IsEmptyAntrian(*Q)) {
     Head(*Q)=1;
     Tail(*Q)=1;
     SalinPelanggan(&InfoTail(*Q),X);
   }
-  else if(!IsFull(*Q)) {
+  else if(!IsFullAntrian(*Q)) {
     Tail(*Q)++;
     SalinPelanggan(&InfoTail(*Q),X);
   }
@@ -109,14 +109,13 @@ void Pergi (Queue * Q, Pelanggan * X,int jumlah)
 {
   boolean Found;
   int i;
-  if(IsEmpty(*Q)) {
+  if(IsEmptyAntrian(*Q)) {
     printf("Antrian kosong\n");
   }
   else  {
     Found = false;
     i = Head(*Q);
     while(!Found && i <= Tail(*Q)) {
-      printf("OI");
       if(Jumlah(InfoQ(*Q,i))==jumlah) {
         Found = true;
       }
@@ -127,7 +126,6 @@ void Pergi (Queue * Q, Pelanggan * X,int jumlah)
     if(Found){
       printf("yes");
     }
-    printf("%d--\n",i);
     if(Found) {
       SalinPelanggan(X,InfoQ(*Q,i));
       if(Head(*Q)==Tail(*Q))  {
@@ -173,7 +171,7 @@ void KurangiKesabaranAntrian (Queue *Q, Player *player)
     KurangiKesabaranPelanggan(&InfoTail(*Q));
 
     pergi=true;
-    while(!IsEmpty(*Q) && pergi)  {
+    while(!IsEmptyAntrian(*Q) && pergi)  {
       if(Sabar(InfoHead(*Q))==0)  {
         SalinPelanggan(&P,InfoHead(*Q));
         if(Head(*Q)==Tail(*Q))  {
@@ -207,7 +205,7 @@ void GeneratePelanggan(Queue *Q)
 
 void PrintPelanggan(Queue Q) {
   printf("Jumlah pelanggan : %d\n",NBElmt(Q));
-  if(!IsEmpty(Q))  {
+  if(!IsEmptyAntrian(Q))  {
     int i=Head(Q);
     int j=1;
     printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");

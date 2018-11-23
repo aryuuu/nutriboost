@@ -43,9 +43,9 @@ void SalinPelanggan(Pelanggan *P1,Pelanggan P2);
 /*Menyalin P2 ke P1*/
 
 /* ********* Prototype ********* */
-boolean IsEmpty (Queue Q);
+boolean IsEmptyPAntrian (Queue Q);
 /* Mengirim true jika Q kosong: lihat definisi di atas */
-boolean IsFull (Queue Q);
+boolean IsFullAntrian (Queue Q);
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxEl */
 

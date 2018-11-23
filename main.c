@@ -4,7 +4,10 @@
 #include "./lib/player.h"
 #include "./lib/ruangan.h"
 #include "./lib/pelanggan.h"
+#include "./lib/nampan.h"
 void PrintJudul(); //print judul nih cuy ada di bawah implementasi
+
+int CharToInt(char c);// Diperlukan buat konversi nama meja ke int
 
 void Keluar(); //Keluar dari CMD
 
@@ -72,6 +75,8 @@ int main() {
 			InitPelanggan(&pelanggan);
 			Datang(&Q,pelanggan);
 
+			/*Inisialisasi Nampan*/
+			CreateEmptyNampan(&S);
 			printf("	>> ");
 			scanf("%s", command);
 			while (strcmp(command,"EXIT") != 0) {
@@ -136,8 +141,11 @@ int main() {
 				}
 				else if (strcmp(command,"PLACE") == 0) {
 					/* menempatkan pelanggan pada tempat duduk yang kosong */
-					Pergi(&Q,&pelanggan,2);
-					noMeja =1;
+					printf("nama meja:%c\n",MejaTerdekat(CurrentRuangan));
+					noMeja = CharToInt(MejaTerdekat(CurrentRuangan));
+					Pergi(&Q,&pelanggan,Kapasitas(Elmt(CurrentRuangan,Absis(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))),Ordinat(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))))));
+
+					printf("nomeja=%d\n",noMeja);
 					if(ruang=1)	{
 						SalinPelanggan(&satu[noMeja],pelanggan);
 					}
@@ -148,17 +156,19 @@ int main() {
 						SalinPelanggan(&tiga[noMeja],pelanggan);
 					}
 
+					printf("Jumlah di meja 1 :%d\n",Jumlah(satu[noMeja]));
+
 					Time(P) = NextDetik(Time(P));
 
 				}
 				else if (strcmp(command,"GIVE") == 0) {
 					/* memberikan makanan yang ada di nampan paling atas */
-					Push (&S, makanan);
-					if(strcmp(X, Makanan(satu[noMeja]))==0){
-						printf("Makanan yanga anda berikan benar\n");
+					Pop(&S, &makanan);
+					if(strcmp(makanan, Makanan(satu[noMeja]))==0){
+						printf("Makanan yang anda berikan benar\n");
 					}
 					else	{
-						printf("goblok, makanannya salah\n");
+						printf("goblog, makanannya salah\n");
 					}
 
 					Time(P) = NextDetik(Time(P));
@@ -202,6 +212,21 @@ void PrintJudul() {
 	printf("========================================================================================================================================================\n");
 	printf("========================================================================================================================================================\n");
 	printf("\n");
+}
+
+int CharToInt(char c)	{
+	if(c=='1')	{
+		return 1;
+	}
+	else if(c=='2')	{
+		return 2;
+	}
+	else if(c=='3')	{
+		return 3;
+	}
+	else if(c=='4')	{
+		return 4;
+	}
 }
 
 void Keluar() {

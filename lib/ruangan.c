@@ -269,15 +269,26 @@ void UsirPelanggan(Ruangan *R, char Meja){
 
 	POINT Posisi = FindObjek(*R, Meja);//catat posisi meja yangi ingin dikosongkan
 
-	for(int i = Absis(Posisi)-1; i <= Absis(Posisi)+1; i++){
-		for(int j = Ordinat(Posisi)-1; j <= Ordinat(Posisi)+1; j++){
-			if(Nama(Elmt(*R,i,j)) == 'K' && Fill(Elmt(*R,i,j))){
-				Fill(Elmt(*R,i,j)) = false;
-			}
-		}
-	}
+	int i = Absis(Posisi);
+	int j = Ordinat(Posisi);
 
-	Fill(Elmt(*R,Absis(Posisi),Ordinat(Posisi))) = false;
+	Fill(Elmt(*R,i-1,j)) = false;
+	Fill(Elmt(*R,i+1,j)) = false;
+	Fill(Elmt(*R,i,j-1)) = false;
+	Fill(Elmt(*R,i,j+1)) = false;
+
+
+	// for(int i = Absis(Posisi)-1; i <= Absis(Posisi)+1; i++){
+	// 	for(int j = Ordinat(Posisi)-1; j <= Ordinat(Posisi)+1; j++){
+	// 		if(Nama(Elmt(*R,i,j)) == 'K' && Fill(Elmt(*R,i,j))){
+	// 			Fill(Elmt(*R,i,j)) = false;
+	// 		}
+	// 	}
+	// }
+
+
+
+	Fill(Elmt(*R,i,j)) = false;
 
 }
 //mengosongkan kursi pelanggan yang sudah selesai makan

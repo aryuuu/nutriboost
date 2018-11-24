@@ -255,7 +255,7 @@ void IsiArrayMejaPelanggan(ArrayMejaPelanggan *M,int noMeja,int noRuangan,Pelang
   int indeks;
   SalinPelanggan(&ArrayMeja(*M,noRuangan,noMeja),P);
   FillArrayMeja(*M,noRuangan,noMeja)=true;
-  Sabar(ArrayMeja(*M,noRuangan,noMeja))=30;
+  Sabar(ArrayMeja(*M,noRuangan,noMeja))=3;
 }
 
 void PrintArrayMejaPelanggan(ArrayMejaPelanggan M)

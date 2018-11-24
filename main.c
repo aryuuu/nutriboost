@@ -10,6 +10,9 @@
 
 void PrintJudul(); //print judul nih cuy ada di bawah implementasi
 
+void KurangiKesabaranArrayMejaPelanggan(ArrayMejaPelanggan *M, Player *player,Ruangan *R1,Ruangan *R2,Ruangan *R3);
+/* Proses: Mengurangi kesabaran pelanggan dalam array pelanggan di meja */
+
 int CharToInt(char c);// Diperlukan buat konversi nama meja ke int
 
 void Keluar(); //Keluar dari CMD
@@ -96,6 +99,7 @@ int main() {
 					if(BisaGerak(CurrentRuangan, 'P', 1)){
 						GerakO(&CurrentRuangan, 'P', 1);
 						KurangiKesabaranAntrian(&Q,&P);
+						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
@@ -138,6 +142,7 @@ int main() {
 					if(BisaGerak(CurrentRuangan, 'P', 2)){
 						GerakO(&CurrentRuangan, 'P', 2);
 						KurangiKesabaranAntrian(&Q,&P);
+						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} 
@@ -181,6 +186,7 @@ int main() {
 					if(BisaGerak(CurrentRuangan, 'P', 3)){
 						GerakO(&CurrentRuangan, 'P', 3);
 						KurangiKesabaranAntrian(&Q,&P);
+						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
@@ -223,6 +229,7 @@ int main() {
 					if(BisaGerak(CurrentRuangan, 'P', 4)){
 						GerakO(&CurrentRuangan, 'P', 4);
 						KurangiKesabaranAntrian(&Q,&P);
+						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
@@ -287,7 +294,7 @@ int main() {
 					}*/
 				}
 				else if (strcmp(command,"TAKE") == 0) {
-					char Bahan; boolean Valid = true; 
+					char Bahan; boolean Valid = true;
 					Bahan = BahanTerdekat(CurrentRuangan);
 					switch (Bahan) {
 						case 'p' : IsiTangan(&P, "Piring");
@@ -340,11 +347,14 @@ int main() {
 				else if (strcmp(command,"PLACE") == 0) {
 					/* menempatkan pelanggan pada tempat duduk yang kosong */
 					if (MejaTerdekat(CurrentRuangan) == '1' | MejaTerdekat(CurrentRuangan) == '2' | MejaTerdekat(CurrentRuangan) == '3' | MejaTerdekat(CurrentRuangan) == '4') {
-						noMeja = CharToInt(MejaTerdekat(CurrentRuangan));					
+						noMeja = CharToInt(MejaTerdekat(CurrentRuangan));
 						Pergi(&Q,&pelanggan,Kapasitas(Elmt(CurrentRuangan,Absis(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))),Ordinat(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))))));
 						IsiMeja(&CurrentRuangan,MejaTerdekat(CurrentRuangan),Jumlah(pelanggan));
-	
+
 						IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
+						printf("--------------------------------\n");
+						PrintArrayMejaPelanggan(Mp);
+						printf("--------------------------------\n");
 						Time(P) = NextDetik(Time(P));
 					}
 					else {
@@ -432,4 +442,41 @@ void Keluar() {
 	printf("	13517104 M. Fikri Hizbullah\n");
 	printf("	13517122 M. Algah Fattah Illahi\n");
 	exit(0);
+}
+
+void KurangiKesabaranArrayMejaPelanggan (ArrayMejaPelanggan *M, Player *player,Ruangan *R1,Ruangan *R2,Ruangan *R3)
+/* Proses: Mengurangi kesabaran pelanggan dalam array pelanggan di meja */
+{
+	int i,r;
+  r=1;
+  while(r<=3){
+    i=1;
+    while(i<=4) {
+      if(FillArrayMeja(*M,r,i))  {
+        KurangiKesabaranPelanggan(&ArrayMeja(*M,r,i));
+        if(Sabar(ArrayMeja(*M,r,i))==0)  {
+					printf("%d %d",r,i);
+          Life(*player)--;
+          FillArrayMeja(*M,r,i)=false;
+          if(r==1)  {
+						printf("iiiii");
+            UsirPelanggan(R1,i);
+          }
+          else if(r==2)  {
+						printf("aaaaa");
+            UsirPelanggan(R2,i);
+          }
+          else if(r==3)  {
+						printf("fddddd");
+            UsirPelanggan(R3,i);
+          }
+					printf("tembus");
+
+        }
+
+      }
+      i=i+1;
+    }
+    r=r+1;
+  }
 }

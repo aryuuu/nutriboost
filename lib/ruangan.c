@@ -368,3 +368,23 @@ char BahanTerdekat(Ruangan R){
 //ketika pemanggilan fungsi player pasti berada di samping bahan
 //player pasti sedang di dapur
 //berarti benda yang berada di samping objek hanya lantai atau bahan
+
+boolean DekatNampan(Ruangan R){
+
+	//simpan posisi player
+	POINT Posisi = FindObjek(R, 'P');
+	int i = Absis(Posisi);
+	int j = Ordinat(Posisi);
+
+	boolean found = false;
+
+	if(Nama(Elmt(R,i-1,j)) == 'T' || Nama(Elmt(R,i+1,j)) == 'T' || Nama(Elmt(R,i,j+1)) == 'T' || Nama(Elmt(R,i,j-1)) == 'T'){
+		found = true;
+	}
+
+	return found;
+
+
+}
+//mengembalikan nilai true jika player berada disebelah nampan
+//dekat berarti berada di kiri, kanan, atas, atau bawah player

@@ -121,6 +121,9 @@ char BahanTerdekat(Ruangan R);
 //player pasti sedang berada di dapur
 //berarti benda yang berada di samping player hanya lantai atau bahan
 
+boolean DekatNampan(Ruangan R);
+//mengembalikan nilai true jika player berada disebelah nampan
+//dekat berarti berada di kiri, kanan, atas, atau bawah player
 
 
 #endif

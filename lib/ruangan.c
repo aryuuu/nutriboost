@@ -288,7 +288,7 @@ void UsirPelanggan(Ruangan *R, char Meja){
 
 
 
-	Fill(Elmt(*R,Absis(Posisi),Ordinat(Posisi))) = false;
+	Fill(Elmt(*R,i,j)) = false;
 
 }
 //mengosongkan kursi pelanggan yang sudah selesai makan

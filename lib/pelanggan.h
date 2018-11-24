@@ -4,8 +4,9 @@
 #include "boolean.h"
 #include "player.h"
 
-#define MaxEl 10
+#define MaxAntrian 10
 #define Nil 0
+#define MaxMeja 12
 
 typedef struct {
 	int ruangan;
@@ -16,12 +17,19 @@ typedef struct {
   boolean layan;
 } Pelanggan;
 
-typedef struct { Pelanggan T[MaxEl+1];   /* tabel penyimpan elemen */
+/* Representasi Queue dengan lokasi Head tetap di-1 */
+typedef struct { Pelanggan T[MaxAntrian+1];   /* tabel penyimpan elemen */
                  int HEAD;  /* alamat penghapusan */
                  int TAIL;  /* alamat penambahan */
                } Queue;
 /* Definisi Queue kosong: HEAD=Nil; TAIL=Nil. */
 /* Catatan implementasi: T[0] tidak pernah dipakai */
+
+/* Array untuk menyimpan pelanggan yang telah duduk di meja dalam suatu ruangan*/
+typedef struct {
+	Pelanggan Mp[MaxMeja+1];
+	boolean Fill[MaxMeja+1];
+} ArrayMejaPelanggan;
 
 /* ********* AKSES (Selektor) ********* */
 /* Jika P adalah Pelanggan, maka akses elemen : */
@@ -38,6 +46,11 @@ typedef struct { Pelanggan T[MaxEl+1];   /* tabel penyimpan elemen */
 #define InfoTail(Q) (Q).T[(Q).TAIL]
 #define InfoQ(Q,i) (Q).T[i]
 
+/* Jika M adalah ArrayMejaPelanggan */
+/* r adalah no ruangan , i adalah no meja*/
+#define ArrayMeja(M,r,i) (M).Mp[(r-1)*4+i]
+#define FillArrayMeja(M,r,i) (M).Fill[(r-1)*4+i]
+
 /* ********* Salin Pelanggan ********* */
 void SalinPelanggan(Pelanggan *P1,Pelanggan P2);
 /*Menyalin P2 ke P1*/
@@ -47,7 +60,7 @@ boolean IsEmptyPAntrian (Queue Q);
 /* Mengirim true jika Q kosong: lihat definisi di atas */
 boolean IsFullAntrian (Queue Q);
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
-/* yaitu mengandung elemen sebanyak MaxEl */
+/* yaitu mengandung elemen sebanyak MaxAntrian */
 
 /* *** Kreator *** */
 void InitPelanggan (Pelanggan *P);
@@ -62,11 +75,11 @@ void InitAntrian (Queue * Q);
 void Datang (Queue * Q, Pelanggan X);
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
-/* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
+/* F.S. X menjadi TAIL yang baru, TAIL "maju" */
 void Pergi (Queue * Q, Pelanggan * X,int jumlah);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
-/* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
+/* F.S. X = nilai elemen HEAD pd I.S., HEAD tetap dan elemen di belakangnya maju ;
         Q mungkin kosong */
 
 void KurangiKesabaranPelanggan (Pelanggan *P);
@@ -83,5 +96,16 @@ void GeneratePelanggan(Queue *Q);
 /*Prosedur menambahkan pelanggan ke dalam secara acak antrian dengan kemungkinan kemunculan pelanggan sebesar 5% */
 
 void PrintPelanggan(Queue Q);
+/* Prosedur print pelanggan di antrian */
+
+/* -------------------- Pelanggan di Meja --------------------- */
+void InitArrayMejaPelanggan(ArrayMejaPelanggan *M);
+/* Inisialisasi array untuk menyimpan pelanggan yang telah duduk */
+
+void IsiArrayMejaPelanggan(ArrayMejaPelanggan *M,int noMeja,int noRuangan,Pelanggan P);
+/* Mengisi array indeks ke-noMeja dengan Pelanggan P, set jadi fill*/
+
+void PrintArrayMejaPelanggan(ArrayMejaPelanggan M);
+/* Print array pelanggan yang duduk di meja */
 
 #endif

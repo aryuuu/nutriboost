@@ -35,9 +35,9 @@ boolean IsEmptyAntrian (Queue Q)
 
 boolean IsFullAntrian (Queue Q)
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
-/* yaitu mengandung elemen sebanyak MaxEl */
+/* yaitu mengandung elemen sebanyak MaxAntrian */
 {
-    return(NBElmt(Q) == MaxEl);
+    return(NBElmt(Q) == MaxAntrian);
 }
 
 /* *** Kreator *** */
@@ -123,9 +123,6 @@ void Pergi (Queue * Q, Pelanggan * X,int jumlah)
         i=i+1;
       }
     }
-    if(Found){
-      printf("yes");
-    }
     if(Found) {
       SalinPelanggan(X,InfoQ(*Q,i));
       if(Head(*Q)==Tail(*Q))  {
@@ -136,7 +133,6 @@ void Pergi (Queue * Q, Pelanggan * X,int jumlah)
         while(i < Tail(*Q))  {
           SalinPelanggan(&InfoQ(*Q,i),InfoQ(*Q,i+1));
           i=i+1;
-          printf("i");
         }
         Tail(*Q)=Tail(*Q)-1;
       }
@@ -165,7 +161,6 @@ void KurangiKesabaranAntrian (Queue *Q, Player *player)
     i=Head(*Q);
     while(i != Tail(*Q))  {
       KurangiKesabaranPelanggan (&(*Q).T[i]);
-      printf("%d",i);
       i=i+1;
     }
     KurangiKesabaranPelanggan(&InfoTail(*Q));
@@ -213,7 +208,7 @@ void PrintPelanggan(Queue Q) {
       printf("Jumlah %d: %d\n",j,Jumlah(Q.T[i]));
       printf("Kesabaran : %d\n\n",Sabar(Q.T[i]));
       j++;
-      if(i==MaxEl) {
+      if(i==MaxAntrian) {
         i=1;
       }
       else
@@ -223,4 +218,50 @@ void PrintPelanggan(Queue Q) {
     printf("Kesabaran : %d\n\n",Sabar(Q.T[i]));
     printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
   }
+}
+
+/* -------------------- Pelanggan di Meja --------------------- */
+void InitArrayMejaPelanggan(ArrayMejaPelanggan *M)
+/* Inisialisasi array untuk menyimpan pelanggan yang telah duduk */
+{
+  int r=1;
+  int i=1;
+  while(r<=3){
+    while(i<=4) {
+      FillArrayMeja(*M,r,i) = false;
+      i=i+1;
+    }
+    r=r+1;
+  }
+}
+
+void IsiArrayMejaPelanggan(ArrayMejaPelanggan *M,int noMeja,int noRuangan,Pelanggan P)
+/* Mengisi array indeks ke-noMeja dengan Pelanggan P*/
+{
+  int indeks;
+  SalinPelanggan(&ArrayMeja(*M,noRuangan,noMeja),P);
+  FillArrayMeja(*M,noRuangan,noMeja)=true;
+  Sabar(ArrayMeja(*M,noRuangan,noMeja))=30;
+}
+
+void PrintArrayMejaPelanggan(ArrayMejaPelanggan M)
+/* Print array pelanggan yang duduk di meja */
+{
+  int r=1;
+  while(r<=3){
+    int i=1;
+    while(i<=4) {
+      if(FillArrayMeja(M,r,i))  {
+        printf("Pelanggan Ruangan-%d Meja-%d : \n",r,i);
+        printf("  >Jumlah =%d\n",Jumlah(ArrayMeja(M,r,i)));
+        printf("  >Kesabaran =%d\n",Sabar(ArrayMeja(M,r,i)));
+      }
+      else  {
+        printf("Pelanggan Ruangan-%d Meja-%d : kosong\n",r,i);
+      }
+      i=i+1;
+    }
+    r=r+1;
+  }
+
 }

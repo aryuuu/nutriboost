@@ -23,9 +23,7 @@ int main() {
 	Queue Q;
 	Nampan S;
 
-	Pelanggan satu[4+1];
-	Pelanggan dua[4+1];
-	Pelanggan tiga[4+1];
+	ArrayMejaPelanggan Mp; // Array yang berisi pelanggan yg duduk di meja
 
 	PrintJudul();
 	printf("	1. NEW GAME\n");
@@ -74,6 +72,9 @@ int main() {
 			Pelanggan pelanggan;
 			InitPelanggan(&pelanggan);
 			Datang(&Q,pelanggan);
+
+			/*Inisialisasi array untuk menyimpan pelanggan yang telah duduk*/
+			InitArrayMejaPelanggan(&Mp);
 
 			/*Inisialisasi Nampan*/
 			CreateEmptyNampan(&S);
@@ -144,7 +145,7 @@ int main() {
 					}*/
 				}
 				else if (strcmp(command,"TAKE") == 0) {
-					char Bahan; boolean Valid = true; 
+					char Bahan; boolean Valid = true;
 					Bahan = BahanTerdekat(CurrentRuangan);
 					switch (Bahan) {
 						case 'p' : IsiTangan(&P, "Piring");
@@ -198,20 +199,15 @@ int main() {
 					/* menempatkan pelanggan pada tempat duduk yang kosong */
 					printf("nama meja:%c\n",MejaTerdekat(CurrentRuangan));
 					noMeja = CharToInt(MejaTerdekat(CurrentRuangan));
+					printf("nomeja=%d\n",noMeja);
+
 					Pergi(&Q,&pelanggan,Kapasitas(Elmt(CurrentRuangan,Absis(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))),Ordinat(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))))));
 					IsiMeja(&CurrentRuangan,MejaTerdekat(CurrentRuangan),Jumlah(pelanggan));
-					printf("nomeja=%d\n",noMeja);
-					if(ruang=1)	{
-						SalinPelanggan(&satu[noMeja],pelanggan);
-					}
-					if(ruang=2)	{
-						SalinPelanggan(&dua[noMeja],pelanggan);
-					}
-					if(ruang=3)	{
-						SalinPelanggan(&tiga[noMeja],pelanggan);
-					}
 
-					printf("Jumlah di meja 1 :%d\n",Jumlah(satu[noMeja]));
+					IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
+					printf("-------------------------------------------------------------\n");
+					PrintArrayMejaPelanggan(Mp);
+					printf("-------------------------------------------------------------\n");
 
 					Time(P) = NextDetik(Time(P));
 
@@ -219,7 +215,8 @@ int main() {
 				else if (strcmp(command,"GIVE") == 0) {
 					/* memberikan makanan yang ada di nampan paling atas */
 					Pop(&S, &makanan);
-					if(strcmp(makanan, Makanan(satu[noMeja]))==0){
+					noMeja = CharToInt(MejaTerdekat(CurrentRuangan));
+					if(strcmp(makanan, Makanan(ArrayMeja(Mp,ruang,noMeja)))==0){
 						printf("Makanan yang anda berikan benar\n");
 					}
 					else {

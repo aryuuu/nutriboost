@@ -121,22 +121,77 @@ int main() {
 					}
 				}
 				else if (strcmp(command,"ORDER") == 0) {
-					/* mengambil orderan makanan dari pelanggan yang sudah ada di tempat duduk */
-
+					/* ALGORITMA ORDER */
+					/* - validasi dulu sudah di dekat pelanggan atau belum */
+					/* - kalau di dekat pelanggan, copy makanan yang ada di pelanggan ke array of Pesanan */
+					/* - kalau tidak di dekat pelanggan, print "	>> Maaf, anda tidak di dekat pelanggan"
+					*/
 				}
 				else if (strcmp(command,"PUT") == 0) {
-					/* menaruh makanan di hand ke nampan */
+					/*KeluarkanMakanan(&P, makanan);
+					if (IsMakananJadi(Recipe)) {
+						if (DekatNampan(CurrentRuangan)) {
+							Push(&S, makanan);
+							Time(P) = NextDetik(Time(P));
+						}
+						else {
+							printf("	>> Maaf, anda tidak disebelah nampan\n" );
+							IsiTangan(&P, makanan);
+						}
+					}
+					else {
+						printf("	>> Maaf, di tangan anda bukan makanan jadi\n");
+					}*/
 				}
 				else if (strcmp(command,"TAKE") == 0) {
-					/* mengambil bahan makanan  atau alat masak di meja */
+					char Bahan; boolean Valid = true; 
+					Bahan = BahanTerdekat(CurrentRuangan);
+					switch (Bahan) {
+						case 'p' : IsiTangan(&P, "Piring");
+									break;
+						case 'S' : IsiTangan(&P, "Sendok");
+									break;
+						case 'g' : IsiTangan(&P, "Garpu");
+									break;
+						case 'e' : IsiTangan(&P, "Es Krim");
+									break;
+						case 'n' : IsiTangan(&P, "Nasi");
+									break;
+						case 'r' : IsiTangan(&P, "Roti");
+									break;
+						case 's' : IsiTangan(&P, "Spaghetti");
+									break;
+						case 'b' : IsiTangan(&P, "Pisang");
+									break;
+						case 'o' : IsiTangan(&P, "Stroberi");
+									break;
+						case 't' : IsiTangan(&P, "Telur");
+									break;
+						case 'a' : IsiTangan(&P, "Ayam goreng");
+									break;
+						case 'k' : IsiTangan(&P, "Patty");
+									break;
+						case 'w' : IsiTangan(&P, "Sosis");
+									break;
+						case 'B' : IsiTangan(&P, "Bolognese");
+									break;
+						case 'c' : IsiTangan(&P, "Carbonara");
+									break;
+						default : printf("	>> Anda tidak sedang di dekat bahan makanan\n");
+									Valid = false;
+					}
+					if (Valid) {
+						Time(P) = NextDetik(Time(P));
+					}
 				}
 				else if (strcmp(command,"CH") == 0) {
 					KosongTangan(&P);
+					printf("	>> Tangan dikosongkan\n");
 					Time(P) = NextDetik(Time(P));
 				}
 				else if (strcmp(command,"CT") == 0) {
-					/* mengosongkan tray/nampan */
-					/* KosongTray(&T); */
+					CreateEmptyNampan(&S);
+					printf("	>> Nampan dikosongkan\n");
 					Time(P) = NextDetik(Time(P));
 				}
 				else if (strcmp(command,"PLACE") == 0) {
@@ -167,7 +222,7 @@ int main() {
 					if(strcmp(makanan, Makanan(satu[noMeja]))==0){
 						printf("Makanan yang anda berikan benar\n");
 					}
-					else	{
+					else {
 						printf("goblog, makanannya salah\n");
 					}
 
@@ -175,7 +230,6 @@ int main() {
 				}
 				else if (strcmp(command,"RECIPE") == 0) {
 					/* menampilkan pohon resep */
-					Time(P) = NextDetik(Time(P));
 				}
 				else if (strcmp(command,"SAVE") == 0) {
 					/* menyimpan suatu permainan */
@@ -188,6 +242,7 @@ int main() {
 				}
 				PrintState(P);
 				PrintPelanggan(Q);
+				CetakTangan(P);
 				printf("Nama ruangan : %s\n", Nama(CurrentRuangan));
 				CetakRuangan(CurrentRuangan);
 				printf("	>> ");

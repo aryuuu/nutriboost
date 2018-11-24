@@ -12,8 +12,9 @@ void InitPlayer(Player *P, char nama[50]) {
 }
 
 void PrintState(Player P) {
-	printf("Name : %s | Money : %d | Life : %d\n", Name(P), Money(P), Life(P));
+	printf("Name : %s | Money : %d | Life : %d | Time : ", Name(P), Money(P), Life(P));
 	TulisJAM(Time(P));printf("\n");
+	printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 }
 
 void Gerak(Player *P, char opsi[50]) {
@@ -52,13 +53,17 @@ void CetakTangan(Player P) {
 	KosongTangan(&temp);
 	char X[50];
 
-	while (TOPTangan(P) != Nil) {
-		KeluarkanMakanan(&P, X);
-		IsiTangan(&temp, X);
-	}
-
-	while (TOPTangan(temp) != Nil) {
-		KeluarkanMakanan(&temp, X);
-		printf("%s\n", X);
+	if (TOPTangan(P) != Nil) {
+		printf("Tangan : \n");
+		while (TOPTangan(P) != Nil) {
+			KeluarkanMakanan(&P, X);
+			IsiTangan(&temp, X);
+		}
+	
+			while (TOPTangan(temp) != Nil) {
+				KeluarkanMakanan(&temp, X);
+				printf("%s\n", X);
+			}
+		printf("++++++++++++++++++++++++++++++++++++\n");
 	}
 }

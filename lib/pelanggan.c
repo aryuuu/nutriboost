@@ -59,17 +59,31 @@ void InitPelanggan (Pelanggan *P)
   }
 
   Sabar(*P) = 30;
-  if(random==1)  {
-    strcpy(Makanan(*P),"Sadikin");
+  random = rand() % 8;
+
+  if(random==0)  {
+    strcpy(Makanan(*P),"Banana Split");
+  }
+  else if(random==1) {
+    strcpy(Makanan(*P),"Sundae");
   }
   else if(random==2) {
-    strcpy(Makanan(*P),"Crisbar");
+    strcpy(Makanan(*P),"Nasi Telur Dadar");
   }
-  else if(random==3) {
-    strcpy(Makanan(*P),"Salman");
+  else if (random==3) {
+    strcpy(Makanan(*P),"Nasi Ayam Goreng");
   }
-  else {
-    strcpy(Makanan(*P),"Ganyang");
+  else if (random==4) {
+    strcpy(Makanan(*P),"Burger");
+  }
+  else if (random==5) {
+    strcpy(Makanan(*P),"Hot Dog");
+  }
+  else if (random==6) {
+    strcpy(Makanan(*P),"Spaghetti Bolognese");
+  }
+  else if (random==7) {
+    strcpy(Makanan(*P),"Spaghetti Carbonara");
   }
 
   Layan(*P) = false;
@@ -112,11 +126,11 @@ void Pergi (Queue * Q, Pelanggan * X,int jumlah)
   if(IsEmptyAntrian(*Q)) {
     printf("Antrian kosong\n");
   }
-  else  {
+  else {
     Found = false;
     i = Head(*Q);
     while(!Found && i <= Tail(*Q)) {
-      if(Jumlah(InfoQ(*Q,i))==jumlah) {
+      if(Jumlah(InfoQ(*Q,i))<=jumlah) {
         Found = true;
       }
       else{
@@ -191,8 +205,8 @@ void GeneratePelanggan(Queue *Q)
 /*Prosedur menambahkan pelanggan ke dalam secara acak antrian dengan kemungkinan kemunculan pelanggan sebesar 5% */
 {
   Pelanggan P;
-  int random = rand() % 20;
-  if(random == 10)  {
+  int random = rand() % 5;
+  if (random == 3)  {
     InitPelanggan(&P);
     Datang(Q,P);
   }

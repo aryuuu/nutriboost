@@ -66,10 +66,6 @@ int main() {
 			CurrentRuangan = Ruang1;
 			ruang = 1;
 
-			PrintState(P);
-			printf("Nama ruangan : %s\n", Nama(CurrentRuangan));
-			CetakRuangan(CurrentRuangan);
-
 			/*Inisialisasi antrian*/
 			InitAntrian(&Q);
 			Pelanggan pelanggan;
@@ -82,6 +78,13 @@ int main() {
 			/*Inisialisasi Nampan*/
 			CreateEmptyNampan(&S);
 
+
+			PrintState(P);
+			PrintPelanggan(Q);
+			CetakTangan(P);
+			PrintPesanan(O);
+			printf("Nama ruangan : %s\n", Nama(CurrentRuangan));
+			CetakRuangan(CurrentRuangan);
 			printf("	>> ");
 			scanf("%s", command);
 			while (strcmp(command,"EXIT") != 0) {
@@ -203,17 +206,17 @@ int main() {
 				}
 				else if (strcmp(command,"PLACE") == 0) {
 					/* menempatkan pelanggan pada tempat duduk yang kosong */
-					noMeja = CharToInt(MejaTerdekat(CurrentRuangan));
-					Pergi(&Q,&pelanggan,Kapasitas(Elmt(CurrentRuangan,Absis(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))),Ordinat(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))))));
-					IsiMeja(&CurrentRuangan,MejaTerdekat(CurrentRuangan),Jumlah(pelanggan));
-
-					IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
-					printf("%s\n",Makanan(pelanggan));
-					printf("-------------------------------------------------------------\n");
-					PrintArrayMejaPelanggan(Mp);
-					printf("-------------------------------------------------------------\n");
-
-					Time(P) = NextDetik(Time(P));
+					if (MejaTerdekat(CurrentRuangan) == '1' | MejaTerdekat(CurrentRuangan) == '2' | MejaTerdekat(CurrentRuangan) == '3' | MejaTerdekat(CurrentRuangan) == '4') {
+						noMeja = CharToInt(MejaTerdekat(CurrentRuangan));					
+						Pergi(&Q,&pelanggan,Kapasitas(Elmt(CurrentRuangan,Absis(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))),Ordinat(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))))));
+						IsiMeja(&CurrentRuangan,MejaTerdekat(CurrentRuangan),Jumlah(pelanggan));
+	
+						IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
+						Time(P) = NextDetik(Time(P));
+					}
+					else {
+						printf("	>> Maaf, anda tidak berada di samping pelanggan\n");
+					}
 				}
 				else if (strcmp(command,"GIVE") == 0) {
 					/* memberikan makanan yang ada di nampan paling atas */

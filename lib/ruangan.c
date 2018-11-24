@@ -343,8 +343,8 @@ char BahanTerdekat(Ruangan R){
 
 	char result;
 
-	i = Absis(Posisi);
-	j = Ordinat(Posisi);
+	int i = Absis(Posisi);
+	int j = Ordinat(Posisi);
 
 	if(Nama(Elmt(R,i-1,j)) != 'L'){
 		result = Nama(Elmt(R,i-1,j));

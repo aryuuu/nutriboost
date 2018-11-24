@@ -60,7 +60,7 @@ void BuatGraph (Graph *G) {
 	Absis(Titik(Point1(Edge(*G,1)))) = 5;
 	Ordinat(Titik(Point1(Edge(*G,1)))) = 8;
 	R(Point2(Edge(*G,1))) = 2;
-	Absis(Titik(Point2(Edge(*G,1)))) = 2;
+	Absis(Titik(Point2(Edge(*G,1)))) = 5;
 	Ordinat(Titik(Point2(Edge(*G,1)))) = 1;
 
 	/* Edge 2 */

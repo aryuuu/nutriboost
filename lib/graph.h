@@ -2,32 +2,39 @@
 #define graph_H
 
 #include "boolean.h"  
+#include "point.h"
 
-#define Nil NULL
+#define Nil 0
 
-typedef int infotype;
-typedef struct tElmtgraph *address;
-typedef struct tElmtgraph { 
-	infotype info;
-	address up;
-	address down;
-	address left;
-	address right;
-} ElmtGraph;
 typedef struct {
-	address First;
+	int ruangan;
+	POINT titik;
+} node;
+
+typedef struct {
+	node P1;
+	node P2;
+} edge;
+
+typedef struct { 
+	node Node[8+1];
+	edge Edge[4+1];
+	int NodeNeff;
 } Graph;
 
 /* Definisi graph : */
-/* Graph kosong : First(G) = Nil */
-/* Setiap elemen dengan address P dapat diacu Info(P), Left(P), Right(P), Up(P), Down(P) */
+/* G = (V,E) : V adalah kumpulan titik, E adalah kumpulan busur */
+/* Graf Kosong : V tidak ada atau kosong */
 
-#define Info(P) (P)->info
-#define Left(P) (P)->left
-#define Right(P) (P)->right
-#define Up(P) (P)->up
-#define Down(P) (P)->down
-#define First(L) (L).First
+/* G adalah Graph, E adalah edge */
+
+#define Node(G, i) (G).Node[i]
+#define Edge(G, i) (G).Edge[i]
+#define Point1(E) (E).P1
+#define Point2(E) (E).P2
+#define R(N) (N).ruangan
+#define Titik(N) (N).titik
+#define NodeNeff(G) (G).NodeNeff
 
 /* PROTOTYPE */
 /****************** TEST GRAPH KOSONG ******************/
@@ -39,15 +46,10 @@ void CreateEmptyGraph (Graph *G);
 /* I.S. sembarang             */
 /* F.S. Terbentuk graph kosong */
 
-/****************** Manajemen Memori ******************/
-address Alokasi (infotype X);
-/* Mengirimkan address hasil alokasi sebuah elemen */
-/* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
-/* menghasilkan P, maka Info(P)=X, Left(P)=Nil, Right(P)=Nil, Up(P)=Nil, Down(P)=Nil */
-/* Jika alokasi gagal, mengirimkan Nil */
-void Dealokasi (address *P);
-/* I.S. P terdefinisi */
-/* F.S. P dikembalikan ke sistem */
-/* Melakukan dealokasi/pengembalian address P */
+void BuatGraph (Graph *G);
+/* I.S sembarag */
+/* F.S Graph jadi seperti yang ada di Spek */
+
+node PindahRuangan (int ruang, int x, int y, Graph G);
 
 #endif

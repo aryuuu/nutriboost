@@ -6,6 +6,7 @@
 #include "./lib/pelanggan.h"
 #include "./lib/nampan.h"
 #include "./lib/pesanan.h"
+#include "./lib/graph.h"
 
 void PrintJudul(); //print judul nih cuy ada di bawah implementasi
 
@@ -25,7 +26,7 @@ int main() {
 	Queue Q;
 	Nampan S;
 	Pesanan O;
-
+	Graph G;
 	ArrayMejaPelanggan Mp;
 
 	PrintJudul();
@@ -78,6 +79,9 @@ int main() {
 			/*Inisialisasi Nampan*/
 			CreateEmptyNampan(&S);
 
+			/*Inisialisasi Graph */
+			BuatGraph(&G);
+
 
 			PrintState(P);
 			PrintPelanggan(Q);
@@ -95,7 +99,39 @@ int main() {
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
-						printf("	>> Ouch! Kejedut gan!\n");
+						POINT T = FindObjek(CurrentRuangan, 'P');
+						node Ti = PindahRuangan(ruang, Absis(T), Ordinat(T), G);
+						if (R(Ti) == 1) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang1; ruang = 1;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 2) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang2; ruang = 2;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 3) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang3; ruang = 3;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 4) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Dapur; ruang = 4;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else {
+							printf("	>> Ouch! Kejedut gan!\n");
+						}
 					}
 				}
 				else if (strcmp(command,"GR") == 0) {
@@ -104,8 +140,41 @@ int main() {
 						KurangiKesabaranAntrian(&Q,&P);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
-					} else {
-						printf("	>> Ouch! Kejedut gan!\n");
+					} 
+					else {
+						POINT T = FindObjek(CurrentRuangan, 'P');
+						node Ti = PindahRuangan(ruang, Absis(T), Ordinat(T), G);
+						if (R(Ti) == 1) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang1; ruang = 1;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 2) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang2; ruang = 2;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 3) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang3; ruang = 3;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 4) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Dapur; ruang = 4;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else {
+							printf("	>> Ouch! Kejedut gan!\n");
+						}
 					}
 				}
 				else if (strcmp(command,"GD") == 0) {
@@ -115,7 +184,39 @@ int main() {
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
-						printf("	>> Ouch! Kejedut gan!\n");
+						POINT T = FindObjek(CurrentRuangan, 'P');
+						node Ti = PindahRuangan(ruang, Absis(T), Ordinat(T), G);
+						if (R(Ti) == 1) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang1; ruang = 1;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 2) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang2; ruang = 2;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 3) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang3; ruang = 3;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 4) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Dapur; ruang = 4;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else {
+							printf("	>> Ouch! Kejedut gan!\n");
+						}
 					}
 				}
 				else if (strcmp(command,"GL") == 0) {
@@ -125,7 +226,39 @@ int main() {
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
-						printf("	>> Ouch! Kejedut gan!\n");
+						POINT T = FindObjek(CurrentRuangan, 'P');
+						node Ti = PindahRuangan(ruang, Absis(T), Ordinat(T), G);
+						if (R(Ti) == 1) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang1; ruang = 1;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 2) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang2; ruang = 2;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 3) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Ruang3; ruang = 3;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else if (R(Ti) == 4) {
+							Objek L = CreateObjek('L', 0, false);
+							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
+							CurrentRuangan = Dapur; ruang = 4;
+							Objek P1 = CreateObjek('P', 1, true);
+							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+						}
+						else {
+							printf("	>> Ouch! Kejedut gan!\n");
+						}
 					}
 				}
 				else if (strcmp(command,"ORDER") == 0) {

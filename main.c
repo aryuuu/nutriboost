@@ -5,6 +5,8 @@
 #include "./lib/ruangan.h"
 #include "./lib/pelanggan.h"
 #include "./lib/nampan.h"
+#include "./lib/pesanan.h"
+
 void PrintJudul(); //print judul nih cuy ada di bawah implementasi
 
 int CharToInt(char c);// Diperlukan buat konversi nama meja ke int
@@ -22,8 +24,9 @@ int main() {
 	char makanan[25];
 	Queue Q;
 	Nampan S;
+	Pesanan O;
 
-	ArrayMejaPelanggan Mp; // Array yang berisi pelanggan yg duduk di meja
+	ArrayMejaPelanggan Mp;
 
 	PrintJudul();
 	printf("	1. NEW GAME\n");
@@ -78,6 +81,7 @@ int main() {
 
 			/*Inisialisasi Nampan*/
 			CreateEmptyNampan(&S);
+
 			printf("	>> ");
 			scanf("%s", command);
 			while (strcmp(command,"EXIT") != 0) {
@@ -122,11 +126,13 @@ int main() {
 					}
 				}
 				else if (strcmp(command,"ORDER") == 0) {
-					/* ALGORITMA ORDER */
-					/* - validasi dulu sudah di dekat pelanggan atau belum */
-					/* - kalau di dekat pelanggan, copy makanan yang ada di pelanggan ke array of Pesanan */
-					/* - kalau tidak di dekat pelanggan, print "	>> Maaf, anda tidak di dekat pelanggan"
-					*/
+					if (MejaTerdekat(CurrentRuangan) == '1' | MejaTerdekat(CurrentRuangan) == '2' | MejaTerdekat(CurrentRuangan) == '3' | MejaTerdekat(CurrentRuangan) == '4') {
+						int nomeja = CharToInt(MejaTerdekat(CurrentRuangan));
+						TambahPesanan(ArrayMeja(Mp,ruang,nomeja), ruang, nomeja, &O);
+					}
+					else {
+						printf("	>> Maaf anda tidak berada di samping pelanggan\n");
+					}
 				}
 				else if (strcmp(command,"PUT") == 0) {
 					/*KeluarkanMakanan(&P, makanan);
@@ -145,7 +151,7 @@ int main() {
 					}*/
 				}
 				else if (strcmp(command,"TAKE") == 0) {
-					char Bahan; boolean Valid = true;
+					char Bahan; boolean Valid = true; 
 					Bahan = BahanTerdekat(CurrentRuangan);
 					switch (Bahan) {
 						case 'p' : IsiTangan(&P, "Piring");
@@ -197,20 +203,17 @@ int main() {
 				}
 				else if (strcmp(command,"PLACE") == 0) {
 					/* menempatkan pelanggan pada tempat duduk yang kosong */
-					printf("nama meja:%c\n",MejaTerdekat(CurrentRuangan));
 					noMeja = CharToInt(MejaTerdekat(CurrentRuangan));
-					printf("nomeja=%d\n",noMeja);
-
 					Pergi(&Q,&pelanggan,Kapasitas(Elmt(CurrentRuangan,Absis(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))),Ordinat(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))))));
 					IsiMeja(&CurrentRuangan,MejaTerdekat(CurrentRuangan),Jumlah(pelanggan));
 
 					IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
+					printf("%s\n",Makanan(pelanggan));
 					printf("-------------------------------------------------------------\n");
 					PrintArrayMejaPelanggan(Mp);
 					printf("-------------------------------------------------------------\n");
 
 					Time(P) = NextDetik(Time(P));
-
 				}
 				else if (strcmp(command,"GIVE") == 0) {
 					/* memberikan makanan yang ada di nampan paling atas */
@@ -240,6 +243,7 @@ int main() {
 				PrintState(P);
 				PrintPelanggan(Q);
 				CetakTangan(P);
+				PrintPesanan(O);
 				printf("Nama ruangan : %s\n", Nama(CurrentRuangan));
 				CetakRuangan(CurrentRuangan);
 				printf("	>> ");

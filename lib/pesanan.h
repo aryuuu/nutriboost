@@ -24,9 +24,9 @@ typedef struct {
 	int Neff;
 } Pesanan;
 
-#define Makanan(P, i) (P).TabPesan[i].makanan
-#define Meja(P, i) (P).TabPesan[i].meja
-#define Ruangan(P, i) (P).TabPesan[i].ruangan
+#define Food(P, i) (P).TabPesan[i].makanan
+#define Table(P, i) (P).TabPesan[i].meja
+#define Ruang(P, i) (P).TabPesan[i].ruangan
 #define Jumlah_Pesan(P, i) (P).TabPesan[i].jumlah
 #define Neff(P) (P).Neff
 
@@ -37,7 +37,7 @@ void MakeEmpty(Pesanan * T);
 boolean PesananKosong(Pesanan T);
 /* Mengirimkan true jika tabel T kosong, mengirimkan false jika tidak */
 
-void TambahPesanan(Pelanggan *P, int NomorMeja, int Ruangan, Pesanan * T);
+void TambahPesanan(Pelanggan P, int NomorMeja, int Ruangan, Pesanan * T);
 /* I.S. P Terdefinisi; Nama Makanan, Jumlah Pelangga */
 /* F.S. Pesanan ditambahkan kedalam array Pesanan */   
 
@@ -59,6 +59,9 @@ void CopyTab (Pesanan Tin, Pesanan * Tout);
 /* I.S. Tin terdefinisi, Tout sembarang */
 /* F.S. Tout berisi salinan dari Tin (elemen dan ukuran identik) */
 /* Proses : Menyalin isi Tin ke Tout */
+
+void CetakPesanan(Pesanan O);
+/* mencetak isi pesanan */
 
 
 #endif

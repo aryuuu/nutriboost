@@ -16,24 +16,27 @@ boolean PesananKosong(Pesanan T)
   return Neff(T) == 0;
 }
 
-void TambahPesanan(Pelanggan *P, int NomorMeja, int Ruangan, Pesanan *T)
-/* I.S. P Terdefinisi; Nama Makanan, Jumlah Pelangga */
+void TambahPesanan(Pelanggan P, int NomorMeja, int Ruang, Pesanan *T)
+/* I.S. P Terdefinisi; Nama Food, Jumlah Pelangga */
 /* F.S. Pesanan ditambahkan kedalam array Pesanan */  
 {
 	Neff(*T)++;
-	strcpy((*P).makanan,Makanan(*T, Neff(*T)));
-	Meja(*T, Neff(*T)) = NomorMeja;
-	Ruangan(*T, Neff(*T)) = Ruangan;
-	Jumlah_Pesan(*T, Neff(*T)) = (*P).jumlah;
+	strcpy(Food(*T, Neff(*T)), Makanan(P));
+	Table(*T, Neff(*T)) = NomorMeja;
+	Ruang(*T, Neff(*T)) = Ruang;
+	Jumlah_Pesan(*T, Neff(*T)) = (P).jumlah;
 }
 
 void PrintPesanan(Pesanan T)
 /* I.s T sudah terdefinisi */
 /* F.s Semua pesanan akan tercetak */
 {
-	for (int i = 1; i <= Neff(T); i++) {
-		printf("%s, %d : Meja %d di Ruang %d\n", Makanan(T,i), Jumlah_Pesan(T,i), Meja(T,i), Ruangan(T,i));
-	}
+    if (T.Neff > 0) {
+        printf("+++++++++++++++++++++++++++++++++++++++++\n");
+	   for (int i = 1; i <= Neff(T); i++) {
+            printf("%s : Meja %d di Ruang %d\n", Food(T,i), Jumlah_Pesan(T,i), Table(T,i), Ruang(T,i));
+	   }
+    }
 
 }
 
@@ -52,11 +55,11 @@ IdxType Search (Pesanan T, char NamaMakanan[50]) {
     }
     else { //array tidak kosong
         i = IdxMin;
-        while ((strcmp(NamaMakanan, Makanan(T, i)) == 0) && (i < Neff(T))) {
+        while ((strcmp(NamaMakanan, Food(T, i)) == 0) && (i < Neff(T))) {
             i++;
         }
 
-        if (strcmp(NamaMakanan, Makanan(T, i)) == 0) {
+        if (strcmp(NamaMakanan, Food(T, i)) == 0) {
             return i;
         }
         else {
@@ -78,16 +81,16 @@ void HapusPesanan(Pesanan *T, IdxType i) {
     IdxType j;
 
     for (j = IdxMin; j < i; j++) {
-        strcpy(Makanan(*T, j), Makanan(TNew, j));
-		Meja(TNew, j) = Meja(*T, j);
-		Ruangan(TNew, j) = Ruangan(*T, j);
+        strcpy(Food(*T, j), Food(TNew, j));
+		Table(TNew, j) = Table(*T, j);
+		Ruang(TNew, j) = Ruang(*T, j);
 		Jumlah_Pesan(TNew, j) = Jumlah_Pesan(*T, j);
     }
 
     for (j = i; j <= Neff(*T); j++) {
-        strcpy(Makanan(*T, j), Makanan(TNew, j+1));
-		Meja(TNew, j) = Meja(*T, j+1);
-		Ruangan(TNew, j) = Ruangan(*T, j+1);
+        strcpy(Food(*T, j), Food(TNew, j+1));
+		Table(TNew, j) = Table(*T, j+1);
+		Ruang(TNew, j) = Ruang(*T, j+1);
 		Jumlah_Pesan(TNew, j) = Jumlah_Pesan(*T, j+1);
     }
 
@@ -105,9 +108,9 @@ void CopyTab (Pesanan Tin, Pesanan * Tout) {
 
     /* ALGORITMA */
     for (i = IdxMin; i <= Neff(Tin); i++) {
-        strcpy(Makanan(Tin, i), Makanan(*Tout, i));
-		Meja(*Tout, i) = Meja(Tin, i);
-		Ruangan(*Tout, i) = Ruangan(Tin, i);
+        strcpy(Food(Tin, i), Food(*Tout, i));
+		Table(*Tout, i) = Table(Tin, i);
+		Ruang(*Tout, i) = Ruang(Tin, i);
 		Jumlah_Pesan(*Tout, i) = Jumlah_Pesan(Tin, i);
     }
     Neff(*Tout) = Neff(Tin);

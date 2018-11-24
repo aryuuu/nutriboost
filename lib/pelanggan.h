@@ -13,7 +13,7 @@ typedef struct {
 	int meja;
 	int jumlah;
 	int sabar;
-  char makanan[50];
+    char makanan[50];
   boolean layan;
 } Pelanggan;
 

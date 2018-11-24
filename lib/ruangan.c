@@ -335,3 +335,36 @@ char MejaTerdekat(Ruangan R){
 //mengembalikan nama meja terdekat dengan Player
 //player pasti sedang berada di dekat meja yang terisi
 //player tidak sedang berada di dekat dinding
+
+char BahanTerdekat(Ruangan R){
+	
+	//menyimpan posisi player di ruangan R
+	POINT Posisi = FindObjek(R, 'P');
+
+	char result;
+
+	i = Absis(Posisi);
+	j = Ordinat(Posisi);
+
+	if(Nama(Elmt(R,i-1,j)) != 'L'){
+		result = Nama(Elmt(R,i-1,j));
+	}
+
+	if(Nama(Elmt(R,i+1,j)) != 'L'){
+		result = Nama(Elmt(R,i-1,j));
+	}
+
+	if(Nama(Elmt(R,i,j+1)) != 'L'){
+		result = Nama(Elmt(R,i-1,j));
+	}
+
+	if(Nama(Elmt(R,i,j-1)) != 'L'){
+		result = Nama(Elmt(R,i-1,j));
+	}
+
+	return result;
+}
+//mengembalikan nama bahan yang tepat berada di samping player
+//ketika pemanggilan fungsi player pasti berada di samping bahan
+//player pasti sedang di dapur
+//berarti benda yang berada di samping objek hanya lantai atau bahan

@@ -115,6 +115,12 @@ char MejaTerdekat(Ruangan R);
 //player pasti sedang berada di dekat meja yang terisi
 //player tidak sedang berada di dekat dinding
 
+char BahanTerdekat(Ruangan R);
+//mengembalikan nama bahan yang tepat berada di samping player
+//ketika pemanggilan fungsi player pasti berada di samping bahan
+//player pasti sedang berada di dapur
+//berarti benda yang berada di samping player hanya lantai atau bahan
+
 
 
 #endif

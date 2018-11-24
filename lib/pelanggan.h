@@ -3,6 +3,7 @@
 
 #include "boolean.h"
 #include "player.h"
+#include "ruangan.h"
 
 #define MaxAntrian 10
 #define Nil 0
@@ -107,5 +108,6 @@ void IsiArrayMejaPelanggan(ArrayMejaPelanggan *M,int noMeja,int noRuangan,Pelang
 
 void PrintArrayMejaPelanggan(ArrayMejaPelanggan M);
 /* Print array pelanggan yang duduk di meja */
+
 
 #endif

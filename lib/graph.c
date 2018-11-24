@@ -30,7 +30,7 @@ void BuatGraph (Graph *G) {
 	Ordinat(Titik(Node(*G,2))) = 5;
 	/* Titik 3 */
 	R(Node(*G,3)) =  2;
-	Absis(Titik(Node(*G,3))) = 2;
+	Absis(Titik(Node(*G,3))) = 5;
 	Ordinat(Titik(Node(*G,3))) = 1;
 	/* Titik 4 */
 	R(Node(*G,4)) =  2;
@@ -42,7 +42,7 @@ void BuatGraph (Graph *G) {
 	Ordinat(Titik(Node(*G,5))) = 5;
 	/* Titik 6 */
 	R(Node(*G,6)) =  3;
-	Absis(Titik(Node(*G,6))) = 2;
+	Absis(Titik(Node(*G,6))) = 5;
 	Ordinat(Titik(Node(*G,6))) = 1;
 	/* Titik 7 */
 	R(Node(*G,7)) =  4;
@@ -73,7 +73,7 @@ void BuatGraph (Graph *G) {
 
 	/* Edge 3 */
 	R(Point1(Edge(*G,3))) = 3;
-	Absis(Titik(Point1(Edge(*G,3)))) = 2;
+	Absis(Titik(Point1(Edge(*G,3)))) = 5;
 	Ordinat(Titik(Point1(Edge(*G,3)))) = 1;
 	R(Point2(Edge(*G,3))) = 4;
 	Absis(Titik(Point2(Edge(*G,3)))) = 5;

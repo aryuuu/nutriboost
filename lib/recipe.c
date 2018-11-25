@@ -1,11 +1,11 @@
 #include "recipe.h"
 #include <stdio.h>
 
-IdxType searchItemId(TabItem items, Item item){
-	IdxType i;
+int searchItemId(TabItem items, Item item){
+	int i;
 	i = 0;
 	while(i < IdxMax){
-		if(strcmp(item, TabItem[i])){
+		if(!strcmp(item, TabItem[i])){
 			break;
 		}
 		i++;
@@ -24,7 +24,7 @@ void lihatResep(BinTree resep, TabItem items, Item makanan){
 		printf("Resep untuk %s\n", makanan);
 		printf("%d. %s\n", i, items[Akar(resep)]);
 		temp = resep;
-		while(!strcmp(items[Akar(temp)], makanan){
+		while(strcmp(items[Akar(temp)], makanan)){
 			if(SearchTree(Left(temp), searchItemId(items, makanan)){
 				temp = Left(temp);
 				printf("%d. %s\n", i, items[Akar(temp)]);

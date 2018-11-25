@@ -15,10 +15,7 @@
 /* Indeks tak terdefinisi*/
 
 typedef char [25] Item;
-typedef struct { 
-	Item TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */
-	int Neff; /* >=0, banyaknya elemen efektif */
-} TabItem;
+typedef Item [IdxMax+1] TabItem;
 typedef char [25] Makanan;
 
 IdxType searchItemId(TabItem items,Item item);

@@ -109,5 +109,9 @@ void IsiArrayMejaPelanggan(ArrayMejaPelanggan *M,int noMeja,int noRuangan,Pelang
 void PrintArrayMejaPelanggan(ArrayMejaPelanggan M);
 /* Print array pelanggan yang duduk di meja */
 
+void KurangiKesabaranArrayMejaPelanggan(ArrayMejaPelanggan *M, Player *player,Ruangan *R1,Ruangan *R2,Ruangan *R3);
+/* Proses: Mengurangi kesabaran pelanggan dalam array pelanggan di meja */
+
+char MejaInttoChar(int i);
 
 #endif

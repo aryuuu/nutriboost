@@ -279,3 +279,51 @@ void PrintArrayMejaPelanggan(ArrayMejaPelanggan M)
   }
 
 }
+
+void KurangiKesabaranArrayMejaPelanggan (ArrayMejaPelanggan *M, Player *player,Ruangan *R1,Ruangan *R2,Ruangan *R3)
+/* Proses: Mengurangi kesabaran pelanggan dalam array pelanggan di meja */
+{
+	int i,r;
+  r=1;
+  while(r<=3){
+    i=1;
+    while(i<=4) {
+      if(FillArrayMeja(*M,r,i))  {
+        KurangiKesabaranPelanggan(&ArrayMeja(*M,r,i));
+        if(Sabar(ArrayMeja(*M,r,i))==0)  {
+
+          Life(*player)--;
+          FillArrayMeja(*M,r,i)=false;
+          if(r==1)  {
+            UsirPelanggan(R1,MejaInttoChar(i));
+          }
+          else if(r==2)  {
+            UsirPelanggan(R2,MejaInttoChar(i));
+          }
+          else if(r==3)  {
+            UsirPelanggan(R3,MejaInttoChar(i));
+          }
+
+        }
+
+      }
+      i=i+1;
+    }
+    r=r+1;
+  }
+}
+
+char MejaInttoChar(int i) {
+  if(i==1)  {
+    return '1';
+  }
+  else if(i==2)  {
+    return '2';
+  }
+  else if(i==3)  {
+    return '3';
+  }
+  else if(i==4)  {
+    return '4';
+  }
+}

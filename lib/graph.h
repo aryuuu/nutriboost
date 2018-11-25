@@ -3,38 +3,16 @@
 
 #include "boolean.h"  
 #include "point.h"
+#include "listrek.h"
 
-#define Nil 0
+#define Nihil NULL
 
-typedef struct {
-	int ruangan;
-	POINT titik;
-} node;
-
-typedef struct {
-	node P1;
-	node P2;
-} edge;
-
-typedef struct { 
-	node Node[8+1];
-	edge Edge[4+1];
-	int NodeNeff;
-} Graph;
+typedef List Graph;
 
 /* Definisi graph : */
 /* G = (V,E) : V adalah kumpulan titik, E adalah kumpulan busur */
 /* Graf Kosong : V tidak ada atau kosong */
-
 /* G adalah Graph, E adalah edge */
-
-#define Node(G, i) (G).Node[i]
-#define Edge(G, i) (G).Edge[i]
-#define Point1(E) (E).P1
-#define Point2(E) (E).P2
-#define R(N) (N).ruangan
-#define Titik(N) (N).titik
-#define NodeNeff(G) (G).NodeNeff
 
 /* PROTOTYPE */
 /****************** TEST GRAPH KOSONG ******************/
@@ -46,10 +24,12 @@ void CreateEmptyGraph (Graph *G);
 /* I.S. sembarang             */
 /* F.S. Terbentuk graph kosong */
 
+address SearchNode(Graph G, int ruangan, int x, int y);
+
 void BuatGraph (Graph *G);
 /* I.S sembarag */
 /* F.S Graph jadi seperti yang ada di Spek */
 
-node PindahRuangan (int ruang, int x, int y, Graph G);
+void PindahRuangan (int *ruang, int *x, int *y, Graph G);
 
 #endif

@@ -4,10 +4,10 @@
 
 /* PROTOTYPE */
 /****************** TEST GRAPH KOSONG ******************/
-boolean IsGraphEmpty (Graph G)
+boolean IsGraphEmpty(Graph G)
 /* Mengirim true jika list kosong */
 {
-	return (NodeNeff(G) == Nil);	
+	return (G == Nihil);	
 }
 
 /****************** PEMBUATAN GRAPH KOSONG ******************/
@@ -15,101 +15,69 @@ void CreateEmptyGraph (Graph *G)
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 {
-	NodeNeff(*G) = Nil;
+	*G = Nihil;
+}
+
+address SearchNode(Graph G, int ruangan, int x, int y) {
+	if (IsGraphEmpty(G)) {
+		return Nihil;
+	}
+	else {
+		if (InfoRuangan(G) == ruangan && InfoAbsis(G) == x && InfoOrdinat(G) == y) {
+			return G;
+		}
+		else {
+			return SearchNode(Next(G), ruangan, x, y);
+		}
+	}
 }
 
 /******************* PEMBUATAN GRAPH ****************************/
 void BuatGraph (Graph *G) {
-	/* Titik 1 */
-	R(Node(*G,1)) =  1;
-	Absis(Titik(Node(*G,1))) = 5;
-	Ordinat(Titik(Node(*G,1))) = 8;
-	/* Titik 2 */
-	R(Node(*G,2)) =  1;
-	Absis(Titik(Node(*G,2))) = 8;
-	Ordinat(Titik(Node(*G,2))) = 5;
-	/* Titik 3 */
-	R(Node(*G,3)) =  2;
-	Absis(Titik(Node(*G,3))) = 5;
-	Ordinat(Titik(Node(*G,3))) = 1;
-	/* Titik 4 */
-	R(Node(*G,4)) =  2;
-	Absis(Titik(Node(*G,4))) = 8;
-	Ordinat(Titik(Node(*G,4))) = 5;
-	/* Titik 5 */
-	R(Node(*G,5)) =  3;
-	Absis(Titik(Node(*G,5))) = 1;
-	Ordinat(Titik(Node(*G,5))) = 5;
-	/* Titik 6 */
-	R(Node(*G,6)) =  3;
-	Absis(Titik(Node(*G,6))) = 5;
-	Ordinat(Titik(Node(*G,6))) = 1;
-	/* Titik 7 */
-	R(Node(*G,7)) =  4;
-	Absis(Titik(Node(*G,7))) = 5;
-	Ordinat(Titik(Node(*G,7))) = 8;
-	/* Titik 8 */
-	R(Node(*G,8)) = 4;
-	Absis(Titik(Node(*G,8))) = 1;
-	Ordinat(Titik(Node(*G,8))) = 5;
+	address P1,P2,P3,P4,P5,P6,P7,P8;
+	/* Pembuatan Titik */
+	P1 = Alokasi(1, 8, 5); //Ruang 1 ke Dapur
+	P2 = Alokasi(1, 5, 8); //Ruang 1 ke Ruang 3
+	P3 = Alokasi(2, 1, 5); //Ruang 2 ke Ruang 3
+	P4 = Alokasi(2, 5, 8); //Ruang 2 ke Ruang 1
+	P5 = Alokasi(3, 5, 1); //Ruang 3 ke Dapur
+	P6 = Alokasi(3, 1, 5); //Ruang 3 ke Ruang 2
+	P7 = Alokasi(4, 5, 1); //Dapur ke Ruang 3
+	P8 = Alokasi(4, 8, 5); //Dapur ke Ruang 1
 
-	NodeNeff(*G) = 8;
+	*G = P1;
+	Next(P1) = P2;
+	Succ(P1) = P3;
 
-	/* Edge 1 */
-	R(Point1(Edge(*G,1))) = 1;
-	Absis(Titik(Point1(Edge(*G,1)))) = 5;
-	Ordinat(Titik(Point1(Edge(*G,1)))) = 8;
-	R(Point2(Edge(*G,1))) = 2;
-	Absis(Titik(Point2(Edge(*G,1)))) = 5;
-	Ordinat(Titik(Point2(Edge(*G,1)))) = 1;
+	Next(P2) = P3;
+	Succ(P2) = P7;
 
-	/* Edge 2 */
-	R(Point1(Edge(*G,2))) = 2;
-	Absis(Titik(Point1(Edge(*G,2)))) = 8;
-	Ordinat(Titik(Point1(Edge(*G,2)))) = 5;
-	R(Point2(Edge(*G,2))) = 3;
-	Absis(Titik(Point2(Edge(*G,2)))) = 1;
-	Ordinat(Titik(Point2(Edge(*G,2)))) = 5;
+	Next(P3) = P4;
+	Succ(P3) = P1;
 
-	/* Edge 3 */
-	R(Point1(Edge(*G,3))) = 3;
-	Absis(Titik(Point1(Edge(*G,3)))) = 5;
-	Ordinat(Titik(Point1(Edge(*G,3)))) = 1;
-	R(Point2(Edge(*G,3))) = 4;
-	Absis(Titik(Point2(Edge(*G,3)))) = 5;
-	Ordinat(Titik(Point2(Edge(*G,3)))) = 8;
+	Next(P4) = P5;
+	Succ(P4) = P5;
 
-	/* Edge 4 */
-	R(Point1(Edge(*G,4))) = 4;
-	Absis(Titik(Point1(Edge(*G,4)))) = 1;
-	Ordinat(Titik(Point1(Edge(*G,4)))) = 5;
-	R(Point2(Edge(*G,4))) = 1;
-	Absis(Titik(Point2(Edge(*G,4)))) = 8;
-	Ordinat(Titik(Point2(Edge(*G,4)))) = 5;
+	Next(P5) = P6;
+	Succ(P5) = P4;
+
+	Next(P6) = P7;
+	Succ(P6) = P8;
+
+	Next(P7) = P8;
+	Succ(P7) = P2;
+
+	Next(P8) = Nihil;
+	Succ(P8) = P6;
 }
 
-node PindahRuangan (int ruang, int x, int y, Graph G) {
-	for (int i = 1; i <= 4; i++) {
-		if (R(Point1(Edge(G,i))) == ruang) {
-			if (Absis(Titik(Point1(Edge(G,i)))) == x) {
-				if (Ordinat(Titik(Point1(Edge(G,i)))) == y) {
-					return Point2(Edge(G,i));
-				}
-			}
-		}
-		else if (R(Point2(Edge(G,i))) == ruang) {
-			if (R(Point2(Edge(G,i))) == ruang) {
-				if (Absis(Titik(Point2(Edge(G,i)))) == x) {
-					if (Ordinat(Titik(Point2(Edge(G,i)))) == y) {
-						return Point1(Edge(G,i));
-					}
-				}
-			}
-		}
+void PindahRuangan (int *ruang, int *x, int *y, Graph G) {
+	if (SearchNode(G,*ruang, *x, *y) != Nihil) {
+		printf("ruang %d x %d y %d\n", *ruang, *x, *y);
+		address P2 = Succ(SearchNode(G,*ruang, *x, *y));
+		*ruang = InfoRuangan(P2);
+		*x = InfoAbsis(P2);
+		*y = InfoOrdinat(P2);
+		printf("ruang %d x %d y %d\n", *ruang, *x, *y);
 	}
-	node PTemp;
-	R(PTemp) = 0;
-	Absis(Titik(PTemp)) = 0;
-	Ordinat(Titik(PTemp)) = 0;
-	return PTemp;
 }

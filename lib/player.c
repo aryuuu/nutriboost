@@ -1,4 +1,5 @@
 #include "player.h"
+#include "bintree.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -34,36 +35,112 @@ void Gerak(Player *P, char opsi[50]) {
 	}
 }
 
-void IsiTangan(Player *P, char Makanan[50]) {
-	TOPTangan(*P)++;
-	strcpy(InfoTOPTangan(*P), Makanan);
+void IsiTangan(Player *P, char Makanan) {
+	if (!TanganPenuh(*P)) {
+		TOPTangan(Tangan(*P))++;
+		InfoTOPTangan(Tangan(*P)) = Makanan;
+	}
 }
 
 void KosongTangan(Player *P) {
-	TOPTangan(*P) = Nil;
+	TOPTangan(Tangan(*P)) = Nil;
 }
 
-void KeluarkanMakanan(Player *P, char Makanan[50]) {
-	strcpy(Makanan,InfoTOPTangan(*P));
-	TOPTangan(*P)--;
+void KeluarkanMakanan(Player *P, char *Makanan) {
+	if (TOPTangan(Tangan(*P)) != Nil) {
+		*Makanan = InfoTOPTangan(Tangan(*P));
+		TOPTangan(Tangan(*P))--;
+	}
+}
+
+boolean TanganPenuh (Player P) {
+	return TOPTangan(Tangan(P)) == MaxEl;
 }
 
 void CetakTangan(Player P) {
 	Player temp;
 	KosongTangan(&temp);
-	char X[50];
+	char X;
+	char Makanan[50];
 
-	if (TOPTangan(P) != Nil) {
+	if (TOPTangan(Tangan(P)) != Nil) {
 		printf("Tangan : \n");
-		while (TOPTangan(P) != Nil) {
-			KeluarkanMakanan(&P, X);
+		while (TOPTangan(Tangan(P)) != Nil) {
+			KeluarkanMakanan(&P, &X);
 			IsiTangan(&temp, X);
 		}
 	
-			while (TOPTangan(temp) != Nil) {
-				KeluarkanMakanan(&temp, X);
-				printf("%s\n", X);
-			}
+		while (TOPTangan(Tangan(temp)) != Nil) {
+			KeluarkanMakanan(&temp, &X);
+			KodeMakanan(X, Makanan);
+			printf("%s\n", Makanan);
+		}
 		printf("++++++++++++++++++++++++++++++++++++\n");
 	}
 }
+
+Hand BalikTangan(Player P) {
+	Player Ptemp;
+	KosongTangan(&Ptemp);
+	char X;
+
+	if (TOPTangan(Tangan(P)) != Nil) {
+		while (TOPTangan(Tangan(P)) != Nil) {
+			KeluarkanMakanan(&P,&X);
+			IsiTangan(&Ptemp, X);
+		}
+	}
+	return Tangan(Ptemp);
+}
+
+void BuatMakanan(Player *P, BinTree Resep) {
+	Hand HAwal = Tangan(*P);
+	Hand H = BalikTangan(*P);
+	Tangan(*P) = H;
+
+	boolean Bisa = true;
+	char MakanHand;
+
+	if (TOPTangan(Tangan(*P)) == Nil) {
+		Tangan(*P) = HAwal; 
+	}
+	else {
+		KeluarkanMakanan(P, &MakanHand);
+		if (Akar(Resep) == MakanHand) {
+			if (TOPTangan(Tangan(*P)) != Nil) {
+				KeluarkanMakanan(P, &MakanHand);
+				while (Bisa && TOPTangan(Tangan(*P)) != Nil) {
+					if (Akar(Left(Resep)) == MakanHand) {
+						Resep = Left(Resep);
+						KeluarkanMakanan(P, &MakanHand);
+					}
+					else if (Akar(Right(Resep)) == MakanHand) {
+						Resep = Right(Resep);
+						KeluarkanMakanan(P, &MakanHand);
+					}
+					else {
+						Bisa = false;
+					}
+				}
+				if (Bisa && IsMakananJadi(Akar(Left(Left(Resep))))) {
+					KosongTangan(P);
+					IsiTangan(P, Akar(Left(Left(Resep))));
+				}
+				else {
+					Tangan(*P) = HAwal;
+				}
+			}
+			else {
+				Tangan(*P) = HAwal;
+			}
+		}
+		else {
+			Tangan(*P) = HAwal;
+		}
+	}
+}
+
+boolean IsMakananJadi(char CC) {
+	return (CC == 'l'|| CC == 'u'|| CC == 'd' || CC == 'G' || CC == 'R' || CC == 'H'|| CC == 'A' || CC == 'T');
+}
+

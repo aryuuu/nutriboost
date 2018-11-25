@@ -73,11 +73,9 @@ void BuatGraph (Graph *G) {
 
 void PindahRuangan (int *ruang, int *x, int *y, Graph G) {
 	if (SearchNode(G,*ruang, *x, *y) != Nihil) {
-		printf("ruang %d x %d y %d\n", *ruang, *x, *y);
 		address P2 = Succ(SearchNode(G,*ruang, *x, *y));
 		*ruang = InfoRuangan(P2);
 		*x = InfoAbsis(P2);
 		*y = InfoOrdinat(P2);
-		printf("ruang %d x %d y %d\n", *ruang, *x, *y);
 	}
 }

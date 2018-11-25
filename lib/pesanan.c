@@ -18,7 +18,7 @@ boolean PesananKosong(Pesanan T)
 
 void TambahPesanan(Pelanggan P, int NomorMeja, int Ruang, Pesanan *T)
 /* I.S. P Terdefinisi; Nama Food, Jumlah Pelangga */
-/* F.S. Pesanan ditambahkan kedalam array Pesanan */
+/* F.S. Pesanan ditambahkan kedalam array Pesanan */  
 {
 	Neff(*T)++;
 	strcpy(Food(*T, Neff(*T)), Makanan(P));
@@ -34,7 +34,7 @@ void PrintPesanan(Pesanan T)
     if (T.Neff > 0) {
         printf("+++++++++++++++++++++++++++++++++++++++++\n");
 	   for (int i = 1; i <= Neff(T); i++) {
-            printf("%s : Meja %d di Ruang %d\n", Food(T,i),  Table(T,i), Ruang(T,i));
+            printf("%s : Meja %d di Ruang %d\n", Food(T,i), Table(T,i), Ruang(T,i));
 	   }
     }
 

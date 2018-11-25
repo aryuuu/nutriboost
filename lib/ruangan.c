@@ -34,7 +34,7 @@ boolean IsIdxEff (Ruangan R, indeks i, indeks j){
 
 void CreateRuangan(Ruangan *R, char N[50], int NB, int NK){
 	int i, j;
-
+	
 	strcpy(NamaR(*R),N);
 	NBrsEff(*R) = NB;
 	NKolEff(*R) = NK;
@@ -73,7 +73,7 @@ Objek CreateObjek(char N, int K, boolean F){
 void CetakRuangan(Ruangan R){
 
 	int i, j;
-	//cetak dinding atas,
+	//cetak dinding atas, 
 	for(i = GetFirstIdxKol(R); i <= GetLastIdxKol(R); i++){
 		printf("========");
 	}
@@ -97,7 +97,7 @@ void CetakRuangan(Ruangan R){
 				printf("|   C  |");//cetak kursi yang ada pelanggannya
 			}else if(Nama(Elmt(R,i,j)) == 'P'){
 				printf("|   P  |");//cetak player
-			}else if(Nama(Elmt(R,i,j)) == 'M'  || Nama(Elmt(R,i,j)) == 'p' || Nama(Elmt(R,i,j)) == 'S' || Nama(Elmt(R,i,j)) == 'g' || Nama(Elmt(R,i,j)) == 'e' || Nama(Elmt(R,i,j)) == 'n' || Nama(Elmt(R,i,j)) == 'r' || Nama(Elmt(R,i,j)) == 's' || Nama(Elmt(R,i,j)) == 'b' || Nama(Elmt(R,i,j)) == 'o' || Nama(Elmt(R,i,j)) == 't' || Nama(Elmt(R,i,j)) == 'a' || Nama(Elmt(R,i,j)) == 'k' || Nama(Elmt(R,i,j)) == 'w' || Nama(Elmt(R,i,j)) == 'b'){
+			}else if(Nama(Elmt(R,i,j)) == 'M'  || Nama(Elmt(R,i,j)) == 'p' || Nama(Elmt(R,i,j)) == 'S' || Nama(Elmt(R,i,j)) == 'g' || Nama(Elmt(R,i,j)) == 'e' || Nama(Elmt(R,i,j)) == 'n' || Nama(Elmt(R,i,j)) == 'r' || Nama(Elmt(R,i,j)) == 's' || Nama(Elmt(R,i,j)) == 'b' || Nama(Elmt(R,i,j)) == 'o' || Nama(Elmt(R,i,j)) == 't' || Nama(Elmt(R,i,j)) == 'a' || Nama(Elmt(R,i,j)) == 'k' || Nama(Elmt(R,i,j)) == 'w' || Nama(Elmt(R,i,j)) == 'B' || Nama(Elmt(R,i,j)) == 'c'){
 				printf("|   M  |");
 			}else if(Nama(Elmt(R,i,j)) == 'T'){
 				printf("|   T  |");
@@ -114,7 +114,7 @@ void CetakRuangan(Ruangan R){
 			printf("========");//sekat pemmbatas antar blok objek
 		}
 		printf("\n");
-
+		
 	}
 
 }
@@ -151,23 +151,23 @@ void BacaRuangan(Ruangan *R, char File[]){
 	CreateRuangan(R,N,panjang,lebar);
 
 	while(CC != MARK){
-
+	
 		//while(CC != NEWLINE){//baca perbaris
 			ADVKATA();
 			namaobj = CKata.TabKata[1];//baca dan assign nama objek
 
 			SalinInt(&kap);//baca dan assign kapasitas objek
-
+	
 
 			SalinInt(&f);//baca dan salin fill
 			fill = (f==1?true:false);
-
+	
 
 			SalinInt(&x);//baca dan assign absis posisi objek
-
+	
 
 			SalinInt(&y);//baca dan assign ordinat posisi objek
-
+	
 
 			bende = CreateObjek(namaobj,kap,fill);//bikin objek baru
 			SetObjek(R,bende,x,y);//letakkan objek di ruangan
@@ -201,12 +201,12 @@ POINT FindObjek(Ruangan R, char Nama){
 	} else {//objeknya ga ketemu
 		result = MakePOINT(-999,-999);
 	}
-
+	
 
 	return result;
 }
 //mengembalikan POINT tempat objek bernama Nama berada di Ruangan R
-//jika ternyata objek tersebut tidak ada mengembalikan POINT dengan
+//jika ternyata objek tersebut tidak ada mengembalikan POINT dengan 
 //absis dan ordinat -999
 
 
@@ -228,8 +228,8 @@ boolean BisaGerak(Ruangan R, char P, int Arah){
 
 
 }
-//mengembalikan nilai true atau false
-//arah merupakan angka 1, 2, 3, atau 4 yang
+//mengembalikan nilai true atau false 
+//arah merupakan angka 1, 2, 3, atau 4 yang 
 //secara berurut merupakan arah atas, kanan, bawah, dan kiri
 //jika Objek bernama P pada Ruangan R bisa bergerak ke arah Arah
 //BisaGerak mengembalikan nilai true dan false jika tidak
@@ -255,10 +255,6 @@ void GerakO(Ruangan *R, char P, int Arah){
 	SetObjek(R, Pl, Absis(dest), Ordinat(dest));//set P di dest
 	SetObjek(R, L, Absis(sauce), Ordinat(sauce));//sauce dijadiin lantai lagi
 
-
-
-
-
 }
 //menggerakkan Objek bernama P di Ruangan R ke arah Arah
 //dimana Arah merupakan bilangan 1, 2, 3, atau 4
@@ -267,29 +263,17 @@ void GerakO(Ruangan *R, char P, int Arah){
 
 void UsirPelanggan(Ruangan *R, char Meja){
 
-	POINT Posisi = MakePOINT(Absis(FindObjek(*R, Meja)),Ordinat(FindObjek(*R, Meja)));//catat posisi meja yangi ingin dikosongkan
+	POINT Posisi = FindObjek(*R, Meja);//catat posisi meja yangi ingin dikosongkan
 
-	int i = Absis(Posisi);
-	int j = Ordinat(Posisi);
-	printf("i=%d j=%d",i,j);
+	for(int i = Absis(Posisi)-1; i <= Absis(Posisi)+1; i++){
+		for(int j = Ordinat(Posisi)-1; j <= Ordinat(Posisi)+1; j++){
+			if(Nama(Elmt(*R,i,j)) == 'K' && Fill(Elmt(*R,i,j))){
+				Fill(Elmt(*R,i,j)) = false;
+			}
+		}
+	}
 
-	Fill(Elmt(*R,i-1,j)) = false;
-	Fill(Elmt(*R,i+1,j)) = false;
-	Fill(Elmt(*R,i,j-1)) = false;
-	Fill(Elmt(*R,i,j+1)) = false;
-
-
-	// for(int i = Absis(Posisi)-1; i <= Absis(Posisi)+1; i++){
-	// 	for(int j = Ordinat(Posisi)-1; j <= Ordinat(Posisi)+1; j++){
-	// 		if(Nama(Elmt(*R,i,j)) == 'K' && Fill(Elmt(*R,i,j))){
-	// 			Fill(Elmt(*R,i,j)) = false;
-	// 		}
-	// 	}
-	// }
-
-
-
-	Fill(Elmt(*R,i,j)) = false;
+	Fill(Elmt(*R,Absis(Posisi),Ordinat(Posisi))) = false;
 
 }
 //mengosongkan kursi pelanggan yang sudah selesai makan
@@ -300,7 +284,7 @@ void IsiMeja(Ruangan *R, char Meja, int Pelanggan){
 	//catat posisi meja
 	POINT Posisi = FindObjek(*R, Meja);
 
-	//mengisi dua meja pertama
+	//mengisi dua meja pertama 
 	Fill(Elmt(*R,Absis(Posisi),Ordinat(Posisi)-1)) = true;
 	Fill(Elmt(*R,Absis(Posisi),Ordinat(Posisi)+1)) = true;
 
@@ -349,7 +333,7 @@ char MejaTerdekat(Ruangan R){
 //player tidak sedang berada di dekat dinding
 
 char BahanTerdekat(Ruangan R){
-
+	
 	//menyimpan posisi player di ruangan R
 	POINT Posisi = FindObjek(R, 'P');
 

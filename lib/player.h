@@ -3,12 +3,13 @@
 
 #include "jam.h"
 #include "point.h"
+#include "bintree.h"
 
 #define Nil 0
 #define MaxEl 10
 
 typedef struct { 
-	char T[MaxEl+1][50]; /* tabel penyimpan elemen */
+	char T[MaxEl+1]; /* tabel penyimpan elemen */
 	int TOP;  /* alamat TOP: elemen puncak */
 } Hand;
 
@@ -29,8 +30,9 @@ typedef struct {
 #define Posisi(P) (P).posisi
 #define Ruangan(P) (P).ruangan
 #define Tangan(P) (P).tangan
-#define TOPTangan(P) (P).tangan.TOP
-#define InfoTOPTangan(P) (P).tangan.T[(P).tangan.TOP]
+
+#define TOPTangan(H) (H).TOP
+#define InfoTOPTangan(H) (H).T[(H).TOP]
 
 void InitPlayer(Player *P, char nama[50]);
 /* I.S Player sembarang */
@@ -44,7 +46,9 @@ void Gerak(Player *P, char opsi[50]);
 /* I.S Posisi Player terdefinisi */
 /* F.S Posisi berubah sesuai kemauan : GU keatas, GD kebawah, GL kekiri, GR kekanan */
 
-void IsiTangan(Player *P, char Makanan[50]);
+boolean TanganPenuh (Player P);
+
+void IsiTangan(Player *P, char Makanan);
 /* I.S Tangan bisa kosong */
 /* F.S Tangan diisikan Makanan */
 
@@ -52,10 +56,16 @@ void KosongTangan(Player *P);
 /* I.S Tangan terdefinisi bisa kosong bisa tidak */
 /* F.S Kosongkan tangan */
 
-void KeluarkanMakanan(Player *P, char Makanan[50]);
+void KeluarkanMakanan(Player *P, char * Makanan);
 
 void CetakTangan(Player P);
 /* Mencetak semua apa yang ada di Tangan */
+
+Hand BalikTangan(Player P);
+
+void BuatMakanan(Player *P, BinTree Resep);
+
+boolean IsMakananJadi (char CC);
 
 #endif
 

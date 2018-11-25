@@ -205,10 +205,12 @@ void GeneratePelanggan(Queue *Q)
 /*Prosedur menambahkan pelanggan ke dalam secara acak antrian dengan kemungkinan kemunculan pelanggan sebesar 5% */
 {
   Pelanggan P;
-  int random = rand() % 5;
-  if (random == 3)  {
-    InitPelanggan(&P);
-    Datang(Q,P);
+  if (!IsFullAntrian(*Q)) {
+    int random = rand() % 5;
+    if (random == 3)  {
+      InitPelanggan(&P);
+      Datang(Q,P);
+    }
   }
 }
 

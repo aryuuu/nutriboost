@@ -1,6 +1,7 @@
 /*	ADT Nampan based from ADT Stack */
 
 #include "nampan.h"
+#include <stdio.h>
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
@@ -45,5 +46,17 @@ void Pop (Nampan * S, infotype* X){
 		Top(*S) = Nil;
 	} else {
 		Top(*S)--;
+	}
+}
+
+void CetakNampan (Nampan S) {
+	char Makanan[25];
+
+	if (Top(S) != Nil) {
+		printf("Nampan : \n");
+		while (Top(S) != Nil) {
+			Pop(&S, &Makanan);
+			printf("- %s\n", Makanan);
+		}
 	}
 }

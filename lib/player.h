@@ -7,11 +7,9 @@
 #define Nil 0
 #define MaxEl 10
 
-typedef int address;
-
 typedef struct { 
 	char T[MaxEl+1][50]; /* tabel penyimpan elemen */
-	address TOP;  /* alamat TOP: elemen puncak */
+	int TOP;  /* alamat TOP: elemen puncak */
 } Hand;
 
 typedef struct {

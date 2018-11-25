@@ -82,6 +82,7 @@ int main() {
 			/*Inisialisasi Graph */
 			BuatGraph(&G);
 
+
 			PrintState(P);
 			PrintPelanggan(Q);
 			CetakTangan(P);
@@ -93,174 +94,192 @@ int main() {
 			while (strcmp(command,"EXIT") != 0) {
 				if (strcmp(command,"GU") == 0) {
 					if(BisaGerak(CurrentRuangan, 'P', 1)){
-						GerakO(&CurrentRuangan, 'P', 1);
+						switch (ruang) {
+							case 1 : GerakO(&Ruang1, 'P', 1); CurrentRuangan = Ruang1; break;
+							case 2 : GerakO(&Ruang2, 'P', 1); CurrentRuangan = Ruang2;break;
+							case 3 : GerakO(&Ruang3, 'P', 1); CurrentRuangan = Ruang3;break;
+							case 4 : GerakO(&Dapur, 'P', 1); CurrentRuangan = Dapur; break;
+						}
 						KurangiKesabaranAntrian(&Q,&P);
-						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
-					} else {
-						POINT T = FindObjek(CurrentRuangan, 'P');
-						node Ti = PindahRuangan(ruang, Absis(T), Ordinat(T), G);
-						if (R(Ti) == 1) {
+					}
+					else {
+						POINT LokasiP = FindObjek(CurrentRuangan,'P'); int x = Ordinat(LokasiP); int y = Absis(LokasiP);
+						if (SearchNode(G,ruang,x,y) != Nihil) {
 							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang1; ruang = 1;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 2) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang2; ruang = 2;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 3) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang3; ruang = 3;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 4) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Dapur; ruang = 4;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+							switch(ruang) {
+								case 1 : SetObjek(&Ruang1, L, y, x);
+										break;
+								case 2 : SetObjek(&Ruang2, L, y, x);
+										break;
+								case 3 : SetObjek(&Ruang3, L, y, x);
+										break;
+								case 4 : SetObjek(&Dapur, L, y, x);
+										break;
+							}
+							PindahRuangan(&ruang, &x, &y, G);
+							Objek PNew = CreateObjek('P', 1, true);
+							switch (ruang) {
+								case 1 : SetObjek(&Ruang1, PNew, y, x);
+										CurrentRuangan = Ruang1;
+										break;
+								case 2 : SetObjek(&Ruang2, PNew, y, x);
+										CurrentRuangan = Ruang2;
+										break;
+								case 3 : SetObjek(&Ruang3, PNew, y, x);
+										CurrentRuangan = Ruang3;
+										break;
+								case 4 : SetObjek(&Dapur, PNew, y, x);
+										CurrentRuangan = Dapur;
+										break;
+							}
 						}
 						else {
-							printf("	>> Ouch! Kejedut gan!\n");
+							printf("	>>Ouch Kejedut gan!\n");	
 						}
 					}
 				}
 				else if (strcmp(command,"GR") == 0) {
 					if(BisaGerak(CurrentRuangan, 'P', 2)){
-						GerakO(&CurrentRuangan, 'P', 2);
+						switch (ruang) {
+							case 1 : GerakO(&Ruang1, 'P', 2); CurrentRuangan = Ruang1; break;
+							case 2 : GerakO(&Ruang2, 'P', 2); CurrentRuangan = Ruang2; break;
+							case 3 : GerakO(&Ruang3, 'P', 2);  CurrentRuangan = Ruang3;break;
+							case 4 : GerakO(&Dapur, 'P', 2);  CurrentRuangan = Dapur; break;
+						}
 						KurangiKesabaranAntrian(&Q,&P);
-						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
-					}
+					} 
 					else {
-						POINT T = FindObjek(CurrentRuangan, 'P');
-						node Ti = PindahRuangan(ruang, Absis(T), Ordinat(T), G);
-						if (R(Ti) == 1) {
+						POINT LokasiP = FindObjek(CurrentRuangan,'P'); int x = Ordinat(LokasiP); int y = Absis(LokasiP);
+						if (SearchNode(G,ruang,x,y) != Nihil) {
 							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang1; ruang = 1;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 2) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang2; ruang = 2;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 3) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang3; ruang = 3;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 4) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Dapur; ruang = 4;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+							switch(ruang) {
+								case 1 : SetObjek(&Ruang1, L, y, x);
+										break;
+								case 2 : SetObjek(&Ruang2, L, y, x);
+										break;
+								case 3 : SetObjek(&Ruang3, L, y, x);
+										break;
+								case 4 : SetObjek(&Dapur, L, y, x);
+										break;
+							}
+							PindahRuangan(&ruang, &x, &y, G);
+							Objek PNew = CreateObjek('P', 1, true);
+							switch (ruang) {
+								case 1 : SetObjek(&Ruang1, PNew, y, x);
+										CurrentRuangan = Ruang1;
+										break;
+								case 2 : SetObjek(&Ruang2, PNew, y, x);
+										CurrentRuangan = Ruang2;
+										break;
+								case 3 : SetObjek(&Ruang3, PNew, y, x);
+										CurrentRuangan = Ruang3;
+										break;
+								case 4 : SetObjek(&Dapur, PNew, y, x);
+										CurrentRuangan = Dapur;
+										break;
+							}
 						}
 						else {
-							printf("	>> Ouch! Kejedut gan!\n");
+							printf("	>>Ouch Kejedut gan!\n");	
 						}
 					}
 				}
 				else if (strcmp(command,"GD") == 0) {
 					if(BisaGerak(CurrentRuangan, 'P', 3)){
-						GerakO(&CurrentRuangan, 'P', 3);
+						switch (ruang) {
+							case 1 : GerakO(&Ruang1, 'P', 3); CurrentRuangan = Ruang1; break;
+							case 2 : GerakO(&Ruang2, 'P', 3); CurrentRuangan = Ruang2; break;
+							case 3 : GerakO(&Ruang3, 'P', 3); CurrentRuangan = Ruang3; break;
+							case 4 : GerakO(&Dapur, 'P', 3); CurrentRuangan = Dapur; break;
+						}
 						KurangiKesabaranAntrian(&Q,&P);
-						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
-					} else {
-						POINT T = FindObjek(CurrentRuangan, 'P');
-						node Ti = PindahRuangan(ruang, Absis(T), Ordinat(T), G);
-						if (R(Ti) == 1) {
+					} 
+					else {
+						POINT LokasiP = FindObjek(CurrentRuangan,'P'); int x = Ordinat(LokasiP); int y = Absis(LokasiP);
+						if (SearchNode(G,ruang,x,y) != Nihil) {
 							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang1; ruang = 1;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 2) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang2; ruang = 2;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 3) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang3; ruang = 3;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 4) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Dapur; ruang = 4;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+							switch(ruang) {
+								case 1 : SetObjek(&Ruang1, L, y, x);
+										break;
+								case 2 : SetObjek(&Ruang2, L, y, x);
+										break;
+								case 3 : SetObjek(&Ruang3, L, y, x);
+										break;
+								case 4 : SetObjek(&Dapur, L, y, x);
+										break;
+							}
+							PindahRuangan(&ruang, &x, &y, G);
+							Objek PNew = CreateObjek('P', 1, true);
+							switch (ruang) {
+								case 1 : SetObjek(&Ruang1, PNew, y, x);
+										CurrentRuangan = Ruang1;
+										break;
+								case 2 : SetObjek(&Ruang2, PNew, y, x);
+										CurrentRuangan = Ruang2;
+										break;
+								case 3 : SetObjek(&Ruang3, PNew, y, x);
+										CurrentRuangan = Ruang3;
+										break;
+								case 4 : SetObjek(&Dapur, PNew, y, x);
+										CurrentRuangan = Dapur;
+										break;
+							}
 						}
 						else {
-							printf("	>> Ouch! Kejedut gan!\n");
+							printf("	>>Ouch Kejedut gan!\n");	
 						}
 					}
 				}
 				else if (strcmp(command,"GL") == 0) {
 					if(BisaGerak(CurrentRuangan, 'P', 4)){
-						GerakO(&CurrentRuangan, 'P', 4);
+						switch (ruang) {
+							case 1 : GerakO(&Ruang1, 'P', 4); CurrentRuangan = Ruang1; break;
+							case 2 : GerakO(&Ruang2, 'P', 4); CurrentRuangan = Ruang2; break;
+							case 3 : GerakO(&Ruang3, 'P', 4); CurrentRuangan = Ruang3; break;
+							case 4 : GerakO(&Dapur, 'P', 4); CurrentRuangan = Dapur; break;
+						}
 						KurangiKesabaranAntrian(&Q,&P);
-						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
-						POINT T = FindObjek(CurrentRuangan, 'P');
-						node Ti = PindahRuangan(ruang, Absis(T), Ordinat(T), G);
-						if (R(Ti) == 1) {
+						POINT LokasiP = FindObjek(CurrentRuangan,'P'); int x = Ordinat(LokasiP); int y = Absis(LokasiP);
+						if (SearchNode(G,ruang,x,y) != Nihil) {
 							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang1; ruang = 1;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 2) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang2; ruang = 2;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 3) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Ruang3; ruang = 3;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
-						}
-						else if (R(Ti) == 4) {
-							Objek L = CreateObjek('L', 0, false);
-							SetObjek(&CurrentRuangan, L, Absis(T), Ordinat(T));
-							CurrentRuangan = Dapur; ruang = 4;
-							Objek P1 = CreateObjek('P', 1, true);
-							SetObjek(&CurrentRuangan, P1, Absis(Titik(Ti)), Ordinat(Titik(Ti)));
+							switch(ruang) {
+								case 1 : SetObjek(&Ruang1, L, y, x);
+										break;
+								case 2 : SetObjek(&Ruang2, L, y, x);
+										break;
+								case 3 : SetObjek(&Ruang3, L, y, x);
+										break;
+								case 4 : SetObjek(&Dapur, L, y, x);
+										break;
+							}
+							PindahRuangan(&ruang, &x, &y, G);
+							Objek PNew = CreateObjek('P', 1, true);
+							switch (ruang) {
+								case 1 : SetObjek(&Ruang1, PNew, y, x);
+										CurrentRuangan = Ruang1;
+										break;
+								case 2 : SetObjek(&Ruang2, PNew, y, x);
+										CurrentRuangan = Ruang2;
+										break;
+								case 3 : SetObjek(&Ruang3, PNew, y, x);
+										CurrentRuangan = Ruang3;
+										break;
+								case 4 : SetObjek(&Dapur, PNew, y, x);
+										CurrentRuangan = Dapur;
+										break;
+							}
 						}
 						else {
-							printf("	>> Ouch! Kejedut gan!\n");
+							printf("	>>Ouch Kejedut gan!\n");	
 						}
 					}
 				}
@@ -290,7 +309,7 @@ int main() {
 					}*/
 				}
 				else if (strcmp(command,"TAKE") == 0) {
-					char Bahan; boolean Valid = true;
+					char Bahan; boolean Valid = true; 
 					Bahan = BahanTerdekat(CurrentRuangan);
 					switch (Bahan) {
 						case 'p' : IsiTangan(&P, "Piring");
@@ -343,14 +362,11 @@ int main() {
 				else if (strcmp(command,"PLACE") == 0) {
 					/* menempatkan pelanggan pada tempat duduk yang kosong */
 					if (MejaTerdekat(CurrentRuangan) == '1' | MejaTerdekat(CurrentRuangan) == '2' | MejaTerdekat(CurrentRuangan) == '3' | MejaTerdekat(CurrentRuangan) == '4') {
-						noMeja = CharToInt(MejaTerdekat(CurrentRuangan));
+						noMeja = CharToInt(MejaTerdekat(CurrentRuangan));					
 						Pergi(&Q,&pelanggan,Kapasitas(Elmt(CurrentRuangan,Absis(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))),Ordinat(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))))));
 						IsiMeja(&CurrentRuangan,MejaTerdekat(CurrentRuangan),Jumlah(pelanggan));
-
+	
 						IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
-						printf("--------------------------------\n");
-						PrintArrayMejaPelanggan(Mp);
-						printf("--------------------------------\n");
 						Time(P) = NextDetik(Time(P));
 					}
 					else {

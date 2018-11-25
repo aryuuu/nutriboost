@@ -146,7 +146,7 @@ int main() {
 							Time(P) = NextDetik(Time(P));
 						}
 						else {
-							printf("	>>Ouch Kejedut gan!\n");	
+							printf("	>>Ouch Kejedut gan!\n");
 						}
 					}
 				}
@@ -162,7 +162,7 @@ int main() {
 						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
-					} 
+					}
 					else {
 						POINT LokasiP = FindObjek(CurrentRuangan,'P'); int x = Ordinat(LokasiP); int y = Absis(LokasiP);
 						if (SearchNode(G,ruang,x,y) != Nihil) {
@@ -199,7 +199,7 @@ int main() {
 							Time(P) = NextDetik(Time(P));
 						}
 						else {
-							printf("	>>Ouch Kejedut gan!\n");	
+							printf("	>>Ouch Kejedut gan!\n");
 						}
 					}
 				}
@@ -215,7 +215,7 @@ int main() {
 						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
-					} 
+					}
 					else {
 						POINT LokasiP = FindObjek(CurrentRuangan,'P'); int x = Ordinat(LokasiP); int y = Absis(LokasiP);
 						if (SearchNode(G,ruang,x,y) != Nihil) {
@@ -252,7 +252,7 @@ int main() {
 							Time(P) = NextDetik(Time(P));
 						}
 						else {
-							printf("	>>Ouch Kejedut gan!\n");	
+							printf("	>>Ouch Kejedut gan!\n");
 						}
 					}
 				}
@@ -304,7 +304,7 @@ int main() {
 							Time(P) = NextDetik(Time(P));
 						}
 						else {
-							printf("	>>Ouch Kejedut gan!\n");	
+							printf("	>>Ouch Kejedut gan!\n");
 						}
 					}
 				}
@@ -336,7 +336,7 @@ int main() {
 					}
 				}
 				else if (strcmp(command,"TAKE") == 0) {
-					char Bahan; boolean Valid = true; 
+					char Bahan; boolean Valid = true;
 					Bahan = BahanTerdekat(CurrentRuangan);
 					switch (Bahan) {
 						case 'p' : IsiTangan(&P,'p');
@@ -373,6 +373,9 @@ int main() {
 									Valid = false;
 					}
 					if (Valid && MakananHampirJadi(Bahan)) {
+						KurangiKesabaranAntrian(&Q,&P);
+						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 						BuatMakanan(&P, Resep);
 					}
@@ -380,22 +383,31 @@ int main() {
 				else if (strcmp(command,"CH") == 0) {
 					KosongTangan(&P);
 					printf("	>> Tangan dikosongkan\n");
+					KurangiKesabaranAntrian(&Q,&P);
+					KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+					GeneratePelanggan(&Q);
 					Time(P) = NextDetik(Time(P));
 				}
 				else if (strcmp(command,"CT") == 0) {
 					CreateEmptyNampan(&S);
 					printf("	>> Nampan dikosongkan\n");
+					KurangiKesabaranAntrian(&Q,&P);
+					KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+					GeneratePelanggan(&Q);
 					Time(P) = NextDetik(Time(P));
 				}
 				else if (strcmp(command,"PLACE") == 0) {
 					/* menempatkan pelanggan pada tempat duduk yang kosong */
-					if (ruang == 1) { 
+					if (ruang == 1) {
 							if (MejaTerdekat(Ruang1) == '1' || MejaTerdekat(Ruang1) == '2' || MejaTerdekat(Ruang1) == '3' || MejaTerdekat(Ruang1) == '4') {
-								noMeja = CharToInt(MejaTerdekat(Ruang1));					
+								noMeja = CharToInt(MejaTerdekat(Ruang1));
 								Pergi(&Q,&pelanggan,Kapasitas(Elmt(Ruang1,Absis(FindObjek(Ruang1,MejaTerdekat(Ruang1))),Ordinat(FindObjek(Ruang1,MejaTerdekat(Ruang1))))));
 								IsiMeja(&Ruang1,MejaTerdekat(Ruang1),Jumlah(pelanggan));
-	
+
 								IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
+								KurangiKesabaranAntrian(&Q,&P);
+								KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+								GeneratePelanggan(&Q);
 								Time(P) = NextDetik(Time(P));
 								CurrentRuangan = Ruang1;
 							}
@@ -405,11 +417,14 @@ int main() {
 					}
 					else if (ruang == 2) {
 						if (MejaTerdekat(Ruang2) == '1' || MejaTerdekat(Ruang2) == '2' || MejaTerdekat(Ruang2) == '3' || MejaTerdekat(Ruang2) == '4') {
-							noMeja = CharToInt(MejaTerdekat(Ruang2));					
+							noMeja = CharToInt(MejaTerdekat(Ruang2));
 							Pergi(&Q,&pelanggan,Kapasitas(Elmt(Ruang2,Absis(FindObjek(Ruang2,MejaTerdekat(Ruang2))),Ordinat(FindObjek(Ruang2,MejaTerdekat(Ruang2))))));
 							IsiMeja(&Ruang2,MejaTerdekat(Ruang2),Jumlah(pelanggan));
-	
+
 							IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
+							KurangiKesabaranAntrian(&Q,&P);
+							KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+							GeneratePelanggan(&Q);
 							Time(P) = NextDetik(Time(P));
 							CurrentRuangan = Ruang2;
 						}
@@ -419,11 +434,14 @@ int main() {
 					}
 					else if (ruang == 3) {
 						if (MejaTerdekat(Ruang3) == '1' || MejaTerdekat(Ruang3) == '2' || MejaTerdekat(Ruang3) == '3' || MejaTerdekat(Ruang3) == '4') {
-							noMeja = CharToInt(MejaTerdekat(Ruang3));					
+							noMeja = CharToInt(MejaTerdekat(Ruang3));
 							Pergi(&Q,&pelanggan,Kapasitas(Elmt(Ruang3,Absis(FindObjek(Ruang3,MejaTerdekat(Ruang3))),Ordinat(FindObjek(Ruang3,MejaTerdekat(Ruang3))))));
 							IsiMeja(&Ruang3,MejaTerdekat(Ruang3),Jumlah(pelanggan));
-	
+
 							IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
+							KurangiKesabaranAntrian(&Q,&P);
+							KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+							GeneratePelanggan(&Q);
 							Time(P) = NextDetik(Time(P));
 							CurrentRuangan = Ruang3;
 						}
@@ -446,6 +464,9 @@ int main() {
 							else {
 								printf("	>> Anda salah memberikan makanan\n");
 							}
+							KurangiKesabaranAntrian(&Q,&P);
+							KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+							GeneratePelanggan(&Q);
 							Time(P) = NextDetik(Time(P));
 						}
 						else if (ruang == 2) {
@@ -457,6 +478,9 @@ int main() {
 							else {
 								printf("	>> Anda salah memberikan makanan\n");
 							}
+							KurangiKesabaranAntrian(&Q,&P);
+							KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+							GeneratePelanggan(&Q);
 							Time(P) = NextDetik(Time(P));
 						}
 						else if (ruang == 3) {
@@ -468,6 +492,9 @@ int main() {
 							else {
 								printf("	>> Anda salah memberikan makanan\n");
 							}
+							KurangiKesabaranAntrian(&Q,&P);
+							KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+							GeneratePelanggan(&Q);
 							Time(P) = NextDetik(Time(P));
 						}
 					}

@@ -497,6 +497,31 @@ int main() {
 							GeneratePelanggan(&Q);
 							Time(P) = NextDetik(Time(P));
 						}
+						if(strcmp(makanan,"l")==0)	{
+							Money(P)=Money(P)+2000;
+						}
+						else if(strcmp(makanan,"u")==0)	{
+							Money(P)=Money(P)+20000;
+						}
+						else if(strcmp(makanan,"d")==0)	{
+							Money(P)=Money(P)+30000;
+						}
+						else if(strcmp(makanan,"G")==0)	{
+							Money(P)=Money(P)+2019;
+						}
+						else if(strcmp(makanan,"R")==0)	{
+							Money(P)=Money(P)+10000;
+						}
+						else if(strcmp(makanan,"H")==0)	{
+							Money(P)=Money(P)+15000;
+						}
+						else if(strcmp(makanan,"A")==0)	{
+							Money(P)=Money(P)+2000000;
+						}
+						else if(strcmp(makanan,"T")==0)	{
+							Money(P)=Money(P)+200000;
+						}
+
 					}
 					else {
 						printf("	>> Nampan anda kosong!\n");

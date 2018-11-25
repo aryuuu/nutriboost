@@ -257,7 +257,8 @@ void IsiArrayMejaPelanggan(ArrayMejaPelanggan *M,int noMeja,int noRuangan,Pelang
   int indeks;
   SalinPelanggan(&ArrayMeja(*M,noRuangan,noMeja),P);
   FillArrayMeja(*M,noRuangan,noMeja)=true;
-  Sabar(ArrayMeja(*M,noRuangan,noMeja))=3;
+  int random = rand() % 15;
+  Sabar(ArrayMeja(*M,noRuangan,noMeja))=random +30 ;
 }
 
 void PrintArrayMejaPelanggan(ArrayMejaPelanggan M)

@@ -332,6 +332,7 @@ int main() {
 					}
 					else {
 						printf("	>> Maaf, di tangan anda bukan makanan jadi\n");
+						IsiTangan(&P, Food);
 					}
 				}
 				else if (strcmp(command,"TAKE") == 0) {
@@ -371,7 +372,7 @@ int main() {
 						default : printf("	>> Anda tidak sedang di dekat bahan makanan\n");
 									Valid = false;
 					}
-					if (Valid) {
+					if (Valid && MakananHampirJadi(Bahan)) {
 						Time(P) = NextDetik(Time(P));
 						BuatMakanan(&P, Resep);
 					}
@@ -388,30 +389,87 @@ int main() {
 				}
 				else if (strcmp(command,"PLACE") == 0) {
 					/* menempatkan pelanggan pada tempat duduk yang kosong */
-					if (MejaTerdekat(CurrentRuangan) == '1' | MejaTerdekat(CurrentRuangan) == '2' | MejaTerdekat(CurrentRuangan) == '3' | MejaTerdekat(CurrentRuangan) == '4') {
-						noMeja = CharToInt(MejaTerdekat(CurrentRuangan));					
-						Pergi(&Q,&pelanggan,Kapasitas(Elmt(CurrentRuangan,Absis(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))),Ordinat(FindObjek(CurrentRuangan,MejaTerdekat(CurrentRuangan))))));
-						IsiMeja(&CurrentRuangan,MejaTerdekat(CurrentRuangan),Jumlah(pelanggan));
+					if (ruang == 1) { 
+							if (MejaTerdekat(Ruang1) == '1' || MejaTerdekat(Ruang1) == '2' || MejaTerdekat(Ruang1) == '3' || MejaTerdekat(Ruang1) == '4') {
+								noMeja = CharToInt(MejaTerdekat(Ruang1));					
+								Pergi(&Q,&pelanggan,Kapasitas(Elmt(Ruang1,Absis(FindObjek(Ruang1,MejaTerdekat(Ruang1))),Ordinat(FindObjek(Ruang1,MejaTerdekat(Ruang1))))));
+								IsiMeja(&Ruang1,MejaTerdekat(Ruang1),Jumlah(pelanggan));
 	
-						IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
-						Time(P) = NextDetik(Time(P));
+								IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
+								Time(P) = NextDetik(Time(P));
+								CurrentRuangan = Ruang1;
+							}
+							else {
+								printf("	>> Maaf, anda tidak berada di samping pelanggan\n");
+							}
 					}
-					else {
-						printf("	>> Maaf, anda tidak berada di samping pelanggan\n");
+					else if (ruang == 2) {
+						if (MejaTerdekat(Ruang2) == '1' || MejaTerdekat(Ruang2) == '2' || MejaTerdekat(Ruang2) == '3' || MejaTerdekat(Ruang2) == '4') {
+							noMeja = CharToInt(MejaTerdekat(Ruang2));					
+							Pergi(&Q,&pelanggan,Kapasitas(Elmt(Ruang2,Absis(FindObjek(Ruang2,MejaTerdekat(Ruang2))),Ordinat(FindObjek(Ruang2,MejaTerdekat(Ruang2))))));
+							IsiMeja(&Ruang2,MejaTerdekat(Ruang2),Jumlah(pelanggan));
+	
+							IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
+							Time(P) = NextDetik(Time(P));
+							CurrentRuangan = Ruang2;
+						}
+						else {
+							printf("	>> Maaf, anda tidak berada di samping pelanggan\n");
+						}
+					}
+					else if (ruang == 3) {
+						if (MejaTerdekat(Ruang3) == '1' || MejaTerdekat(Ruang3) == '2' || MejaTerdekat(Ruang3) == '3' || MejaTerdekat(Ruang3) == '4') {
+							noMeja = CharToInt(MejaTerdekat(Ruang3));					
+							Pergi(&Q,&pelanggan,Kapasitas(Elmt(Ruang3,Absis(FindObjek(Ruang3,MejaTerdekat(Ruang3))),Ordinat(FindObjek(Ruang3,MejaTerdekat(Ruang3))))));
+							IsiMeja(&Ruang3,MejaTerdekat(Ruang3),Jumlah(pelanggan));
+	
+							IsiArrayMejaPelanggan(&Mp,noMeja,ruang,pelanggan);
+							Time(P) = NextDetik(Time(P));
+							CurrentRuangan = Ruang3;
+						}
+						else {
+							printf("	>> Maaf, anda tidak berada di samping pelanggan\n");
+						}
 					}
 				}
 				else if (strcmp(command,"GIVE") == 0) {
 					/* memberikan makanan yang ada di nampan paling atas */
 					if (!IsEmptyNampan(S)) {
 						Pop(&S, &makanan);
-						noMeja = CharToInt(MejaTerdekat(CurrentRuangan));
-						if(strcmp(makanan, Makanan(ArrayMeja(Mp,ruang,noMeja)))==0){
-							printf("	>> Makanan yang anda berikan benar\n");
+
+						if (ruang==1) {
+							noMeja = CharToInt(MejaTerdekat(Ruang1));
+							if(strcmp(makanan, Makanan(ArrayMeja(Mp,ruang,noMeja)))==0){
+								printf("	>> Makanan yang anda berikan benar\n");
+								UsirPelanggan(&Ruang1, MejaTerdekat(Ruang1));
+							}
+							else {
+								printf("	>> Anda salah memberikan makanan\n");
+							}
+							Time(P) = NextDetik(Time(P));
 						}
-						else {
-							printf("	>> Anda salah memberikan makanan\n");
+						else if (ruang == 2) {
+							noMeja = CharToInt(MejaTerdekat(Ruang2));
+							if(strcmp(makanan, Makanan(ArrayMeja(Mp,ruang,noMeja)))==0){
+								printf("	>> Makanan yang anda berikan benar\n");
+								UsirPelanggan(&Ruang2, MejaTerdekat(Ruang2));
+							}
+							else {
+								printf("	>> Anda salah memberikan makanan\n");
+							}
+							Time(P) = NextDetik(Time(P));
 						}
-						Time(P) = NextDetik(Time(P));
+						else if (ruang == 3) {
+							noMeja = CharToInt(MejaTerdekat(Ruang3));
+							if(strcmp(makanan, Makanan(ArrayMeja(Mp,ruang,noMeja)))==0){
+								printf("	>> Makanan yang anda berikan benar\n");
+								UsirPelanggan(&Ruang3, MejaTerdekat(Ruang3));
+							}
+							else {
+								printf("	>> Anda salah memberikan makanan\n");
+							}
+							Time(P) = NextDetik(Time(P));
+						}
 					}
 					else {
 						printf("	>> Nampan anda kosong!\n");

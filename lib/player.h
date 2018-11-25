@@ -67,5 +67,7 @@ void BuatMakanan(Player *P, BinTree Resep);
 
 boolean IsMakananJadi (char CC);
 
+boolean MakananHampirJadi (char CC);
+
 #endif
 

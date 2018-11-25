@@ -122,12 +122,19 @@ void BuatMakanan(Player *P, BinTree Resep) {
 						Bisa = false;
 					}
 				}
-				if (Bisa && IsMakananJadi(Akar(Left(Left(Resep))))) {
-					KosongTangan(P);
-					IsiTangan(P, Akar(Left(Left(Resep))));
+				if (Bisa && Akar(Left(Resep)) == MakanHand) {
+					Resep = Left(Resep);
+					if (IsMakananJadi(Akar(Left(Resep)))) {
+						KosongTangan(P);
+						IsiTangan(P, Akar(Left(Resep)));
+					}
 				}
-				else {
-					Tangan(*P) = HAwal;
+				else if (Akar(Right(Resep)) == MakanHand) {
+					Resep = Right(Resep);
+					if (IsMakananJadi(Akar(Right(Resep)))) {
+						KosongTangan(P);
+						IsiTangan(P, Akar(Right(Resep)));
+					}
 				}
 			}
 			else {
@@ -142,5 +149,9 @@ void BuatMakanan(Player *P, BinTree Resep) {
 
 boolean IsMakananJadi(char CC) {
 	return (CC == 'l'|| CC == 'u'|| CC == 'd' || CC == 'G' || CC == 'R' || CC == 'H'|| CC == 'A' || CC == 'T');
+}
+
+boolean MakananHampirJadi (char CC) {
+	return (CC == 'b'|| CC == 'o' || CC == 't' || CC == 'a' || CC == 'k' || CC == 'w' || CC == 'c' || CC == 'K');
 }
 

@@ -16,9 +16,8 @@
 
 typedef char [25] Item;
 typedef Item [IdxMax+1] TabItem;
-typedef char [25] Makanan;
 
-IdxType searchItemId(TabItem items,Item item);
+int searchItemId(TabItem items,Item item);
 void lihatResep(BinTree resep, TabItem items);
 
 #endif

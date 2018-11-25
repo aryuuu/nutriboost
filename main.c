@@ -101,6 +101,7 @@ int main() {
 							case 4 : GerakO(&Dapur, 'P', 1); CurrentRuangan = Dapur; break;
 						}
 						KurangiKesabaranAntrian(&Q,&P);
+						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					}
@@ -134,6 +135,10 @@ int main() {
 										CurrentRuangan = Dapur;
 										break;
 							}
+							KurangiKesabaranAntrian(&Q,&P);
+							KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+							GeneratePelanggan(&Q);
+							Time(P) = NextDetik(Time(P));
 						}
 						else {
 							printf("	>>Ouch Kejedut gan!\n");	
@@ -149,6 +154,7 @@ int main() {
 							case 4 : GerakO(&Dapur, 'P', 2);  CurrentRuangan = Dapur; break;
 						}
 						KurangiKesabaranAntrian(&Q,&P);
+						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} 
@@ -182,6 +188,10 @@ int main() {
 										CurrentRuangan = Dapur;
 										break;
 							}
+							KurangiKesabaranAntrian(&Q,&P);
+							KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+							GeneratePelanggan(&Q);
+							Time(P) = NextDetik(Time(P));
 						}
 						else {
 							printf("	>>Ouch Kejedut gan!\n");	
@@ -197,6 +207,7 @@ int main() {
 							case 4 : GerakO(&Dapur, 'P', 3); CurrentRuangan = Dapur; break;
 						}
 						KurangiKesabaranAntrian(&Q,&P);
+						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} 
@@ -230,6 +241,10 @@ int main() {
 										CurrentRuangan = Dapur;
 										break;
 							}
+							KurangiKesabaranAntrian(&Q,&P);
+							KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+							GeneratePelanggan(&Q);
+							Time(P) = NextDetik(Time(P));
 						}
 						else {
 							printf("	>>Ouch Kejedut gan!\n");	
@@ -245,6 +260,7 @@ int main() {
 							case 4 : GerakO(&Dapur, 'P', 4); CurrentRuangan = Dapur; break;
 						}
 						KurangiKesabaranAntrian(&Q,&P);
+						KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
 						GeneratePelanggan(&Q);
 						Time(P) = NextDetik(Time(P));
 					} else {
@@ -277,6 +293,10 @@ int main() {
 										CurrentRuangan = Dapur;
 										break;
 							}
+							KurangiKesabaranAntrian(&Q,&P);
+							KurangiKesabaranArrayMejaPelanggan(&Mp,&P,&Ruang1,&Ruang2,&Ruang3);
+							GeneratePelanggan(&Q);
+							Time(P) = NextDetik(Time(P));
 						}
 						else {
 							printf("	>>Ouch Kejedut gan!\n");	

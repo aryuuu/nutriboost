@@ -47,6 +47,7 @@ void Gerak(Player *P, char opsi[50]);
 /* F.S Posisi berubah sesuai kemauan : GU keatas, GD kebawah, GL kekiri, GR kekanan */
 
 boolean TanganPenuh (Player P);
+/* Mengecek apakah tangah penuh atau tidak */
 
 void IsiTangan(Player *P, char Makanan);
 /* I.S Tangan bisa kosong */
@@ -57,17 +58,23 @@ void KosongTangan(Player *P);
 /* F.S Kosongkan tangan */
 
 void KeluarkanMakanan(Player *P, char * Makanan);
+/* Mengepop Makanan yang ada di top tangan */
 
 void CetakTangan(Player P);
 /* Mencetak semua apa yang ada di Tangan */
 
 Hand BalikTangan(Player P);
+/* Mengubah urutan dari tangan top menjadi paling bawah */
 
 void BuatMakanan(Player *P, BinTree Resep);
+/* Fungsi untuk membuat makanan dengan I.S Resep terdefinisi */
+/* F.S Hand tetap atau akan menjadi sebuah makanan jadi */
 
 boolean IsMakananJadi (char CC);
+/* Mengecek apakah CC adalah sebuah simbol untuk makanan jadi  */
 
 boolean MakananHampirJadi (char CC);
+/* Mengeeck apakah CC adalah bahan makanan yang hampir jadi */
 
 #endif
 
